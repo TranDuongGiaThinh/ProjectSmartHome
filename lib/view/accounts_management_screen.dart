@@ -14,9 +14,17 @@ class AccountsManagementScreen extends StatefulWidget {
 }
 
 class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
-  List<User> users = [UserPresenter.user,
-   User.info(userName: "userName", fullName: "fullName", email: "email", phoneNumber: "phoneNumber", permissions: [true,false,true,false], ishost: false, blocked: true),
-   ];
+  List<User> users = [
+    UserPresenter.user,
+    User.info(
+        userName: "userName",
+        fullName: "fullName",
+        email: "email",
+        phoneNumber: "phoneNumber",
+        permissions: [true, false, true, false],
+        ishost: false,
+        blocked: true),
+  ];
   User? userSelected;
 
   updateUserSelected(User newSelected) {
@@ -28,19 +36,25 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text(LanguagePresenter.language.accountsManagement))),
+      appBar: AppBar(
+          title: Center(
+              child: Text(
+        LanguagePresenter.language.accountsManagement,
+      ))),
       body: ListView(
         children: [
-          if (userSelected != null) widget.buildInfoUser(false, userSelected!),
           Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: CustomButton(
                 context: context,
-                action: (){addNewUser();},
+                action: () {
+                  addNewUser();
+                },
                 height: 50,
                 content: LanguagePresenter.language.addNewUser,
                 icon: Icons.person_add_alt,
               )),
+          if (userSelected != null) widget.buildInfoUser(false, userSelected!),
           buildListUser(),
         ],
       ),
@@ -52,24 +66,35 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            Center(child: Text(LanguagePresenter.language.listAccount),),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Text(LanguagePresenter.language.listAccount,
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+              ),
+            ),
             Table(
               border: TableBorder.all(),
               children: [
                 TableRow(
-                  decoration: BoxDecoration(color: Colors.grey[300]),
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 148, 143, 143)),
                   children: [
                     TableCell(
-                      child: Center(child: Text(LanguagePresenter.language.userName)),
+                      child: Center(
+                          child: Text(LanguagePresenter.language.userName)),
                     ),
                     TableCell(
-                      child: Center(child: Text(LanguagePresenter.language.fullName)),
+                      child: Center(
+                          child: Text(LanguagePresenter.language.fullName)),
                     ),
                     TableCell(
-                      child: Center(child: Text(LanguagePresenter.language.permission)),
+                      child: Center(
+                          child: Text(LanguagePresenter.language.permission)),
                     ),
                     TableCell(
-                      child: Center(child: Text(LanguagePresenter.language.blocked)),
+                      child: Center(
+                          child: Text(LanguagePresenter.language.blocked)),
                     ),
                   ],
                 ),
@@ -85,19 +110,24 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
                           updateUserSelected(users[i]);
                         },
                         child: Center(child: Text(users[i].userName)),
-                      )),TableCell(
+                      )),
+                      TableCell(
                           child: InkWell(
                         onTap: () {
                           updateUserSelected(users[i]);
                         },
                         child: Center(child: Text(users[i].fullName)),
-                      )),TableCell(
+                      )),
+                      TableCell(
                           child: InkWell(
                         onTap: () {
                           updateUserSelected(users[i]);
                         },
-                        child: Center(child: Text(UserPresenter.getStringPermission(users[i]))),
-                      )),TableCell(
+                        child: Center(
+                            child: Text(
+                                UserPresenter.getStringPermission(users[i]))),
+                      )),
+                      TableCell(
                           child: InkWell(
                         onTap: () {
                           updateUserSelected(users[i]);
