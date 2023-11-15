@@ -16,14 +16,6 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  int selectedIndex = 0;
-
-  void updateIndex(int newIndex) {
-    setState(() {
-      selectedIndex = newIndex;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -31,12 +23,9 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Center(child: Text(LanguagePresenter.language.setting))),
-      body: ListView(
+    return ListView(
         children: [buildInfoUser(true, UserPresenter.user), buildListButton()],
-      ),
-      bottomNavigationBar: BottomNav(currentIndex: selectedIndex, updateIndex: updateIndex),
+      
     );
   }
 
