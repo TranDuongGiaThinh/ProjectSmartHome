@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
       themeMode = SettingPresenter.setting.themeModeLight ? ThemeMode.light : ThemeMode.dark;
     });
   }
-
+ 
   @override
   Widget build(BuildContext context) {
 
