@@ -32,8 +32,7 @@ class LoginSCreen extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: TextField(
                   decoration: InputDecoration(
-                    labelText: "Mật khẩus",
-
+                    labelText: "Mật khẩu",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:
@@ -73,4 +72,4 @@ class LoginSCreen extends StatelessWidget {
       ),
     );
   }
-}//Thinh Ngu Bo lan 2000
+}//Thinh Ngu Bo lan 5000
