@@ -28,6 +28,9 @@ class Language {
   late String statistical;
   late String scheduling;
   late String listAccount;
+  late String save;
+  late String accountState;
+  late String active;
 
   Language(String typeLanguage) {
     if (typeLanguage == "vi") {
@@ -59,6 +62,10 @@ class Language {
       statistical = "Thống kê";
       scheduling = "Lên lịch";
       listAccount = "Danh sách tài khoản";
+      save = "Lưu";
+      accountState = "Trạng thái tài khoản";
+      active = "Hoạt động";
+      
     } else {
       setting = "Setting";
       userName = "User name";
@@ -88,6 +95,10 @@ class Language {
       statistical = "Statistical";
       scheduling = "Scheduling";
       listAccount = "List account";
+      save = "save";
+      accountState = "Account state";
+      active = "Active";
+
     }
   }
 }

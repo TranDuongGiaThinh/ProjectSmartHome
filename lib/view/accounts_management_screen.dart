@@ -3,10 +3,10 @@ import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/presenter/user_presenter.dart';
 import 'package:smart_home/view/custom_button.dart';
 import 'package:smart_home/model/user.dart';
+import 'package:smart_home/view/user_info.dart';
 
 class AccountsManagementScreen extends StatefulWidget {
-  const AccountsManagementScreen({super.key, required this.buildInfoUser});
-  final Function(bool iconButtonLogOut, User u) buildInfoUser;
+  const AccountsManagementScreen({super.key});
 
   @override
   State<AccountsManagementScreen> createState() =>
@@ -54,8 +54,8 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
                 content: LanguagePresenter.language.addNewUser,
                 icon: Icons.person_add_alt,
               )),
-          if (userSelected != null) widget.buildInfoUser(false, userSelected!),
-          buildListUser(),
+          if (userSelected != null) UserInfo(iconButtonLogOut: true, user: userSelected!),
+          buildListUser()
         ],
       ),
     );
