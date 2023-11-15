@@ -74,4 +74,3 @@ class LoginSCreen extends StatelessWidget {
     );
   }
 }
-//hello word  sasasas
