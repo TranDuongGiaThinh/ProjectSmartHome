@@ -56,7 +56,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       ],
                     ),
                     buildTextUser(user),
-                    builActionOnUser(user.id)
+                    builActionOnUser(user)
                   ]),
             )));
   }
@@ -90,12 +90,12 @@ class _SettingScreenState extends State<SettingScreen> {
         Text("${LanguagePresenter.language.fullName}: ${user.fullName}"),
         Text("${LanguagePresenter.language.email}: ${user.email}"),
         Text("${LanguagePresenter.language.phoneNumber}: ${user.phoneNumber}"),
-        Text("${LanguagePresenter.language.permission}: ${user.getStringPermission()}"),
+        Text("${LanguagePresenter.language.permission}: ${UserPresenter.getStringPermission(user)}"),
       ],
     );
   }
 
-  Widget builActionOnUser(int idUser) {
+  Widget builActionOnUser(User user) {
     return Padding(
         padding: const EdgeInsets.all(5),
         child: Column(
@@ -111,7 +111,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 icon: Icons.shield,
                 content: LanguagePresenter.language.changePassword,
                 action: changePassword),
-            if (UserPresenter.user.ishost && UserPresenter.user.id != idUser)
+            if (UserPresenter.user.ishost && UserPresenter.user.id != user.id)
               Column(
                 children: [
                   CustomButton(
@@ -121,7 +121,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         ? LanguagePresenter.language.unBlockUser
                         : LanguagePresenter.language.blockUser,
                     action: () {
-                      blockOrUnblockUser(idUser);
+                      blockOrUnblockUser(user);
                     },
                   ),
                   CustomButton(
@@ -129,7 +129,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       icon: Icons.delete,
                       content: LanguagePresenter.language.deleteUser,
                       action: () {
-                        deleteUser(-1);
+                        deleteUser(user);
                       }),
                 ],
               )
@@ -184,7 +184,7 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   void changeThemeMode() {
-    SettingPresenter.setting.changeThemeMode();
+    SettingPresenter.changeThemeMode();
     widget.reloadThemeMode();
     setState(() {});
   }
@@ -194,6 +194,10 @@ class _SettingScreenState extends State<SettingScreen> {
     setState(() {});
   }
 
-  void blockOrUnblockUser(int idUser) {}
-  void deleteUser(int idUser) {}
+  void blockOrUnblockUser(User user) {
+    UserPresenter.blockOrUnblockUser(user);
+  }
+  void deleteUser(User user) {
+    UserPresenter.deleteUser(user);
+  }
 }

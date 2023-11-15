@@ -41,7 +41,23 @@ class User {
     return User();
   }
 
-  String getStringPermission() {
+  bool getPermissionLivingRoom(){
+    return permissions[Constants.livingRoom];
+  }
+
+  bool getPermissionKitchen(){
+    return permissions[Constants.kitchen];
+  }
+
+  bool getPermissionBedRoom(){
+    return permissions[Constants.bedRoom];
+  }
+
+  bool getPermissionToilet(){
+    return permissions[Constants.toilet];
+  }
+
+  String getStringPermission(User user) {
     bool isFirst = true;
     bool isFullPermission = true;
     String strPermission = "";
@@ -65,6 +81,10 @@ class User {
     return strPermission;
   }
 
-  void blockUser() {}
-  void unblockUser() {}
+  bool blockUser() {return false;}
+  bool unblockUser() {return false;}
+
+  static bool addUser(User user) {return false;}
+  static bool editUser(User user) {return false;}
+  static bool deleteUser(User user) {return false;}
 }

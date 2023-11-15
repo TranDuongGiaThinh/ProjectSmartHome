@@ -7,12 +7,32 @@ class UserPresenter {
     return User.getUserLogin(userName, token);
   }
 
-  String getStringPermission(){
-    return user.getStringPermission();
+  static String getStringPermission(User user){
+    return user.getStringPermission(user);
   }
 
-  void blockOrUnblockUser(User user) {
-    if(user.blocked) {user.unblockUser();}
-    else {user.blockUser();}
+  static bool getPermissionLivingRoom(){
+    return user.getPermissionLivingRoom();
   }
+
+  static bool getPermissionKitchen(){
+    return user.getPermissionKitchen();
+  }
+
+  static bool getPermissionBedRoom(){
+    return user.getPermissionBedRoom();
+  }
+
+  static bool getPermissionToilet(){
+    return user.getPermissionToilet();
+  }
+
+  static bool blockOrUnblockUser(User user) {
+    if(user.blocked) { return user.unblockUser();}
+    else {return user.blockUser();}
+  }
+
+  static bool addUser(User user) {return User.addUser(user);}
+  static bool editUser(User user) {return User.addUser(user);}
+  static bool deleteUser(User user) {return User.deleteUser(user);}
 }

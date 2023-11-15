@@ -26,6 +26,7 @@ class Language {
   late String index;
   late String statistical;
   late String scheduling;
+  late String listAccount;
 
   Language(String typeLanguage) {
     if (typeLanguage == "vi") {
@@ -56,6 +57,7 @@ class Language {
       index = "Trang chủ";
       statistical = "Thống kê";
       scheduling = "Lên lịch";
+      listAccount = "Danh sách tài khoản";
     } else {
       setting = "Setting";
       userName = "User name";
@@ -84,6 +86,7 @@ class Language {
       index = "Index";
       statistical = "Statistical";
       scheduling = "Scheduling";
+      listAccount = "List account";
     }
   }
 }

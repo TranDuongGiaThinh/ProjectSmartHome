@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/model/language.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/presenter/user_presenter.dart';
 import 'package:smart_home/view/custom_button.dart';
@@ -26,20 +27,20 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text(LanguagePresenter.language.setting))),
+      appBar: AppBar(title: Center(child: Text(LanguagePresenter.language.accountsManagement))),
       body: ListView(
         children: [
-          buildListUser(),
           if (userSelected != null) widget.buildInfoUser(false, userSelected!),
           Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: CustomButton(
                 context: context,
                 action: (){addNewUser();},
-                height: 100,
+                height: 50,
                 content: LanguagePresenter.language.addNewUser,
                 icon: Icons.person_add_alt,
-              ))
+              )),
+          buildListUser(),
         ],
       ),
     );
@@ -48,56 +49,64 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
   Widget buildListUser() {
     return Padding(
         padding: const EdgeInsets.all(10),
-        child: Table(
-          border: TableBorder.all(),
+        child: Column(
           children: [
-            TableRow(
-              decoration: BoxDecoration(color: Colors.grey[300]),
+            Center(child: Text(LanguagePresenter.language.listAccount),),
+            Table(
+              border: TableBorder.all(),
               children: [
-                TableCell(
-                  child: Center(child: Text(LanguagePresenter.language.userName)),
+                TableRow(
+                  decoration: BoxDecoration(color: Colors.grey[300]),
+                  children: [
+                    TableCell(
+                      child: Center(child: Text(LanguagePresenter.language.userName)),
+                    ),
+                    TableCell(
+                      child: Center(child: Text(LanguagePresenter.language.fullName)),
+                    ),
+                    TableCell(
+                      child: Center(child: Text(LanguagePresenter.language.permission)),
+                    ),
+                    TableCell(
+                      child: Center(child: Text(LanguagePresenter.language.blocked)),
+                    ),
+                  ],
                 ),
-                TableCell(
-                  child: Center(child: Text(LanguagePresenter.language.fullName)),
-                ),
-                TableCell(
-                  child: Center(child: Text(LanguagePresenter.language.permission)),
-                ),
-                TableCell(
-                  child: Center(child: Text(LanguagePresenter.language.blocked)),
-                ),
+                for (int i = 0; i < users.length; i++)
+                  TableRow(
+                    decoration: BoxDecoration(
+                      color: users[i] == userSelected ? Colors.blue : null,
+                    ),
+                    children: [
+                      TableCell(
+                          child: InkWell(
+                        onTap: () {
+                          updateUserSelected(users[i]);
+                        },
+                        child: Center(child: Text(users[i].userName)),
+                      )),TableCell(
+                          child: InkWell(
+                        onTap: () {
+                          updateUserSelected(users[i]);
+                        },
+                        child: Center(child: Text(users[i].fullName)),
+                      )),TableCell(
+                          child: InkWell(
+                        onTap: () {
+                          updateUserSelected(users[i]);
+                        },
+                        child: Center(child: Text(UserPresenter.getStringPermission(users[i]))),
+                      )),TableCell(
+                          child: InkWell(
+                        onTap: () {
+                          updateUserSelected(users[i]);
+                        },
+                        child: Center(child: Text(users[i].blocked.toString())),
+                      )),
+                    ],
+                  ),
               ],
             ),
-            for (int i = 0; i < users.length; i++)
-              TableRow(
-                decoration: BoxDecoration(
-                  color: users[i] == userSelected ? Colors.blue : null,
-                ),
-                children: [
-                  TableCell(
-                      child: InkWell(
-                    onTap: () {
-                      updateUserSelected(users[i]);
-                    },
-                    child: Center(child: Text(users[i].userName)),
-                  )),
-                  TableCell(
-                    child: Center(child: Text(users[i].fullName)),
-                  ),
-                  TableCell(
-                    child: Center(
-                        child: Text(
-                            users[i].getStringPermission())),
-                  ),
-                  TableCell(
-                      child: Center(
-                    child: Checkbox(
-                      value: users[i].blocked,
-                      onChanged: null,
-                    ),
-                  )),
-                ],
-              ),
           ],
         ));
   }
