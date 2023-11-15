@@ -31,10 +31,10 @@ class LoginSCreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextField(
+                  
                   decoration: InputDecoration(
                     labelText: "Mật khẩu",
-
-                    border: OutlineInputBorder(
+                    errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:
                           const BorderSide(color: Colors.blue, width: 2),
@@ -60,17 +60,8 @@ class LoginSCreen extends StatelessWidget {
                 },
                 child: const Text('Đăng nhập'),
               )
-              // Container(
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(40)
-              //   ),
-              //   child: ElevatedButton(
-              //     onPressed: (){},
-              //    child: const Text("Đăng nhập")
-              //    ),
-              // )
             ])),
       ),
     );
   }
-}//hello wordssss
+}//hello word
