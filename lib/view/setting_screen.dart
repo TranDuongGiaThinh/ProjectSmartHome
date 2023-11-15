@@ -3,7 +3,6 @@ import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/presenter/setting_presenter.dart';
 import 'package:smart_home/presenter/user_presenter.dart';
 import 'package:smart_home/view/accounts_management_screen.dart';
-import 'package:smart_home/view/bottom_nav.dart';
 import 'package:smart_home/view/custom_button.dart';
 import 'package:smart_home/model/user.dart';
 
@@ -91,7 +90,7 @@ class _SettingScreenState extends State<SettingScreen> {
         Text("${LanguagePresenter.language.fullName}: ${user.fullName}"),
         Text("${LanguagePresenter.language.email}: ${user.email}"),
         Text("${LanguagePresenter.language.phoneNumber}: ${user.phoneNumber}"),
-        Text("${LanguagePresenter.language.permission}: ${UserPresenter.getStringPermission(user)}"),
+        Text("${LanguagePresenter.language.permission}: ${user.getStringPermission()}"),
       ],
     );
   }
@@ -117,8 +116,8 @@ class _SettingScreenState extends State<SettingScreen> {
                 children: [
                   CustomButton(
                     context: context,
-                    icon: UserPresenter.isBlock(idUser) ? Icons.lock_open : Icons.lock,
-                    content: UserPresenter.isBlock(idUser)
+                    icon: UserPresenter.user.blocked ? Icons.lock_open : Icons.lock,
+                    content: UserPresenter.user.blocked
                         ? LanguagePresenter.language.unBlockUser
                         : LanguagePresenter.language.blockUser,
                     action: () {

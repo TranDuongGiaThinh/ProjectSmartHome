@@ -24,30 +24,47 @@ class User {
     blocked = false;
   }
 
-  String getStringPermission(List<bool> permissions) {
+  User.info(int ? id, String ? url, String userName, String fullName, String email,
+      String phoneNumber, List<bool> permissions, bool ishost, bool blocked) {
+    id = id ?? 0;
+    url = url ?? "data/images/avt_default.png";
+    userName = "";
+    fullName = "";
+    email = "";
+    phoneNumber = "";
+    permissions = [true, true, true, true];
+    ishost = false;
+    blocked = true;
+  }
+
+  static User getUserLogin(String userName, String password){
+    return User();
+  }
+
+  String getStringPermission() {
     bool isFirst = true;
     bool isFullPermission = true;
     String strPermission = "";
 
-    for(int i = 0; i < permissions.length; i++){
+    for (int i = 0; i < permissions.length; i++) {
       if (permissions[Constants.livingRoom]) {
-        if(!isFirst) {strPermission += ",\n";}
+        if (!isFirst) {
+          strPermission += ",\n";
+        }
         strPermission += LanguagePresenter.language.livingRoom;
         isFirst = false;
-      }
-      else{
+      } else {
         isFullPermission = false;
       }
     }
-    
-    if(isFullPermission) {strPermission = LanguagePresenter.language.fullPermission;}
+
+    if (isFullPermission) {
+      strPermission = LanguagePresenter.language.fullPermission;
+    }
 
     return strPermission;
   }
 
-  bool isBlock(int idUser){
-    User user = User();
-
-    return user.blocked;
-  }
+  void blockUser() {}
+  void unblockUser() {}
 }

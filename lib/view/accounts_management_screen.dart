@@ -87,7 +87,7 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
                   TableCell(
                     child: Center(
                         child: Text(
-                            users[i].getStringPermission(users[i].permissions))),
+                            users[i].getStringPermission())),
                   ),
                   TableCell(
                       child: Center(

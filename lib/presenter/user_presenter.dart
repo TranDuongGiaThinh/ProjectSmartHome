@@ -1,13 +1,18 @@
 import 'package:smart_home/model/user.dart';
 
 class UserPresenter {
-  static User user = User();
+  static User user = getUserLogin("","");
 
-  static String getStringPermission(User user){
-    return user.getStringPermission(user.permissions);
+  static User getUserLogin(String userName, String token){
+    return User.getUserLogin(userName, token);
   }
-  
-  static bool isBlock(int idUser){
-    return user.isBlock(user.id);
+
+  String getStringPermission(){
+    return user.getStringPermission();
+  }
+
+  void blockOrUnblockUser(User user) {
+    if(user.blocked) {user.unblockUser();}
+    else {user.blockUser();}
   }
 }

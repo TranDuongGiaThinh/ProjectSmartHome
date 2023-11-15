@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
-      home: IndexScreen(idUser: -1, reloadThemeMode: reloadThemeMode),
+      home: IndexScreen(reloadThemeMode: reloadThemeMode),
     );
   }
 }
