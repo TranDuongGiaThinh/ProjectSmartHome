@@ -33,6 +33,7 @@ class LoginSCreen extends StatelessWidget {
                 child: TextField(
                   decoration: InputDecoration(
                     labelText: "Mật khẩu",
+
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:
@@ -73,3 +74,4 @@ class LoginSCreen extends StatelessWidget {
     );
   }
 }
+//Thinhngu
