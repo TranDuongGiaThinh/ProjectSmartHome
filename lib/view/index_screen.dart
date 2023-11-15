@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/view/bottom_nav.dart';
+import 'package:smart_home/view/scheduling_screen.dart';
 import 'package:smart_home/view/setting_screen.dart';
 
 class IndexScreen extends StatefulWidget {
@@ -57,8 +58,8 @@ class _IndexScreenState extends State<IndexScreen> {
         //thống kê
         return Container();//body
       case 2:
-        //lên lịch
-        return Container();//body
+        
+        return SchedulingScreen();//body
       case 3:
         return SettingScreen(reloadThemeMode: widget.reloadThemeMode);
     }
