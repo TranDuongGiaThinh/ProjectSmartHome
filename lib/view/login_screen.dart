@@ -32,7 +32,7 @@ class LoginSCreen extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: TextField(
                   decoration: InputDecoration(
-                    labelText: "Mật khẩu",
+                    labelText: "Mật khẩus",
 
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
