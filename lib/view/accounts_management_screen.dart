@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/model/language.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/presenter/user_presenter.dart';
 import 'package:smart_home/view/custom_button.dart';
