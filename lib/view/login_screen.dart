@@ -73,4 +73,4 @@ class LoginSCreen extends StatelessWidget {
       ),
     );
   }
-}//Thinh Ngu Bo lan 200
+}//Thinh Ngu Bo lan 2000
