@@ -2,7 +2,7 @@ import 'package:smart_home/model/constants.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 
 class User {
-  late int id;
+  late int ? id;
   late String url;
   late String userName;
   late String fullName;
@@ -24,17 +24,10 @@ class User {
     blocked = false;
   }
 
-  User.info(int ? id, String ? url, String userName, String fullName, String email,
-      String phoneNumber, List<bool> permissions, bool ishost, bool blocked) {
-    id = id ?? 0;
-    url = url ?? "data/images/avt_default.png";
-    userName = "";
-    fullName = "";
-    email = "";
-    phoneNumber = "";
-    permissions = [true, true, true, true];
-    ishost = false;
-    blocked = true;
+  User.info({id, url, required this. userName, required this. fullName, required this.  email,
+      required this.  phoneNumber, required this. permissions, required this.  ishost, required this.  blocked}) {
+    this.id = id ?? 0;
+    this.url = url ?? "data/images/avt_default.png";
   }
 
   static User getUserLogin(String userName, String password){
@@ -62,12 +55,12 @@ class User {
     bool isFullPermission = true;
     String strPermission = "";
 
-    for (int i = 0; i < permissions.length; i++) {
-      if (permissions[Constants.livingRoom]) {
+    for (int room = 0; room < permissions.length; room++) {
+      if (permissions[room]) {
         if (!isFirst) {
           strPermission += ",\n";
         }
-        strPermission += LanguagePresenter.language.livingRoom;
+        strPermission += LanguagePresenter.language.listRoom[room];
         isFirst = false;
       } else {
         isFullPermission = false;

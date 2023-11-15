@@ -9,6 +9,7 @@ class Language {
   late String kitchen;
   late String bedRoom;
   late String toilet;
+  late List<String> listRoom = [livingRoom, kitchen, bedRoom, toilet];
   late String edit;
   late String changePassword;
   late String accountsManagement;

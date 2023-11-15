@@ -14,7 +14,9 @@ class AccountsManagementScreen extends StatefulWidget {
 }
 
 class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
-  List<User> users = [UserPresenter.user];
+  List<User> users = [UserPresenter.user,
+   User.info(userName: "userName", fullName: "fullName", email: "email", phoneNumber: "phoneNumber", permissions: [true,false,true,false], ishost: false, blocked: true),
+   ];
   User? userSelected;
 
   updateUserSelected(User newSelected) {
