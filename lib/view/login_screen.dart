@@ -74,4 +74,3 @@ class LoginSCreen extends StatelessWidget {
     );
   }
 }
-//Thinhngubo3
