@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/view/bottom_nav.dart';
 import 'package:smart_home/view/setting_screen.dart';
 
@@ -13,17 +14,39 @@ class IndexScreen extends StatefulWidget {
 }
 
 class _IndexScreenState extends State<IndexScreen> {
+  String title = LanguagePresenter.language.index;
   int selectedIndex = 0;
 
   void updateIndex(int newIndex) {
     setState(() {
       selectedIndex = newIndex;
+      switch (selectedIndex) {
+        case 0:
+          title = LanguagePresenter.language.index;
+          break;
+        case 1:
+          title = LanguagePresenter.language.statistical;
+          break;
+        case 2:
+          title = LanguagePresenter.language.scheduling;
+          break;
+        case 3:
+          title = LanguagePresenter.language.setting;
+          break;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return _buildSelectedContent();
+    return Scaffold(
+      appBar: AppBar(title: Center(child: Text(title))),
+      body: _buildSelectedContent(),
+      bottomNavigationBar: BottomNav(
+        currentIndex: selectedIndex,
+        updateIndex: updateIndex,
+      ),
+    );
   }
 
   Widget _buildSelectedContent() {
@@ -32,22 +55,10 @@ class _IndexScreenState extends State<IndexScreen> {
         return _buildIndexScreen();
       case 1:
         //thống kê
-        return Scaffold(
-      body: Text("trang thống kê"),
-      bottomNavigationBar: BottomNav(
-        currentIndex: selectedIndex,
-        updateIndex: updateIndex,
-      ),
-    );
+        return Container();//body
       case 2:
         //lên lịch
-        return Scaffold(
-      body: Text("trang lên lich"),
-      bottomNavigationBar: BottomNav(
-        currentIndex: selectedIndex,
-        updateIndex: updateIndex,
-      ),
-    );
+        return Container();//body
       case 3:
         return SettingScreen(reloadThemeMode: widget.reloadThemeMode);
     }
@@ -55,13 +66,6 @@ class _IndexScreenState extends State<IndexScreen> {
   }
 
   Widget _buildIndexScreen() {
-    return Scaffold(
-      appBar: AppBar(title: Text("trang chủ")),
-      body: Text("trang chủ"),
-      bottomNavigationBar: BottomNav(
-        currentIndex: selectedIndex,
-        updateIndex: updateIndex,
-      ),
-    );
+    return Container();//body
   }
 }
