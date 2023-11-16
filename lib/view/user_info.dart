@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/model/constants.dart';
 import 'package:smart_home/model/user.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/presenter/user_presenter.dart';
@@ -23,26 +24,24 @@ class _UserInfoState extends State<UserInfo> {
 
   bool isInfoEditting = false;
   bool isPasswordEditting = false;
+  late bool ischeckAll = false;
   late User tempUser;
+  late List<bool> prePermisions;
+
+  initial() {
+    tempUser = widget.user;
+    ischeckAll = UserPresenter.isUserFullPermission(tempUser);
+  }
 
   @override
   void initState() {
     super.initState();
 
-    tempUser = widget.user;
-  }
-
-  changeValueItem(int index) {
-    setState(() {
-      tempUser.permissions[index] = !tempUser.permissions[index];
-    });
+    initial();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (tempUser != widget.user) {
-      tempUser = widget.user;
-    }
     return Padding(
         padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
         child: Container(
@@ -179,29 +178,27 @@ class _UserInfoState extends State<UserInfo> {
 
   Widget buildPermissionEditting() {
     return Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
+        padding: const EdgeInsets.only(left: 10, top: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
                 "${LanguagePresenter.language.permission}: ${UserPresenter.getStringPermission(tempUser)}"),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                for (int i = 0;
-                    i < LanguagePresenter.language.listRoom.length;
-                    i++)
-                  Row(
-                    children: [
-                      Checkbox(
-                          value: tempUser.permissions[i],
-                          onChanged: (value) => changeValueItem(i)),
-                      GestureDetector(
-                          onTap: () => changeValueItem(i),
-                          child: Text(LanguagePresenter.language.listRoom[i]))
-                    ],
-                  )
+                buildItemCheckBox(Constants.livingRoom),
+                buildItemCheckBox(Constants.kitchen)
               ],
-            )
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                buildItemCheckBox(Constants.bedRoom),
+                buildItemCheckBox(Constants.toilet)
+              ],
+            ),
+            buildItemCheckBox(null)
           ],
         ));
   }
@@ -210,6 +207,9 @@ class _UserInfoState extends State<UserInfo> {
     return Padding(
         padding: const EdgeInsets.all(5),
         child: Column(children: [
+          Text(LanguagePresenter.language.changePassword,
+              style:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           buildTextField(LanguagePresenter.language.password, password),
           buildTextField(
               LanguagePresenter.language.confirmPassword, comfirmPassword),
@@ -235,6 +235,7 @@ class _UserInfoState extends State<UserInfo> {
 
   Widget buildTextField(String label, TextEditingController txtEditting) {
     return Container(
+      padding: const EdgeInsets.only(left: 5, right: 5),
       margin: const EdgeInsets.only(top: 10),
       child: TextField(
         decoration: InputDecoration(
@@ -246,6 +247,56 @@ class _UserInfoState extends State<UserInfo> {
         controller: txtEditting,
       ),
     );
+  }
+
+  Widget buildItemCheckBox(int? idRoom) {
+    if (idRoom == null) {
+      return SizedBox(
+          width: MediaQuery.of(context).size.width / 2 - 15,
+          child: Row(children: [
+            Checkbox(
+                value: ischeckAll,
+                onChanged: (value) => changeValueAllItem()),
+            GestureDetector(
+                onTap: changeValueAllItem,
+                child: Text(LanguagePresenter.language.fullPermission)),
+          ]));
+    } else {
+      return SizedBox(
+          width: MediaQuery.of(context).size.width / 2 - 15,
+          child: Row(children: [
+            Checkbox(
+                value: tempUser.permissions[idRoom],
+                onChanged: (value) => changeValueItem(idRoom)),
+            GestureDetector(
+                onTap: () => changeValueItem(idRoom),
+                child: Text(LanguagePresenter.language.listRoom[idRoom])),
+          ]));
+    }
+  }
+
+  changeValueItem(int index) {
+    setState(() {
+      prePermisions = List.from(tempUser.permissions);
+      tempUser.permissions[index] = !tempUser.permissions[index];
+      if (true == UserPresenter.isUserFullPermission(tempUser)) {
+        ischeckAll = true;
+      } else {
+        ischeckAll = false;
+      }
+    });
+  }
+
+  changeValueAllItem() {
+    setState(() {
+      ischeckAll = !ischeckAll;
+      if (ischeckAll) {
+        prePermisions = tempUser.permissions;
+        tempUser.permissions = [true, true, true, true];
+      } else {
+        tempUser.permissions = prePermisions;
+      }
+    });
   }
 
   void logOut() {

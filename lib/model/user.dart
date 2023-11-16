@@ -50,6 +50,13 @@ class User {
     return permissions[Constants.toilet];
   }
 
+  bool isFullPermission(){
+    for (int room = 0; room < permissions.length; room++) {
+      if (!permissions[room]){return false;}
+    }
+    return true;
+  }
+
   String getStringPermission(User user) {
     bool isFirst = true;
     bool isFullPermission = true;
