@@ -6,4 +6,8 @@ class SettingPresenter {
   static changeLanguage(){
     setting.changeLanguage();
   }
+
+  static changeThemeMode(){
+    setting.themeModeLight = !setting.themeModeLight;
+  }
 }
