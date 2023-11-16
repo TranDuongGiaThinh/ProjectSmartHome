@@ -58,7 +58,7 @@ class User {
     for (int room = 0; room < permissions.length; room++) {
       if (permissions[room]) {
         if (!isFirst) {
-          strPermission += ",\n";
+          strPermission += ", ";
         }
         strPermission += LanguagePresenter.language.listRoom[room];
         isFirst = false;
@@ -69,6 +69,10 @@ class User {
 
     if (isFullPermission) {
       strPermission = LanguagePresenter.language.fullPermission;
+    }
+
+    if(isFirst){
+      strPermission = LanguagePresenter.language.notHaveAccess;
     }
 
     return strPermission;

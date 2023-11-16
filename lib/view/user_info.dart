@@ -3,6 +3,7 @@ import 'package:smart_home/model/user.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/presenter/user_presenter.dart';
 import 'package:smart_home/view/custom_button.dart';
+import 'package:smart_home/view/permission_editting.dart';
 
 class UserInfo extends StatefulWidget {
   const UserInfo({super.key, required this.iconButtonLogOut, required this.user});
@@ -73,6 +74,7 @@ class _UserInfoState extends State<UserInfo> {
       buildTextField("${LanguagePresenter.language.fullName}: ", fullName),
       buildTextField("${LanguagePresenter.language.email}: ", email),
       buildTextField("${LanguagePresenter.language.phoneNumber}: ", phoneNumber),
+      if (UserPresenter.user.id != user.id) PermissionEditting(user: user),
       Padding(
         padding: const EdgeInsets.only(left: 5,right: 5, bottom: 5),
         child: CustomButton(
@@ -157,10 +159,10 @@ class _UserInfoState extends State<UserInfo> {
                 children: [
                   CustomButton(
                     context: context,
-                    icon: UserPresenter.user.blocked
+                    icon: user.blocked
                         ? Icons.lock_open
                         : Icons.lock,
-                    content: UserPresenter.user.blocked
+                    content: user.blocked
                         ? LanguagePresenter.language.unBlockUser
                         : LanguagePresenter.language.blockUser,
                     action: () {
