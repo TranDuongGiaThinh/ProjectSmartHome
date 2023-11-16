@@ -28,11 +28,12 @@ class UserPresenter {
   }
 
   static bool blockOrUnblockUser(User user) {
-    if(user.blocked) { return user.unblockUser();}
-    else {return user.blockUser();}
+    if(user.blocked) { return user.unblock();}
+    else {return user.block();}
   }
 
-  static bool addUser(User user) {return User.addUser(user);}
-  static bool editUser(User user) {return User.addUser(user);}
-  static bool deleteUser(User user) {return User.deleteUser(user);}
+  static bool changePassword(User user, String password) {return user.changePassword(password);}
+  static bool addUser(User user) {return user.add();}
+  static bool updateUser(User user) {return user.update();}
+  static bool deleteUser(User user) {return user.delete();}
 }

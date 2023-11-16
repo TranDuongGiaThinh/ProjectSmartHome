@@ -24,14 +24,14 @@ class User {
     blocked = false;
   }
 
+  static User getUserLogin(String userName, String password){
+    return User();
+  }
+
   User.info({id, url, required this. userName, required this. fullName, required this.  email,
       required this.  phoneNumber, required this. permissions, required this.  ishost, required this.  blocked}) {
     this.id = id ?? 0;
     this.url = url ?? "data/images/avt_default.png";
-  }
-
-  static User getUserLogin(String userName, String password){
-    return User();
   }
 
   bool getPermissionLivingRoom(){
@@ -78,10 +78,11 @@ class User {
     return strPermission;
   }
 
-  bool blockUser() {return false;}
-  bool unblockUser() {return false;}
+  bool block() {return false;}
+  bool unblock() {return false;}
 
-  static bool addUser(User user) {return false;}
-  static bool editUser(User user) {return false;}
-  static bool deleteUser(User user) {return false;}
+  bool changePassword(String newPassword) {return false;}
+  bool add() {return false;}
+  bool update() {return false;}
+  bool delete() {return false;}
 }

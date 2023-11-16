@@ -32,6 +32,8 @@ class Language {
   late String accountState;
   late String active;
   late String notHaveAccess;
+  late String password;
+  late String confirmPassword;
 
   Language(String typeLanguage) {
     if (typeLanguage == "vi") {
@@ -67,6 +69,8 @@ class Language {
       accountState = "Trạng thái tài khoản";
       active = "Hoạt động";
       notHaveAccess = "Không có quyền truy cập";
+      password = "Mật khẩu";
+      confirmPassword = "Xác nhận mật khẩu";
       
     } else {
       setting = "Setting";
@@ -101,6 +105,8 @@ class Language {
       accountState = "Account state";
       active = "Active";
       notHaveAccess = "Not have access";
+      password = "Password";
+      confirmPassword = "Confirm password";
 
     }
   }

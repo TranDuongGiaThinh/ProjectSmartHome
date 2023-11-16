@@ -4,7 +4,6 @@ import 'package:smart_home/presenter/setting_presenter.dart';
 import 'package:smart_home/presenter/user_presenter.dart';
 import 'package:smart_home/view/accounts_management_screen.dart';
 import 'package:smart_home/view/custom_button.dart';
-import 'package:smart_home/model/user.dart';
 import 'package:smart_home/view/user_info.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -82,7 +81,7 @@ class _SettingScreenState extends State<SettingScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AccountsManagementScreen(),
+          builder: (context) => const AccountsManagementScreen(),
         ));
   }
 

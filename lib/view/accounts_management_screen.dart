@@ -54,7 +54,7 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
                 content: LanguagePresenter.language.addNewUser,
                 icon: Icons.person_add_alt,
               )),
-          if (userSelected != null) UserInfo(iconButtonLogOut: true, user: userSelected!),
+          if (userSelected != null) UserInfo(iconButtonLogOut: false, user: userSelected!),
           buildListUser()
         ],
       ),
@@ -142,5 +142,7 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
         ));
   }
 
-  addNewUser() {}
+  addNewUser() {
+    //goto signup screen
+  }
 }
