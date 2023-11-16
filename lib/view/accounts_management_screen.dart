@@ -3,10 +3,10 @@ import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/presenter/user_presenter.dart';
 import 'package:smart_home/view/custom_button.dart';
 import 'package:smart_home/model/user.dart';
+import 'package:smart_home/view/user_info.dart';
 
 class AccountsManagementScreen extends StatefulWidget {
-  const AccountsManagementScreen({super.key, required this.buildInfoUser});
-  final Function(bool iconButtonLogOut, User u) buildInfoUser;
+  const AccountsManagementScreen({super.key});
 
   @override
   State<AccountsManagementScreen> createState() =>
@@ -14,7 +14,17 @@ class AccountsManagementScreen extends StatefulWidget {
 }
 
 class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
-  List<User> users = [UserPresenter.user];
+  List<User> users = [
+    UserPresenter.user,
+    User.info(
+        userName: "userName",
+        fullName: "fullName",
+        email: "email",
+        phoneNumber: "phoneNumber",
+        permissions: [true, false, true, false],
+        ishost: false,
+        blocked: true),
+  ];
   User? userSelected;
 
   updateUserSelected(User newSelected) {
@@ -26,20 +36,26 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text(LanguagePresenter.language.setting))),
+      appBar: AppBar(
+          title: Center(
+              child: Text(
+        LanguagePresenter.language.accountsManagement,
+      ))),
       body: ListView(
         children: [
-          buildListUser(),
-          if (userSelected != null) widget.buildInfoUser(false, userSelected!),
           Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: CustomButton(
                 context: context,
-                action: (){addNewUser();},
-                height: 100,
+                action: () {
+                  addNewUser();
+                },
+                height: 50,
                 content: LanguagePresenter.language.addNewUser,
                 icon: Icons.person_add_alt,
-              ))
+              )),
+          if (userSelected != null) UserInfo(iconButtonLogOut: false, user: userSelected!),
+          buildListUser()
         ],
       ),
     );
@@ -48,59 +64,85 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
   Widget buildListUser() {
     return Padding(
         padding: const EdgeInsets.all(10),
-        child: Table(
-          border: TableBorder.all(),
+        child: Column(
           children: [
-            TableRow(
-              decoration: BoxDecoration(color: Colors.grey[300]),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Text(LanguagePresenter.language.listAccount,
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+              ),
+            ),
+            Table(
+              border: TableBorder.all(),
               children: [
-                TableCell(
-                  child: Center(child: Text(LanguagePresenter.language.userName)),
+                TableRow(
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 148, 143, 143)),
+                  children: [
+                    TableCell(
+                      child: Center(
+                          child: Text(LanguagePresenter.language.userName)),
+                    ),
+                    TableCell(
+                      child: Center(
+                          child: Text(LanguagePresenter.language.fullName)),
+                    ),
+                    TableCell(
+                      child: Center(
+                          child: Text(LanguagePresenter.language.permission)),
+                    ),
+                    TableCell(
+                      child: Center(
+                          child: Text(LanguagePresenter.language.blocked)),
+                    ),
+                  ],
                 ),
-                TableCell(
-                  child: Center(child: Text(LanguagePresenter.language.fullName)),
-                ),
-                TableCell(
-                  child: Center(child: Text(LanguagePresenter.language.permission)),
-                ),
-                TableCell(
-                  child: Center(child: Text(LanguagePresenter.language.blocked)),
-                ),
+                for (int i = 0; i < users.length; i++)
+                  TableRow(
+                    decoration: BoxDecoration(
+                      color: users[i] == userSelected ? Colors.blue : null,
+                    ),
+                    children: [
+                      TableCell(
+                          child: InkWell(
+                        onTap: () {
+                          updateUserSelected(users[i]);
+                        },
+                        child: Center(child: Text(users[i].userName)),
+                      )),
+                      TableCell(
+                          child: InkWell(
+                        onTap: () {
+                          updateUserSelected(users[i]);
+                        },
+                        child: Center(child: Text(users[i].fullName)),
+                      )),
+                      TableCell(
+                          child: InkWell(
+                        onTap: () {
+                          updateUserSelected(users[i]);
+                        },
+                        child: Center(
+                            child: Text(
+                                UserPresenter.getStringPermission(users[i]))),
+                      )),
+                      TableCell(
+                          child: InkWell(
+                        onTap: () {
+                          updateUserSelected(users[i]);
+                        },
+                        child: Center(child: Text(users[i].blocked.toString())),
+                      )),
+                    ],
+                  ),
               ],
             ),
-            for (int i = 0; i < users.length; i++)
-              TableRow(
-                decoration: BoxDecoration(
-                  color: users[i] == userSelected ? Colors.blue : null,
-                ),
-                children: [
-                  TableCell(
-                      child: InkWell(
-                    onTap: () {
-                      updateUserSelected(users[i]);
-                    },
-                    child: Center(child: Text(users[i].userName)),
-                  )),
-                  TableCell(
-                    child: Center(child: Text(users[i].fullName)),
-                  ),
-                  TableCell(
-                    child: Center(
-                        child: Text(
-                            users[i].getStringPermission(users[i].permissions))),
-                  ),
-                  TableCell(
-                      child: Center(
-                    child: Checkbox(
-                      value: users[i].blocked,
-                      onChanged: null,
-                    ),
-                  )),
-                ],
-              ),
           ],
         ));
   }
 
-  addNewUser() {}
+  addNewUser() {
+    //goto signup screen
+  }
 }
