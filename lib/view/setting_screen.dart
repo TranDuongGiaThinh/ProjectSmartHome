@@ -3,9 +3,8 @@ import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/presenter/setting_presenter.dart';
 import 'package:smart_home/presenter/user_presenter.dart';
 import 'package:smart_home/view/accounts_management_screen.dart';
-import 'package:smart_home/view/bottom_nav.dart';
 import 'package:smart_home/view/custom_button.dart';
-import 'package:smart_home/model/user.dart';
+import 'package:smart_home/view/user_info.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key, required this.reloadThemeMode});
@@ -16,126 +15,31 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  TextEditingController fullName = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController phoneNumber = TextEditingController();
+
+  bool isEditting = false;
+
   @override
   void initState() {
     super.initState();
   }
 
+  updateState() {
+    setState(() {
+      isEditting = !isEditting;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
-        children: [buildInfoUser(true, UserPresenter.user), buildListButton()],
-      
-    );
-  }
-
-  Widget buildInfoUser(bool iconButtonLogOut, User user) {
-    return Padding(
-        padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-        child: GestureDetector(
-            onTap: editUser,
-            child: Container(
-              width: MediaQuery.of(context).size.width - 20,
-              decoration: BoxDecoration(
-                  color: Colors.yellow,
-                  borderRadius: BorderRadius.circular(20)),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const SizedBox(width: 40),
-                         buildAvatarUser(user.url),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            if(iconButtonLogOut) buildIconLogOut(),
-                            const SizedBox(width: 40, height: 80),
-                          ],
-                        )
-                      ],
-                    ),
-                    buildTextUser(user),
-                    builActionOnUser(user.id)
-                  ]),
-            )));
-  }
-
-  Widget buildAvatarUser(String url) {
-    return SizedBox(
-      width: 100.0,
-      height: 100.0,
-      child: ClipOval(
-        child: Image.asset(
-          url,
-          fit: BoxFit.fill,
-        ),
-      ),
-    );
-  }
-
-  Widget buildIconLogOut() {
-    return SizedBox(
-      width: 40,
-      height: 40,
-      child: IconButton(onPressed: logOut, icon: const Icon(Icons.logout)),
-    );
-  }
-
-  Widget buildTextUser(User user) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("${LanguagePresenter.language.userName}: ${user.userName}"),
-        Text("${LanguagePresenter.language.fullName}: ${user.fullName}"),
-        Text("${LanguagePresenter.language.email}: ${user.email}"),
-        Text("${LanguagePresenter.language.phoneNumber}: ${user.phoneNumber}"),
-        Text("${LanguagePresenter.language.permission}: ${UserPresenter.getStringPermission(user)}"),
+        UserInfo(iconButtonLogOut: true, user: UserPresenter.user),
+        buildListButton()
       ],
     );
-  }
-
-  Widget builActionOnUser(int idUser) {
-    return Padding(
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          children: [
-            CustomButton(
-              context: context,
-              icon: Icons.create,
-              content: LanguagePresenter.language.edit,
-              action: editUser,
-            ),
-            CustomButton(
-                context: context,
-                icon: Icons.shield,
-                content: LanguagePresenter.language.changePassword,
-                action: changePassword),
-            if (UserPresenter.user.ishost && UserPresenter.user.id != idUser)
-              Column(
-                children: [
-                  CustomButton(
-                    context: context,
-                    icon: UserPresenter.isBlock(idUser) ? Icons.lock_open : Icons.lock,
-                    content: UserPresenter.isBlock(idUser)
-                        ? LanguagePresenter.language.unBlockUser
-                        : LanguagePresenter.language.blockUser,
-                    action: () {
-                      blockOrUnblockUser(idUser);
-                    },
-                  ),
-                  CustomButton(
-                      context: context,
-                      icon: Icons.delete,
-                      content: LanguagePresenter.language.deleteUser,
-                      action: () {
-                        deleteUser(-1);
-                      }),
-                ],
-              )
-          ],
-        ));
   }
 
   Widget buildListButton() {
@@ -153,8 +57,9 @@ class _SettingScreenState extends State<SettingScreen> {
                   action: accountManagement),
             CustomButton(
                 context: context,
-                icon:
-                    SettingPresenter.setting.themeModeLight ? Icons.light_mode : Icons.dark_mode,
+                icon: SettingPresenter.setting.themeModeLight
+                    ? Icons.light_mode
+                    : Icons.dark_mode,
                 height: 100,
                 content: SettingPresenter.setting.themeModeLight
                     ? LanguagePresenter.language.themeModeLight
@@ -172,20 +77,16 @@ class _SettingScreenState extends State<SettingScreen> {
         ));
   }
 
-  void logOut() {}
-  void editUser() {}
-  void changePassword() {}
   void accountManagement() {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => AccountsManagementScreen(
-                  buildInfoUser: buildInfoUser,
-                )));
+          builder: (context) => const AccountsManagementScreen(),
+        ));
   }
 
   void changeThemeMode() {
-    SettingPresenter.setting.changeThemeMode();
+    SettingPresenter.changeThemeMode();
     widget.reloadThemeMode();
     setState(() {});
   }
@@ -194,7 +95,4 @@ class _SettingScreenState extends State<SettingScreen> {
     LanguagePresenter.changeLanguage();
     setState(() {});
   }
-
-  void blockOrUnblockUser(int idUser) {}
-  void deleteUser(int idUser) {}
 }

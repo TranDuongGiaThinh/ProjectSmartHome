@@ -9,6 +9,7 @@ class Language {
   late String kitchen;
   late String bedRoom;
   late String toilet;
+  late List<String> listRoom = [livingRoom, kitchen, bedRoom, toilet];
   late String edit;
   late String changePassword;
   late String accountsManagement;
@@ -26,6 +27,13 @@ class Language {
   late String index;
   late String statistical;
   late String scheduling;
+  late String listAccount;
+  late String save;
+  late String accountState;
+  late String active;
+  late String notHaveAccess;
+  late String password;
+  late String confirmPassword;
 
   Language(String typeLanguage) {
     if (typeLanguage == "vi") {
@@ -56,6 +64,14 @@ class Language {
       index = "Trang chủ";
       statistical = "Thống kê";
       scheduling = "Lên lịch";
+      listAccount = "Danh sách tài khoản";
+      save = "Lưu";
+      accountState = "Trạng thái tài khoản";
+      active = "Hoạt động";
+      notHaveAccess = "Không có quyền truy cập";
+      password = "Mật khẩu";
+      confirmPassword = "Xác nhận mật khẩu";
+      
     } else {
       setting = "Setting";
       userName = "User name";
@@ -84,6 +100,14 @@ class Language {
       index = "Index";
       statistical = "Statistical";
       scheduling = "Scheduling";
+      listAccount = "List account";
+      save = "save";
+      accountState = "Account state";
+      active = "Active";
+      notHaveAccess = "Not have access";
+      password = "Password";
+      confirmPassword = "Confirm password";
+
     }
   }
 }
