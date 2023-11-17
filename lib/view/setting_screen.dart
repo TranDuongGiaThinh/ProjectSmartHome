@@ -36,7 +36,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        UserInfo(iconButtonLogOut: true, user: UserPresenter.user),
+        UserInfo(iconButtonLogOut: true, user: UserPresenter.userLogin),
         buildListButton()
       ],
     );
@@ -48,7 +48,7 @@ class _SettingScreenState extends State<SettingScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (UserPresenter.user.ishost)
+            if (UserPresenter.userLogin.ishost)
               CustomButton(
                   context: context,
                   icon: Icons.person,

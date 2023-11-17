@@ -14,17 +14,6 @@ class AccountsManagementScreen extends StatefulWidget {
 }
 
 class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
-  List<User> users = [
-    UserPresenter.user,
-    User.info(
-        userName: "userName",
-        fullName: "fullName",
-        email: "email",
-        phoneNumber: "phoneNumber",
-        permissions: [true, false, true, false],
-        ishost: false,
-        blocked: true),
-  ];
   User? userSelected;
 
   updateUserSelected(User newSelected) {
@@ -98,41 +87,41 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
                     ),
                   ],
                 ),
-                for (int i = 0; i < users.length; i++)
+                for (int i = 0; i < UserPresenter.users.length; i++)
                   TableRow(
                     decoration: BoxDecoration(
-                      color: users[i] == userSelected ? Colors.blue : null,
+                      color: UserPresenter.users[i] == userSelected ? Colors.blue : null,
                     ),
                     children: [
                       TableCell(
                           child: InkWell(
                         onTap: () {
-                          updateUserSelected(users[i]);
+                          updateUserSelected(UserPresenter.users[i]);
                         },
-                        child: Center(child: Text(users[i].userName)),
+                        child: Center(child: Text(UserPresenter.users[i].userName)),
                       )),
                       TableCell(
                           child: InkWell(
                         onTap: () {
-                          updateUserSelected(users[i]);
+                          updateUserSelected(UserPresenter.users[i]);
                         },
-                        child: Center(child: Text(users[i].fullName)),
+                        child: Center(child: Text(UserPresenter.users[i].fullName)),
                       )),
                       TableCell(
                           child: InkWell(
                         onTap: () {
-                          updateUserSelected(users[i]);
+                          updateUserSelected(UserPresenter.users[i]);
                         },
                         child: Center(
                             child: Text(
-                                UserPresenter.getStringPermission(users[i]))),
+                                UserPresenter.getStringPermission(UserPresenter.users[i]))),
                       )),
                       TableCell(
                           child: InkWell(
                         onTap: () {
-                          updateUserSelected(users[i]);
+                          updateUserSelected(UserPresenter.users[i]);
                         },
-                        child: Center(child: Text(users[i].blocked.toString())),
+                        child: Center(child: Text(UserPresenter.users[i].blocked.toString())),
                       )),
                     ],
                   ),

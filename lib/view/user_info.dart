@@ -29,7 +29,7 @@ class _UserInfoState extends State<UserInfo> {
   late List<bool> prePermisions;
 
   initial() {
-    tempUser = widget.user;
+    tempUser = User.copy(widget.user);
     ischeckAll = UserPresenter.isUserFullPermission(tempUser);
   }
 
@@ -137,7 +137,7 @@ class _UserInfoState extends State<UserInfo> {
                 action: () => setState(() {
                       isPasswordEditting = true;
                     })),
-            if (UserPresenter.user.id != widget.user.id)
+            if (UserPresenter.userLogin.id != widget.user.id)
               Column(
                 children: [
                   CustomButton(
@@ -171,7 +171,7 @@ class _UserInfoState extends State<UserInfo> {
       buildTextField("${LanguagePresenter.language.email}: ", email),
       buildTextField(
           "${LanguagePresenter.language.phoneNumber}: ", phoneNumber),
-      if (UserPresenter.user.id != user.id) buildPermissionEditting(),
+      if (UserPresenter.userLogin.id != user.id) buildPermissionEditting(),
       buildButtonSave()
     ]);
   }
@@ -255,8 +255,7 @@ class _UserInfoState extends State<UserInfo> {
           width: MediaQuery.of(context).size.width / 2 - 15,
           child: Row(children: [
             Checkbox(
-                value: ischeckAll,
-                onChanged: (value) => changeValueAllItem()),
+                value: ischeckAll, onChanged: (value) => changeValueAllItem()),
             GestureDetector(
                 onTap: changeValueAllItem,
                 child: Text(LanguagePresenter.language.fullPermission)),

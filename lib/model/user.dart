@@ -2,7 +2,7 @@ import 'package:smart_home/model/constants.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 
 class User {
-  late int ? id;
+  late int? id;
   late String url;
   late String userName;
   late String fullName;
@@ -24,35 +24,70 @@ class User {
     blocked = false;
   }
 
-  static User getUserLogin(String userName, String password){
-    return User();
-  }
-
-  User.info({id, url, required this. userName, required this. fullName, required this.  email,
-      required this.  phoneNumber, required this. permissions, required this.  ishost, required this.  blocked}) {
+  User.info(
+      {id,
+      url,
+      required this.userName,
+      required this.fullName,
+      required this.email,
+      required this.phoneNumber,
+      required this.permissions,
+      required this.ishost,
+      required this.blocked}) {
     this.id = id ?? 0;
     this.url = url ?? "data/images/avt_default.png";
   }
 
-  bool getPermissionLivingRoom(){
+  User.copy(User user):
+    id = user.id,
+    url = user.url,
+    userName = user.userName,
+    fullName = user.fullName,
+    email = user.email,
+    phoneNumber = user.phoneNumber,
+    permissions = List.from(user.permissions),
+    ishost = user.ishost,
+    blocked = user.blocked;
+
+  static User getUserLogin(String userName, String password) {
+    return User();
+  }
+
+  static List<User> getAllUser() {
+    return [
+      User(),
+      User.info(
+          userName: "userName",
+          fullName: "fullName",
+          email: "email",
+          phoneNumber: "phoneNumber",
+          permissions: [true, false, true, false],
+          ishost: false,
+          blocked: true),
+    ];
+  }
+
+  bool getPermissionLivingRoom() {
     return permissions[Constants.livingRoom];
   }
 
-  bool getPermissionKitchen(){
+  bool getPermissionKitchen() {
     return permissions[Constants.kitchen];
   }
 
-  bool getPermissionBedRoom(){
+  bool getPermissionBedRoom() {
     return permissions[Constants.bedRoom];
   }
 
-  bool getPermissionToilet(){
+  bool getPermissionToilet() {
     return permissions[Constants.toilet];
   }
 
-  bool isFullPermission(){
+  bool isFullPermission() {
     for (int room = 0; room < permissions.length; room++) {
-      if (!permissions[room]){return false;}
+      if (!permissions[room]) {
+        return false;
+      }
     }
     return true;
   }
@@ -78,18 +113,34 @@ class User {
       strPermission = LanguagePresenter.language.fullPermission;
     }
 
-    if(isFirst){
+    if (isFirst) {
       strPermission = LanguagePresenter.language.notHaveAccess;
     }
 
     return strPermission;
   }
 
-  bool block() {return false;}
-  bool unblock() {return false;}
+  bool block() {
+    return false;
+  }
 
-  bool changePassword(String newPassword) {return false;}
-  bool add() {return false;}
-  bool update() {return false;}
-  bool delete() {return false;}
+  bool unblock() {
+    return false;
+  }
+
+  bool changePassword(String newPassword) {
+    return false;
+  }
+
+  bool add() {
+    return false;
+  }
+
+  bool update() {
+    return false;
+  }
+
+  bool delete() {
+    return false;
+  }
 }
