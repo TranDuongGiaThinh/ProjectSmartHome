@@ -4,6 +4,7 @@ import 'package:smart_home/model/user.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/presenter/user_presenter.dart';
 import 'package:smart_home/view/custom_button.dart';
+import 'package:smart_home/view/show_diaglog.dart';
 
 class UserInfo extends StatefulWidget {
   const UserInfo(
@@ -308,6 +309,8 @@ class _UserInfoState extends State<UserInfo> {
     setState(() {
       isPasswordEditting = false;
     });
+
+    showDialogResult(context, LanguagePresenter.language.failure, "message");
   }
 
   void updateAvatar() {

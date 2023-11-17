@@ -34,6 +34,10 @@ class Language {
   late String notHaveAccess;
   late String password;
   late String confirmPassword;
+  late String ok;
+  late String success;
+  late String failure;
+  
 
   Language(String typeLanguage) {
     if (typeLanguage == "vi") {
@@ -71,6 +75,9 @@ class Language {
       notHaveAccess = "Không có quyền truy cập";
       password = "Mật khẩu";
       confirmPassword = "Xác nhận mật khẩu";
+      ok = "Ok";
+      success = "Thành công";
+      failure = "Thất bại";
       
     } else {
       setting = "Setting";
@@ -107,6 +114,9 @@ class Language {
       notHaveAccess = "Not have access";
       password = "Password";
       confirmPassword = "Confirm password";
+      ok = "Ok";
+      success = "Success";
+      failure = "Failure";
 
     }
   }
