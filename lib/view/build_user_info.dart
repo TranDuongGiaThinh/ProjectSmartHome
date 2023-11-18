@@ -45,6 +45,9 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.user.id != tempUser.id) {
+      initial();
+    }
     return Padding(
         padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
         child: Container(
@@ -328,7 +331,8 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
       isPasswordEditting = false;
     });
 
-    showDialogResult(context, strResult, "${LanguagePresenter.language.changePassword} $strResult");
+    showDialogResult(context, strResult,
+        "${LanguagePresenter.language.changePassword} $strResult");
   }
 
   void updateAvatar() {
