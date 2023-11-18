@@ -156,7 +156,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
                 action: () => setState(() {
                       isPasswordEditting = true;
                     })),
-            if (UserPresenter.userLogin.id != widget.user.id)
+            if (UserPresenter.userLogin!.id != widget.user.id)
               Column(
                 children: [
                   CustomButton(
@@ -201,7 +201,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         buildTextField("${LanguagePresenter.language.email}: ", email),
         buildTextField(
             "${LanguagePresenter.language.phoneNumber}: ", phoneNumber),
-        if (UserPresenter.userLogin.id != user.id) buildPermissionEditting(),
+        if (UserPresenter.userLogin!.id != user.id) buildPermissionEditting(),
         buildButtonSave()
       ])
     ]);

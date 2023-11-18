@@ -1,13 +1,17 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:smart_home/model/constants.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 
+import 'package:http/http.dart' as http;
+
 class User {
   late int? id;
   late Uint8List? image;
   late String userName;
+  String? password;
   late String fullName;
   late String email;
   late String phoneNumber;
@@ -40,6 +44,27 @@ class User {
     this.id = id ?? 0;
   }
 
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User.info(
+      id: json['id'],
+      image: json['image'] != null
+          ? Uint8List.fromList(List<int>.from(json['image']))
+          : null,
+      userName: json['userName'],
+      fullName: json['fullName'],
+      email: json['email'],
+      phoneNumber: json['phoneNumber'],
+      permissions: [
+        json['accessLivingroom'],
+        json['accessKitchen'],
+        json['accessBedroom'],
+        json['accessToilet'],
+      ],
+      ishost: json['ishost'],
+      blocked: json['blocked'],
+    );
+  }
+
   User.copy(User user)
       : id = user.id,
         image = user.image,
@@ -51,22 +76,51 @@ class User {
         ishost = user.ishost,
         blocked = user.blocked;
 
-  static User getUserLogin(String userName) {
-    return User();//
+  static Map<String, dynamic> toJson(User user) {
+    return {
+      'image': user.image?.isNotEmpty ?? false ? user.image!.toList() : 'null',
+      'userName': user.userName,
+      'password': user.password!,
+      'fullName': user.fullName,
+      'email': user.email,
+      'phoneNumber': user.phoneNumber,
+      'accessLivingroom': user.permissions[Constants.livingRoom],
+      'accessKitchen': user.permissions[Constants.kitchen],
+      'accessBedroom': user.permissions[Constants.bedRoom],
+      'accessToilet': user.permissions[Constants.toilet],
+      'ishost': user.ishost,
+      'blocked': user.blocked,
+      'deleted': false
+    };
+  }
+
+  static Future<User?> getUserLogin(String userName) async {
+    final response =
+        await http.get(Uri.parse('https://your-api-endpoint/users/$userName'));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> userData = jsonDecode(response.body);
+      return User.fromJson(userData);
+    } else {
+      // ignore: avoid_print
+      print('Failed to load user: ${response.statusCode}');
+      return null;
+    }
   }
 
   static User getUserById(int id) {
-    return User();//
+    return User(); //
   }
 
-  static bool checkLogin(String userName, String password){
-    return true;//
+  static bool checkLogin(String userName, String password) {
+    return true; //
   }
 
   static List<User> getAllUser() {
     return [
       User(),
       User.info(
+        id: 2,
           image: null,
           userName: "userName",
           fullName: "fullName",
@@ -75,7 +129,27 @@ class User {
           permissions: [true, false, true, false],
           ishost: false,
           blocked: true),
-    ];//
+      User.info(
+        id:3,
+          image: null,
+          userName: "userName2",
+          fullName: "fullName2",
+          email: "email2",
+          phoneNumber: "phoneNumber2",
+          permissions: [true, true, true, false],
+          ishost: false,
+          blocked: false),
+      User.info(
+        id: 4,
+          image: null,
+          userName: "userName3",
+          fullName: "fullName3",
+          email: "email3",
+          phoneNumber: "phoneNumber3",
+          permissions: [true, false, false, false],
+          ishost: false,
+          blocked: false),
+    ];
   }
 
   static Uint8List convertImagePathToBytes(String imagePath) {

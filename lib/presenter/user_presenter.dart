@@ -3,11 +3,11 @@ import 'dart:typed_data';
 import 'package:smart_home/model/user.dart';
 
 class UserPresenter {
-  static User userLogin = getUserLogin("");
+  static User? userLogin = User();///
   static List<User> users = getAllUser();
 
-  static User getUserLogin(String userName) {
-    return User.getUserLogin(userName);
+  static Future<User?> getUserLogin(String userName) async {
+    return await User.getUserLogin(userName);
   }
 
   static User getUserById(int id) {
@@ -27,19 +27,19 @@ class UserPresenter {
   }
 
   static bool getPermissionLivingRoom() {
-    return userLogin.getPermissionLivingRoom();
+    return userLogin!.getPermissionLivingRoom();
   }
 
   static bool getPermissionKitchen() {
-    return userLogin.getPermissionKitchen();
+    return userLogin!.getPermissionKitchen();
   }
 
   static bool getPermissionBedRoom() {
-    return userLogin.getPermissionBedRoom();
+    return userLogin!.getPermissionBedRoom();
   }
 
   static bool getPermissionToilet() {
-    return userLogin.getPermissionToilet();
+    return userLogin!.getPermissionToilet();
   }
 
   static bool isUserFullPermission(User user) {
