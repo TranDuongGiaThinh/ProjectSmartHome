@@ -1,9 +1,13 @@
+import 'dart:ffi';
+import 'dart:io';
+
+import 'package:flutter/services.dart';
 import 'package:smart_home/model/constants.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 
 class User {
   late int? id;
-  late String url;
+  late Uint8List? image;
   late String userName;
   late String fullName;
   late String email;
@@ -14,7 +18,7 @@ class User {
 
   User() {
     id = 1;
-    url = "data/images/avt_default.png";
+    image = null;
     userName = "tghthinh";
     fullName = "Trần Dương Gia Thịnh";
     email = "tdgt@gmail.com";
@@ -26,7 +30,7 @@ class User {
 
   User.info(
       {id,
-      url,
+      required this.image,
       required this.userName,
       required this.fullName,
       required this.email,
@@ -35,19 +39,18 @@ class User {
       required this.ishost,
       required this.blocked}) {
     this.id = id ?? 0;
-    this.url = url ?? "data/images/avt_default.png";
   }
 
-  User.copy(User user):
-    id = user.id,
-    url = user.url,
-    userName = user.userName,
-    fullName = user.fullName,
-    email = user.email,
-    phoneNumber = user.phoneNumber,
-    permissions = List.from(user.permissions),
-    ishost = user.ishost,
-    blocked = user.blocked;
+  User.copy(User user)
+      : id = user.id,
+        image = user.image,
+        userName = user.userName,
+        fullName = user.fullName,
+        email = user.email,
+        phoneNumber = user.phoneNumber,
+        permissions = List.from(user.permissions),
+        ishost = user.ishost,
+        blocked = user.blocked;
 
   static User getUserLogin(String userName, String password) {
     return User();
@@ -57,6 +60,7 @@ class User {
     return [
       User(),
       User.info(
+          image: null,
           userName: "userName",
           fullName: "fullName",
           email: "email",
@@ -65,6 +69,16 @@ class User {
           ishost: false,
           blocked: true),
     ];
+  }
+
+  Uint8List convertImagePathToBytes(String imagePath) {
+    File imageFile = File(imagePath);
+
+    List<int> imageBytesList = imageFile.readAsBytesSync();
+
+    Uint8List uint8List = Uint8List.fromList(imageBytesList);
+
+    return uint8List;
   }
 
   bool getPermissionLivingRoom() {

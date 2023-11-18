@@ -4,7 +4,7 @@ import 'package:smart_home/presenter/setting_presenter.dart';
 import 'package:smart_home/presenter/user_presenter.dart';
 import 'package:smart_home/view/accounts_management_screen.dart';
 import 'package:smart_home/view/custom_button.dart';
-import 'package:smart_home/view/user_info.dart';
+import 'package:smart_home/view/build_user_info.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key, required this.reloadThemeMode});
@@ -36,7 +36,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        UserInfo(iconButtonLogOut: true, user: UserPresenter.userLogin),
+        BuildUserInfo(iconButtonLogOut: true, user: UserPresenter.userLogin),
         buildListButton()
       ],
     );
@@ -86,13 +86,16 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   void changeThemeMode() {
-    SettingPresenter.changeThemeMode();
-    widget.reloadThemeMode();
-    setState(() {});
+    SettingPresenter.changeThemeMode().then((value) {
+      widget.reloadThemeMode();
+      setState(() {});
+    });
   }
 
   void changeLanguage() {
-    LanguagePresenter.changeLanguage();
-    setState(() {});
+    SettingPresenter.changeLanguage().then((value) {
+      widget.reloadThemeMode();
+      setState(() {});
+    });
   }
 }

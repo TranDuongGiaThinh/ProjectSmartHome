@@ -1,4 +1,5 @@
 class Language {
+  late String appName;
   late String setting;
   late String userName;
   late String fullName;
@@ -41,6 +42,7 @@ class Language {
 
   Language(String typeLanguage) {
     if (typeLanguage == "vi") {
+      appName = "Nhà thông minh";
       setting = "Cài đặt";
       userName = "Tên đăng nhập";
       fullName = "Họ và tên";
@@ -80,6 +82,7 @@ class Language {
       failure = "Thất bại";
       
     } else {
+      appName = "Smart home";
       setting = "Setting";
       userName = "User name";
       fullName = "Full name";

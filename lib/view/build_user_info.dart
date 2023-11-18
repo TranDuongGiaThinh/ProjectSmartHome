@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:smart_home/model/constants.dart';
 import 'package:smart_home/model/user.dart';
@@ -6,17 +8,17 @@ import 'package:smart_home/presenter/user_presenter.dart';
 import 'package:smart_home/view/custom_button.dart';
 import 'package:smart_home/view/show_diaglog.dart';
 
-class UserInfo extends StatefulWidget {
-  const UserInfo(
+class BuildUserInfo extends StatefulWidget {
+  const BuildUserInfo(
       {super.key, required this.iconButtonLogOut, required this.user});
   final bool iconButtonLogOut;
   final User user;
 
   @override
-  State<UserInfo> createState() => _UserInfoState();
+  State<BuildUserInfo> createState() => _BuildUserInfoState();
 }
 
-class _UserInfoState extends State<UserInfo> {
+class _BuildUserInfoState extends State<BuildUserInfo> {
   TextEditingController fullName = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
@@ -64,7 +66,7 @@ class _UserInfoState extends State<UserInfo> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const SizedBox(width: 40),
-          buildAvatarUser(user.url),
+          buildAvatarUser(user.image),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -87,17 +89,30 @@ class _UserInfoState extends State<UserInfo> {
     );
   }
 
-  Widget buildAvatarUser(String url) {
+  Widget buildAvatarUser(Uint8List? image) {
+    if(image != null){
     return SizedBox(
       width: 100.0,
       height: 100.0,
       child: ClipOval(
+        child: Image.memory(
+          image,
+          fit: BoxFit.fill,
+        ),
+      ),
+    );}
+    else{
+      return SizedBox(
+      width: 100.0,
+      height: 100.0,
+      child: ClipOval(
         child: Image.asset(
-          url,
+          Constants.avatarDefault,
           fit: BoxFit.fill,
         ),
       ),
     );
+    }
   }
 
   Widget buildTextUser(User user) {
@@ -167,7 +182,7 @@ class _UserInfoState extends State<UserInfo> {
 
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       GestureDetector(
-          onTap: () => updateAvatar, child: buildAvatarUser(user.url)),
+          onTap: () => updateAvatar, child: buildAvatarUser(user.image)),
       buildTextField("${LanguagePresenter.language.fullName}: ", fullName),
       buildTextField("${LanguagePresenter.language.email}: ", email),
       buildTextField(
