@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
@@ -52,8 +51,16 @@ class User {
         ishost = user.ishost,
         blocked = user.blocked;
 
-  static User getUserLogin(String userName, String password) {
-    return User();
+  static User getUserLogin(String userName) {
+    return User();//
+  }
+
+  static User getUserById(int id) {
+    return User();//
+  }
+
+  static bool checkLogin(String userName, String password){
+    return true;//
   }
 
   static List<User> getAllUser() {
@@ -68,10 +75,10 @@ class User {
           permissions: [true, false, true, false],
           ishost: false,
           blocked: true),
-    ];
+    ];//
   }
 
-  Uint8List convertImagePathToBytes(String imagePath) {
+  static Uint8List convertImagePathToBytes(String imagePath) {
     File imageFile = File(imagePath);
 
     List<int> imageBytesList = imageFile.readAsBytesSync();

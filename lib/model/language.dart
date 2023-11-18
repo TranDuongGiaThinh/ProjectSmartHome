@@ -21,6 +21,7 @@ class Language {
   late String blockUser;
   late String unBlockUser;
   late String deleteUser;
+  late String updateUser;
   late String addNewUser;
   late String blocked;
   late String fullPermission;
@@ -63,6 +64,7 @@ class Language {
       blockUser = "Khóa tài khoản";
       unBlockUser = "Mở khóa";
       deleteUser = "Xóa tài khoản";
+      updateUser = "Cập nhật tài khoản";
       addNewUser = "Tạo tài khoản mới";
       blocked = "Bị khóa";
       fullPermission = "Tất cả quyền";
@@ -103,6 +105,7 @@ class Language {
       blockUser = "Block user";
       unBlockUser = "Unblock user";
       deleteUser = "Delete user";
+      updateUser = "Update user";
       addNewUser = "Add new user";
       blocked = "Blocked";
       fullPermission = "Full permission";

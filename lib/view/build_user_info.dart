@@ -90,28 +90,28 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
   }
 
   Widget buildAvatarUser(Uint8List? image) {
-    if(image != null){
-    return SizedBox(
-      width: 100.0,
-      height: 100.0,
-      child: ClipOval(
-        child: Image.memory(
-          image,
-          fit: BoxFit.fill,
-        ),
-      ),
-    );}
-    else{
+    if (image != null) {
       return SizedBox(
-      width: 100.0,
-      height: 100.0,
-      child: ClipOval(
-        child: Image.asset(
-          Constants.avatarDefault,
-          fit: BoxFit.fill,
+        width: 100.0,
+        height: 100.0,
+        child: ClipOval(
+          child: Image.memory(
+            image,
+            fit: BoxFit.fill,
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return SizedBox(
+        width: 100.0,
+        height: 100.0,
+        child: ClipOval(
+          child: Image.asset(
+            Constants.avatarDefault,
+            fit: BoxFit.fill,
+          ),
+        ),
+      );
     }
   }
 
@@ -319,13 +319,16 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     //goto login screen
   }
   void updatePassword() {
-    UserPresenter.changePassword(widget.user, password.text);
+    bool result = UserPresenter.changePassword(widget.user, password.text);
+    String strResult = result
+        ? LanguagePresenter.language.success
+        : LanguagePresenter.language.failure;
 
     setState(() {
       isPasswordEditting = false;
     });
 
-    showDialogResult(context, LanguagePresenter.language.failure, "message");
+    showDialogResult(context, strResult, "${LanguagePresenter.language.changePassword} $strResult");
   }
 
   void updateAvatar() {
@@ -334,18 +337,32 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
 
   void blockOrUnblockUser() {
     UserPresenter.blockOrUnblockUser(widget.user);
+
+    setState(() {});
   }
 
   void updateUser() {
-    tempUser.update();
+    bool result = UserPresenter.updateUser(tempUser);
+    String strResult = result
+        ? LanguagePresenter.language.success
+        : LanguagePresenter.language.failure;
     setState(() {
       isInfoEditting = false;
     });
+
+    showDialogResult(context, strResult,
+        "${LanguagePresenter.language.updateUser} $strResult");
   }
 
   void deleteUser() {
-    UserPresenter.deleteUser(widget.user);
+    bool result = UserPresenter.deleteUser(widget.user);
+    String strResult = result
+        ? LanguagePresenter.language.success
+        : LanguagePresenter.language.failure;
 
     setState(() {});
+
+    showDialogResult(context, strResult,
+        "${LanguagePresenter.language.deleteUser} $strResult");
   }
 }
