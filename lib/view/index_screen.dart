@@ -5,9 +5,7 @@ import 'package:smart_home/view/scheduling_screen.dart';
 import 'package:smart_home/view/setting_screen.dart';
 
 class IndexScreen extends StatefulWidget {
-  const IndexScreen(
-      {super.key, required this.idUser, required this.reloadThemeMode});
-  final int idUser;
+  const IndexScreen({super.key, required this.reloadThemeMode});
   final Function reloadThemeMode;
 
   @override
@@ -56,8 +54,9 @@ class _IndexScreenState extends State<IndexScreen> {
         return _buildIndexScreen();
       case 1:
         //thống kê
-        return Container();//body
+        return Container(); //body
       case 2:
+
         
         return SchedulingScreen();//body
       case 3:
@@ -67,6 +66,6 @@ class _IndexScreenState extends State<IndexScreen> {
   }
 
   Widget _buildIndexScreen() {
-    return Container();//body
+    return Container(); //body
   }
 }

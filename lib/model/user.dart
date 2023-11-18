@@ -2,7 +2,7 @@ import 'package:smart_home/model/constants.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 
 class User {
-  late int id;
+  late int ? id;
   late String url;
   late String userName;
   late String fullName;
@@ -24,30 +24,65 @@ class User {
     blocked = false;
   }
 
-  String getStringPermission(List<bool> permissions) {
+  static User getUserLogin(String userName, String password){
+    return User();
+  }
+
+  User.info({id, url, required this. userName, required this. fullName, required this.  email,
+      required this.  phoneNumber, required this. permissions, required this.  ishost, required this.  blocked}) {
+    this.id = id ?? 0;
+    this.url = url ?? "data/images/avt_default.png";
+  }
+
+  bool getPermissionLivingRoom(){
+    return permissions[Constants.livingRoom];
+  }
+
+  bool getPermissionKitchen(){
+    return permissions[Constants.kitchen];
+  }
+
+  bool getPermissionBedRoom(){
+    return permissions[Constants.bedRoom];
+  }
+
+  bool getPermissionToilet(){
+    return permissions[Constants.toilet];
+  }
+
+  String getStringPermission(User user) {
     bool isFirst = true;
     bool isFullPermission = true;
     String strPermission = "";
 
-    for(int i = 0; i < permissions.length; i++){
-      if (permissions[Constants.livingRoom]) {
-        if(!isFirst) {strPermission += ",\n";}
-        strPermission += LanguagePresenter.language.livingRoom;
+    for (int room = 0; room < permissions.length; room++) {
+      if (permissions[room]) {
+        if (!isFirst) {
+          strPermission += ", ";
+        }
+        strPermission += LanguagePresenter.language.listRoom[room];
         isFirst = false;
-      }
-      else{
+      } else {
         isFullPermission = false;
       }
     }
-    
-    if(isFullPermission) {strPermission = LanguagePresenter.language.fullPermission;}
+
+    if (isFullPermission) {
+      strPermission = LanguagePresenter.language.fullPermission;
+    }
+
+    if(isFirst){
+      strPermission = LanguagePresenter.language.notHaveAccess;
+    }
 
     return strPermission;
   }
 
-  bool isBlock(int idUser){
-    User user = User();
+  bool block() {return false;}
+  bool unblock() {return false;}
 
-    return user.blocked;
-  }
+  bool changePassword(String newPassword) {return false;}
+  bool add() {return false;}
+  bool update() {return false;}
+  bool delete() {return false;}
 }
