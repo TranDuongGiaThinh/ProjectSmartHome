@@ -184,14 +184,43 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     phoneNumber.text = user.phoneNumber;
 
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      GestureDetector(
-          onTap: () => updateAvatar, child: buildAvatarUser(user.image)),
-      buildTextField("${LanguagePresenter.language.fullName}: ", fullName),
-      buildTextField("${LanguagePresenter.language.email}: ", email),
-      buildTextField(
-          "${LanguagePresenter.language.phoneNumber}: ", phoneNumber),
-      if (UserPresenter.userLogin.id != user.id) buildPermissionEditting(),
-      buildButtonSave()
+      Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          const SizedBox(width: 40),
+          GestureDetector(
+              onTap: () => updateAvatar, child: buildAvatarUser(user.image)),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              buildButtonExit(),
+              const SizedBox(width: 40, height: 80),
+            ],
+          )
+        ]),
+        buildTextField("${LanguagePresenter.language.fullName}: ", fullName),
+        buildTextField("${LanguagePresenter.language.email}: ", email),
+        buildTextField(
+            "${LanguagePresenter.language.phoneNumber}: ", phoneNumber),
+        if (UserPresenter.userLogin.id != user.id) buildPermissionEditting(),
+        buildButtonSave()
+      ])
+    ]);
+  }
+
+  Widget buildButtonExit() {
+    return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+      SizedBox(
+        width: 40,
+        height: 40,
+        child: IconButton(
+            onPressed: () {
+              setState(() {
+                isInfoEditting = false;
+                isPasswordEditting = false;
+              });
+            },
+            icon: const Icon(Icons.cancel)),
+      )
     ]);
   }
 
@@ -226,9 +255,16 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     return Padding(
         padding: const EdgeInsets.all(5),
         child: Column(children: [
-          Text(LanguagePresenter.language.changePassword,
-              style:
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox(width: 40),
+              Text(LanguagePresenter.language.changePassword,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 18)),
+              buildButtonExit(),
+            ],
+          ),
           buildTextField(LanguagePresenter.language.password, password),
           buildTextField(
               LanguagePresenter.language.confirmPassword, comfirmPassword),
