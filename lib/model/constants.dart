@@ -19,4 +19,6 @@ class Constants{
   static const int curtainKitchen = 1;
   static const int curtainBedRoom = 2;
   static const int curtainToilet = 3;
+
+  static String avatarDefault = "data/images/avt_default.png";
 }
