@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smart_home/presenter/setting_presenter.dart';
-import 'package:smart_home/view/index_screen.dart';
 import 'package:smart_home/view/login_screen.dart';
 
 void main() {
@@ -38,7 +37,7 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
-      home:const LoginSCreen()
+      home:const SignIn()
        //IndexScreen(idUser: -1, reloadThemeMode: reloadThemeMode),
     );
   }

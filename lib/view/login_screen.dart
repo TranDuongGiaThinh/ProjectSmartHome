@@ -1,67 +1,109 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/resualble_widgets/resualble_widget.dart';
+import 'package:smart_home/utils/color_utils.dart';
+import 'package:smart_home/view/home_screen.dart';
+import 'package:smart_home/view/sign_up_screen.dart';
 
-class LoginSCreen extends StatelessWidget {
-  const LoginSCreen({Key? key}) : super(key: key);
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
 
   @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  final TextEditingController _emailTextController=TextEditingController();
+    final TextEditingController _passwordTextController=TextEditingController();
+
+   @override
   Widget build(BuildContext context) {
-    TextEditingController username = TextEditingController();
-    TextEditingController password = TextEditingController();
-    String mess = "";
-    return Scaffold(
-      body: Center(
-        child: SizedBox(
-            width: 300,
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: "Tài khoản",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide:
-                          const BorderSide(color: Colors.blue, width: 5),
-                    ),
-                  ),
-                  controller: username,
+   return Scaffold(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+          hexStringToCoLor("CB2B93"),
+          hexStringToCoLor("9546C4"),
+          hexStringToCoLor("5E61F4")
+        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+                20, MediaQuery.of(context).size.height * 0.2, 20, 0),
+            child: Column(
+              children: <Widget>[
+              //  logoWidget("assets/images/logo1.png"),
+                const SizedBox(
+                  height: 30,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextField(
-                  
-                  decoration: InputDecoration(
-                    labelText: "Mật khẩu",
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide:
-                          const BorderSide(color: Colors.blue, width: 2),
-                    ),
-                  ),
-                  controller: password,
+                resuableTextFile("Enter UserName", Icons.person_outline, false,
+                    _emailTextController),
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  minimumSize:MaterialStateProperty.all<Size>(const Size(200,50)), 
-                  side: MaterialStateProperty.all<BorderSide>(
-                    const BorderSide(color: Colors.blue, width: 2),
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
+                resuableTextFile("Enter Password", Icons.lock_outline, true,
+                    _passwordTextController),
+                const SizedBox(
+                  height: 5,
                 ),
-                onPressed: () {
-                  // Xử lý sự kiện khi nhấn nút
-                },
-                child: const Text('Đăng nhập'),
-              )
-            ])),
+              //  forgetPassword(context),
+                firebaseUIButton(context, "Sign In", () {
+                  // FirebaseAuth.instance
+                  //     .signInWithEmailAndPassword(
+                  //         email: _emailTextController.text,
+                  //         password: _passwordTextController.text)
+                  //     .then((value) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const HomeScreen()));
+                //   }).onError((error, stackTrace) {
+                //     print("Error ${error.toString()}");
+                //   });
+                 }
+                ),
+                signUpOption()
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
-}//hello word
+
+  Row signUpOption() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text("Don't have account?",
+            style: TextStyle(color: Colors.white70)),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SignUp()));
+          },
+          child: const Text(
+            " Sign Up",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        )
+      ],
+    );
+  }
+
+  // Widget forgetPassword(BuildContext context) {
+  //   return Container(
+  //     width: MediaQuery.of(context).size.width,
+  //     height: 35,
+  //     alignment: Alignment.bottomRight,
+  //     child: TextButton(
+  //       child: const Text(
+  //         "Forgot Password?",
+  //         style: TextStyle(color: Colors.white70),
+  //         textAlign: TextAlign.right,
+  //       ),
+  //       onPressed: () => Navigator.push(
+  //           context, MaterialPageRoute(builder: (context) => const ResetPassword())),
+  //     ),
+  //   );
+  // }
+}

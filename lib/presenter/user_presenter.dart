@@ -1,4 +1,4 @@
-import 'package:smart_home/model/user.dart';
+  import 'package:smart_home/model/user.dart';
 
 class UserPresenter {
   static User user = User();
