@@ -38,24 +38,13 @@ TextField resuableTextFile(String text, IconData icon, bool isPasswordType,
   );
 }
 
-RadioListTile<bool> reusableRadioListTile(
-  String title,
-  bool isSelected,
-  bool value,
-  void Function(bool) onChanged,
-) {
-  return RadioListTile<bool>(
-    title: Text(title),
-    value: value,
-    groupValue: isSelected,
-    onChanged: (bool? selected) {
-      if (selected != null) {
-        onChanged(selected);
-      }
-    },
+CheckboxListTile reusableCheckboxListTile(String texts, bool values, void Function(bool?)? onChanged) {
+  return CheckboxListTile(
+    title: Text(texts),
+    value: values,
+    onChanged: onChanged,
   );
 }
-
 Container firebaseUIButton(BuildContext context, String title, Function onTap) {
   return Container(
     width: MediaQuery.of(context).size.width,

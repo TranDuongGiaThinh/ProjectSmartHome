@@ -6,4 +6,4 @@ hexStringToCoLor(String hexColor){
     hexColor="FF$hexColor";
     return Color(int.parse(hexColor,radix: 16));
   }
- }//c
+ }

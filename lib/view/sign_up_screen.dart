@@ -18,10 +18,10 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _PhoneTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    bool isGuestRoomSelected = false;
-    bool isBedroomSelected = false;
-    bool isKitchenSelected = false;
-    bool isBathroomSelected = false;
+    bool isLivingRoomSelected = false;
+    bool isKitChenSelected = false;
+    bool isBedRoomSelected = false;
+    bool isToiletSelected = false;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -74,48 +74,29 @@ class _SignUpState extends State<SignUp> {
                 const SizedBox(
                   height: 20,
                 ),
-                // Column(children: [
-                //   reusableRadioListTile(
-                //     "isGuestRoomSelected",
-                //     isGuestRoomSelected,
-                //     true,
-                //     (bool selected) {
-                //       setState(() {
-                //         isGuestRoomSelected = selected;
-                //       });
-                //     },
-                //   ),
-                //    reusableRadioListTile(
-                //     "isBedroomSelected",
-                //     isBedroomSelected,
-                //     true,
-                //     (bool selected) {
-                //       setState(() {
-                //         isGuestRoomSelected = selected;
-                //       });
-                //     },
-                //   ),
-                //    reusableRadioListTile(
-                //     "isKitchenSelected",
-                //     isKitchenSelected,
-                //     true,
-                //     (bool selected) {
-                //       setState(() {
-                //         isGuestRoomSelected = selected;
-                //       });
-                //     },
-                //   ),
-                //    reusableRadioListTile(
-                //     "isBathroomSelected",
-                //     isBathroomSelected,
-                //     true,
-                //     (bool selected) {
-                //       setState(() {
-                //         isGuestRoomSelected = selected;
-                //       });
-                //     },
-                //   ),
-                // ]),
+                Column(children: [
+                  reusableCheckboxListTile("Living Room", isLivingRoomSelected, (bool? newValue) {
+                setState(() {
+              isLivingRoomSelected=newValue??false;
+                });
+               }),
+                  reusableCheckboxListTile("Kitchen", isKitChenSelected, (bool? newValue) {
+                setState(() {
+              isLivingRoomSelected=newValue??false;
+                });
+               }),
+                  reusableCheckboxListTile("Bedroom", isBedRoomSelected, (bool? newValue) {
+                setState(() {
+              isLivingRoomSelected=newValue??false;
+                });
+               }),
+                  reusableCheckboxListTile("Bathroom", isToiletSelected, (bool? newValue) {
+                setState(() {
+              isLivingRoomSelected=newValue??false;
+                });
+               }),
+               
+                ]),
                 
                 firebaseUIButton(context, "Sign Up", () {
                   // FirebaseAuth.instance

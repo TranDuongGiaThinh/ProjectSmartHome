@@ -89,7 +89,6 @@ class _SignInState extends State<SignIn> {
       ],
     );
   }
-
   // Widget forgetPassword(BuildContext context) {
   //   return Container(
   //     width: MediaQuery.of(context).size.width,
@@ -107,4 +106,3 @@ class _SignInState extends State<SignIn> {
   //   );
   // }
 }
-//b
