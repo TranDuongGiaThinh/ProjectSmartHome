@@ -32,7 +32,7 @@ class User {
   }
 
   User.info(
-      {id,
+      {required this.id,
       required this.image,
       required this.userName,
       required this.fullName,
@@ -40,9 +40,7 @@ class User {
       required this.phoneNumber,
       required this.permissions,
       required this.ishost,
-      required this.blocked}) {
-    this.id = id ?? 0;
-  }
+      required this.blocked});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User.info(
@@ -95,17 +93,7 @@ class User {
   }
 
   static Future<User?> getUserLogin(String userName) async {
-    final response =
-        await http.get(Uri.parse('https://your-api-endpoint/users/$userName'));
-
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> userData = jsonDecode(response.body);
-      return User.fromJson(userData);
-    } else {
-      // ignore: avoid_print
-      print('Failed to load user: ${response.statusCode}');
-      return null;
-    }
+    return User();
   }
 
   static User getUserById(int id) {
@@ -120,7 +108,7 @@ class User {
     return [
       User(),
       User.info(
-        id: 2,
+          id: 2,
           image: null,
           userName: "userName",
           fullName: "fullName",
@@ -130,7 +118,7 @@ class User {
           ishost: false,
           blocked: true),
       User.info(
-        id:3,
+          id: 3,
           image: null,
           userName: "userName2",
           fullName: "fullName2",
@@ -140,7 +128,7 @@ class User {
           ishost: false,
           blocked: false),
       User.info(
-        id: 4,
+          id: 4,
           image: null,
           userName: "userName3",
           fullName: "fullName3",
