@@ -7,6 +7,7 @@ import 'package:smart_home/model/info_reader.dart';
 import 'package:smart_home/model/setting.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/presenter/setting_presenter.dart';
+import 'package:smart_home/view/index_screen.dart';
 import 'package:smart_home/view/login_screen.dart';
 
 
@@ -100,7 +101,7 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
-      home:const SignIn(),
+      home:const LoginSCreen(),
     );
   }
 }
