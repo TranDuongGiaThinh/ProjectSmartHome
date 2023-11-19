@@ -20,7 +20,7 @@ class BottomNav extends StatelessWidget {
         BottomNavigationBarItem(
           label: LanguagePresenter.language.statistical,
 
-          icon: const Icon(Icons.stacked_bar_chart_rounded)
+          icon: const Icon(Icons.stacked_bar_chart)
 
         ),
         BottomNavigationBarItem(

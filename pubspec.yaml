@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
   http: ^0.13.3
 
 
@@ -41,6 +42,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   infinite_carousel: ^1.0.2
   carousel_slider: ^4.0.0
+
+  firebase_core: ^2.22.0
+  firebase_auth: ^4.14.0
+  cloud_firestore: ^4.13.1
 
 dev_dependencies:
   flutter_test:
