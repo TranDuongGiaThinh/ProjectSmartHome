@@ -19,15 +19,17 @@ class BottomNav extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           label: LanguagePresenter.language.statistical,
-          icon: const Icon(Icons.home)
+
+          icon: const Icon(Icons.stacked_bar_chart)
+
         ),
         BottomNavigationBarItem(
           label: LanguagePresenter.language.scheduling,
-          icon: const Icon(Icons.home)
+          icon: const Icon(Icons.schedule)
         ),
         BottomNavigationBarItem(
           label: LanguagePresenter.language.setting,
-          icon: const Icon(Icons.home)
+          icon: const Icon(Icons.settings)
         ),
       ],
       currentIndex: currentIndex,

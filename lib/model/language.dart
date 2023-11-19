@@ -1,4 +1,5 @@
 class Language {
+  late String appName;
   late String setting;
   late String userName;
   late String fullName;
@@ -9,6 +10,7 @@ class Language {
   late String kitchen;
   late String bedRoom;
   late String toilet;
+  late List<String> listRoom = [livingRoom, kitchen, bedRoom, toilet];
   late String edit;
   late String changePassword;
   late String accountsManagement;
@@ -19,6 +21,7 @@ class Language {
   late String blockUser;
   late String unBlockUser;
   late String deleteUser;
+  late String updateUser;
   late String addNewUser;
   late String blocked;
   late String fullPermission;
@@ -26,9 +29,21 @@ class Language {
   late String index;
   late String statistical;
   late String scheduling;
+  late String listAccount;
+  late String save;
+  late String accountState;
+  late String active;
+  late String notHaveAccess;
+  late String password;
+  late String confirmPassword;
+  late String ok;
+  late String success;
+  late String failure;
+  
 
   Language(String typeLanguage) {
     if (typeLanguage == "vi") {
+      appName = "Nhà thông minh";
       setting = "Cài đặt";
       userName = "Tên đăng nhập";
       fullName = "Họ và tên";
@@ -49,6 +64,7 @@ class Language {
       blockUser = "Khóa tài khoản";
       unBlockUser = "Mở khóa";
       deleteUser = "Xóa tài khoản";
+      updateUser = "Cập nhật tài khoản";
       addNewUser = "Tạo tài khoản mới";
       blocked = "Bị khóa";
       fullPermission = "Tất cả quyền";
@@ -56,7 +72,19 @@ class Language {
       index = "Trang chủ";
       statistical = "Thống kê";
       scheduling = "Lên lịch";
+      listAccount = "Danh sách tài khoản";
+      save = "Lưu";
+      accountState = "Trạng thái tài khoản";
+      active = "Hoạt động";
+      notHaveAccess = "Không có quyền truy cập";
+      password = "Mật khẩu";
+      confirmPassword = "Xác nhận mật khẩu";
+      ok = "Ok";
+      success = "Thành công";
+      failure = "Thất bại";
+      
     } else {
+      appName = "Smart home";
       setting = "Setting";
       userName = "User name";
       fullName = "Full name";
@@ -77,6 +105,7 @@ class Language {
       blockUser = "Block user";
       unBlockUser = "Unblock user";
       deleteUser = "Delete user";
+      updateUser = "Update user";
       addNewUser = "Add new user";
       blocked = "Blocked";
       fullPermission = "Full permission";
@@ -84,6 +113,17 @@ class Language {
       index = "Index";
       statistical = "Statistical";
       scheduling = "Scheduling";
+      listAccount = "List account";
+      save = "save";
+      accountState = "Account state";
+      active = "Active";
+      notHaveAccess = "Not have access";
+      password = "Password";
+      confirmPassword = "Confirm password";
+      ok = "Ok";
+      success = "Success";
+      failure = "Failure";
+
     }
   }
 }

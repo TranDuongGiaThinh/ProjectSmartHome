@@ -40,7 +40,7 @@ class CustomButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(width: MediaQuery.of(context).size.width / 3),
-              Icon(icon),
+              Icon(icon,color: Colors.white),
               Container(width: 10),
               Text(
                 content,
