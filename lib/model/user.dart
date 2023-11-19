@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:smart_home/model/constants.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 
+
 class User {
   late int? id;
   late Uint8List? image;
@@ -74,7 +75,9 @@ class User {
 
   static Map<String, dynamic> toJson(User user) {
     return {
-      'image': user.image?.isNotEmpty ?? false ? convertImageToString(user.image!) : 'null',
+      'image': user.image?.isNotEmpty ?? false
+          ? convertImageToString(user.image!)
+          : 'null',
       'userName': user.userName,
       'password': user.password!,
       'fullName': user.fullName,
@@ -149,9 +152,9 @@ class User {
   }
 
   static String convertImageToString(Uint8List uint8List) {
-  String s = base64Encode(uint8List);
-  return s;
-}
+    String s = base64Encode(uint8List);
+    return s;
+  }
 
   bool getPermissionLivingRoom() {
     return permissions[Constants.livingRoom];
