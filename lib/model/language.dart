@@ -1,4 +1,5 @@
 class Language {
+  late String appName;
   late String setting;
   late String userName;
   late String fullName;
@@ -20,6 +21,7 @@ class Language {
   late String blockUser;
   late String unBlockUser;
   late String deleteUser;
+  late String updateUser;
   late String addNewUser;
   late String blocked;
   late String fullPermission;
@@ -34,9 +36,14 @@ class Language {
   late String notHaveAccess;
   late String password;
   late String confirmPassword;
+  late String ok;
+  late String success;
+  late String failure;
+  
 
   Language(String typeLanguage) {
     if (typeLanguage == "vi") {
+      appName = "Nhà thông minh";
       setting = "Cài đặt";
       userName = "Tên đăng nhập";
       fullName = "Họ và tên";
@@ -57,6 +64,7 @@ class Language {
       blockUser = "Khóa tài khoản";
       unBlockUser = "Mở khóa";
       deleteUser = "Xóa tài khoản";
+      updateUser = "Cập nhật tài khoản";
       addNewUser = "Tạo tài khoản mới";
       blocked = "Bị khóa";
       fullPermission = "Tất cả quyền";
@@ -71,8 +79,12 @@ class Language {
       notHaveAccess = "Không có quyền truy cập";
       password = "Mật khẩu";
       confirmPassword = "Xác nhận mật khẩu";
+      ok = "Ok";
+      success = "Thành công";
+      failure = "Thất bại";
       
     } else {
+      appName = "Smart home";
       setting = "Setting";
       userName = "User name";
       fullName = "Full name";
@@ -93,6 +105,7 @@ class Language {
       blockUser = "Block user";
       unBlockUser = "Unblock user";
       deleteUser = "Delete user";
+      updateUser = "Update user";
       addNewUser = "Add new user";
       blocked = "Blocked";
       fullPermission = "Full permission";
@@ -107,6 +120,9 @@ class Language {
       notHaveAccess = "Not have access";
       password = "Password";
       confirmPassword = "Confirm password";
+      ok = "Ok";
+      success = "Success";
+      failure = "Failure";
 
     }
   }
