@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:smart_home/view/resuable_widgets.dart';
 import 'package:smart_home/view/color_utils.dart';
+import 'package:smart_home/view/index_screen.dart';
 import 'package:smart_home/view/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({super.key, required this.reloadThemeMode});
+  final Function reloadThemeMode;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -53,11 +55,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   //         email: _emailTextController.text,
                   //         password: _passwordTextController.text)
                   //     .then((value) {
-
-                    /* LẤY USER ĐĂNG NHẬP => USER KHÁC NULL -> CHUYỂN TRANG !!!!!!!!!!!!!!!!!!!! */
-                    if(true){
-                    Navigator.pushReplacementNamed(context, "/");
-                    }
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) =>  IndexScreen(reloadThemeMode: widget.reloadThemeMode)));
                 //   }).onError((error, stackTrace) {
                 //     print("Error ${error.toString()}");
                 //   });

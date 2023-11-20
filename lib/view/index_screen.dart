@@ -3,6 +3,7 @@ import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/view/bottom_nav.dart';
 import 'package:smart_home/view/scheduling_screen.dart';
 import 'package:smart_home/view/setting_screen.dart';
+import 'package:smart_home/view/statistical_screen.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({super.key, required this.reloadThemeMode});
@@ -53,8 +54,7 @@ class _IndexScreenState extends State<IndexScreen> {
       case 0:
         return _buildIndexScreen();
       case 1:
-        //thống kê
-        return const Text("Chưa làm");
+        return const StatisticalScreen();
       case 2:
         return const SchedulingScreen();
       case 3:

@@ -100,7 +100,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       initialRoute: "/login",
       routes: {
-        "/login":(context) => const LoginScreen(),
+        "/login":(context) => LoginScreen(reloadThemeMode: reloadThemeMode),
         "/":(context) => IndexScreen(reloadThemeMode: reloadThemeMode)
       },
     );
