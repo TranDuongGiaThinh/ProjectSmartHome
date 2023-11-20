@@ -356,6 +356,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
   void logOut() {
     //clear file account
     //goto login screen
+    Navigator.pushNamed(context, "/login");
   }
   void updatePassword() {
     bool result = UserPresenter.changePassword(widget.user, password.text);

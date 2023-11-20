@@ -8,6 +8,7 @@ import 'package:smart_home/model/setting.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/presenter/setting_presenter.dart';
 import 'package:smart_home/view/index_screen.dart';
+import 'package:smart_home/view/login_screen.dart';
 
 
 void createCollection() async {
@@ -20,16 +21,13 @@ void createCollection() async {
   }
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  // Tên collection bạn muốn tạo
   String collectionName = 'users';
 
-  // Kiểm tra xem collection đã tồn tại chưa
   bool isCollectionExist = await firestore
       .collection(collectionName)
       .get()
       .then((value) => value.docs.isNotEmpty);
 
-  // Nếu chưa tồn tại, thì tạo mới
   if (isCollectionExist) {
     // ignore: avoid_print
     print('Collection already exists.');
@@ -100,7 +98,11 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
-      home: IndexScreen(reloadThemeMode: reloadThemeMode),
+      initialRoute: "/login",
+      routes: {
+        "/login":(context) => LoginScreen(reloadThemeMode: reloadThemeMode),
+        "/":(context) => IndexScreen(reloadThemeMode: reloadThemeMode)
+      },
     );
   }
 }
