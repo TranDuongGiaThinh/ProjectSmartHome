@@ -16,6 +16,18 @@ class AccountsManagementScreen extends StatefulWidget {
 class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
   User? userSelected;
 
+  getAllUser() {
+    UserPresenter.getAllUser().then((_) {
+      setState(() {});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAllUser();
+  }
+
   updateUserSelected(User newSelected) {
     setState(() {
       userSelected = newSelected;
@@ -60,7 +72,8 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Text(LanguagePresenter.language.listAccount,
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16)),
               ),
             ),
             Table(
@@ -87,53 +100,54 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
                     ),
                   ],
                 ),
-                for (int i = 0; i < UserPresenter.users.length; i++)
-                  TableRow(
-                    decoration: BoxDecoration(
-                      color: UserPresenter.users[i] == userSelected
-                          ? Colors.blue
-                          : null,
+                if (UserPresenter.users != null)
+                  for (int i = 0; i < UserPresenter.users!.length; i++)
+                    TableRow(
+                      decoration: BoxDecoration(
+                        color: UserPresenter.users![i] == userSelected
+                            ? Colors.blue
+                            : null,
+                      ),
+                      children: [
+                        TableCell(
+                            child: InkWell(
+                          onTap: () {
+                            updateUserSelected(UserPresenter.users![i]);
+                          },
+                          child: Center(
+                              child: Text(UserPresenter.users![i].userName)),
+                        )),
+                        TableCell(
+                            child: InkWell(
+                          onTap: () {
+                            updateUserSelected(UserPresenter.users![i]);
+                          },
+                          child: Center(
+                              child: Text(UserPresenter.users![i].fullName)),
+                        )),
+                        TableCell(
+                            child: InkWell(
+                          onTap: () {
+                            updateUserSelected(UserPresenter.users![i]);
+                          },
+                          child: Center(
+                              child: Text(UserPresenter.getStringPermission(
+                                  UserPresenter.users![i]))),
+                        )),
+                        TableCell(
+                            child: InkWell(
+                          onTap: () {
+                            updateUserSelected(UserPresenter.users![i]);
+                          },
+                          child: Center(
+                              child: Checkbox(
+                                  onChanged: (valua) {
+                                    updateUserSelected(UserPresenter.users![i]);
+                                  },
+                                  value: UserPresenter.users![i].blocked)),
+                        )),
+                      ],
                     ),
-                    children: [
-                      TableCell(
-                          child: InkWell(
-                        onTap: () {
-                          updateUserSelected(UserPresenter.users[i]);
-                        },
-                        child: Center(
-                            child: Text(UserPresenter.users[i].userName)),
-                      )),
-                      TableCell(
-                          child: InkWell(
-                        onTap: () {
-                          updateUserSelected(UserPresenter.users[i]);
-                        },
-                        child: Center(
-                            child: Text(UserPresenter.users[i].fullName)),
-                      )),
-                      TableCell(
-                          child: InkWell(
-                        onTap: () {
-                          updateUserSelected(UserPresenter.users[i]);
-                        },
-                        child: Center(
-                            child: Text(UserPresenter.getStringPermission(
-                                UserPresenter.users[i]))),
-                      )),
-                      TableCell(
-                          child: InkWell(
-                        onTap: () {
-                          updateUserSelected(UserPresenter.users[i]);
-                        },
-                        child: Center(
-                            child: Checkbox(
-                                onChanged: (valua) {
-                                  updateUserSelected(UserPresenter.users[i]);
-                                },
-                                value: UserPresenter.users[i].blocked)),
-                      )),
-                    ],
-                  ),
               ],
             ),
           ],
@@ -142,5 +156,6 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
 
   addNewUser() {
     //goto signup screen
+    Navigator.pushNamed(context, "/signUp");
   }
 }

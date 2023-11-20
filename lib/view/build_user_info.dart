@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:smart_home/model/constants.dart';
 import 'package:smart_home/model/user.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
@@ -25,15 +26,18 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
   TextEditingController password = TextEditingController();
   TextEditingController comfirmPassword = TextEditingController();
 
-  bool isInfoEditting = false;
-  bool isPasswordEditting = false;
-  late bool ischeckAll = false;
+  late bool isInfoEditting;
+  late bool isPasswordEditting;
+  late bool ischeckAll;
   late User tempUser;
   late List<bool> prePermisions;
 
   initial() {
     tempUser = User.copy(widget.user);
     ischeckAll = UserPresenter.isUserFullPermission(tempUser);
+    isInfoEditting = false;
+    isPasswordEditting = false;
+    ischeckAll = false;
   }
 
   @override
@@ -188,7 +192,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           const SizedBox(width: 40),
           GestureDetector(
-              onTap: () => updateAvatar, child: buildAvatarUser(user.image)),
+              onTap: updateAvatar, child: buildAvatarUser(user.image)),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -372,8 +376,15 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         "${LanguagePresenter.language.changePassword} $strResult");
   }
 
-  void updateAvatar() {
+  void updateAvatar() async {
     //show screen upload image
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      final imageBytes = await pickedFile.readAsBytes();
+      Uint8List imageUint8List = Uint8List.fromList(imageBytes);
+    }
   }
 
   void blockOrUnblockUser() {
