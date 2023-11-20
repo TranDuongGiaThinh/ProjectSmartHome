@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/resuable_widgets/resuable_widgets.dart';
-import 'package:smart_home/utils/color_utils.dart';
-import 'package:smart_home/view/home_screen.dart';
+import 'package:smart_home/view/resuable_widgets.dart';
+import 'package:smart_home/view/color_utils.dart';
 import 'package:smart_home/view/sign_up_screen.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignInState extends State<SignIn> {
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailTextController=TextEditingController();
     final TextEditingController _passwordTextController=TextEditingController();
 
@@ -54,8 +53,11 @@ class _SignInState extends State<SignIn> {
                   //         email: _emailTextController.text,
                   //         password: _passwordTextController.text)
                   //     .then((value) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const HomeScreen()));
+
+                    /* LẤY USER ĐĂNG NHẬP => USER KHÁC NULL -> CHUYỂN TRANG !!!!!!!!!!!!!!!!!!!! */
+                    if(true){
+                    Navigator.pushReplacementNamed(context, "/");
+                    }
                 //   }).onError((error, stackTrace) {
                 //     print("Error ${error.toString()}");
                 //   });
@@ -79,7 +81,7 @@ class _SignInState extends State<SignIn> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SignUp()));
+                MaterialPageRoute(builder: (context) => const SignUpScreen()));
           },
           child: const Text(
             " Sign Up",

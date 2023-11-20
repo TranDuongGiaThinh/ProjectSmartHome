@@ -54,11 +54,9 @@ class _IndexScreenState extends State<IndexScreen> {
         return _buildIndexScreen();
       case 1:
         //thống kê
-        return Container(); //body
+        return const Text("Chưa làm");
       case 2:
-
-        
-        return SchedulingScreen();//body
+        return const SchedulingScreen();
       case 3:
         return SettingScreen(reloadThemeMode: widget.reloadThemeMode);
     }
@@ -66,6 +64,6 @@ class _IndexScreenState extends State<IndexScreen> {
   }
 
   Widget _buildIndexScreen() {
-    return Container(); //body
+    return const Text("Chưa làm");
   }
 }

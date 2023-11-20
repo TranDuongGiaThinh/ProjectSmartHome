@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ui_statistical_page/bar%20graph/individual_bar.dart';
+
+import 'lib/model/individual_bar.dart';
 
 class BarData {
   final double sunAmount;

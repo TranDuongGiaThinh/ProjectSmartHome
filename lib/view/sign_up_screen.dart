@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/resuable_widgets/resuable_widgets.dart';
-import 'package:smart_home/utils/color_utils.dart';
+import 'package:smart_home/view/resuable_widgets.dart';
+import 'package:smart_home/view/color_utils.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _userNameTextController = TextEditingController();
