@@ -1,25 +1,3 @@
-
-import 'package:flutter/material.dart';
-import 'package:ui_statistical_page/home_page.dart';
-import 'home_page.dart';
-// import 'statistical_page.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
-    );
-  }
-}
-=======
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -43,16 +21,13 @@ void createCollection() async {
   }
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  // Tên collection bạn muốn tạo
   String collectionName = 'users';
 
-  // Kiểm tra xem collection đã tồn tại chưa
   bool isCollectionExist = await firestore
       .collection(collectionName)
       .get()
       .then((value) => value.docs.isNotEmpty);
 
-  // Nếu chưa tồn tại, thì tạo mới
   if (isCollectionExist) {
     // ignore: avoid_print
     print('Collection already exists.');
@@ -123,8 +98,11 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
-      home:const LoginSCreen(),
+      initialRoute: "/login",
+      routes: {
+        "/login":(context) => LoginScreen(reloadThemeMode: reloadThemeMode),
+        "/":(context) => IndexScreen(reloadThemeMode: reloadThemeMode)
+      },
     );
   }
 }
-
