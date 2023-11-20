@@ -40,7 +40,9 @@ class _IndexScreenState extends State<IndexScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text(title))),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Center(child: Text(title))),
       body: _buildSelectedContent(),
       bottomNavigationBar: BottomNav(
         currentIndex: selectedIndex,

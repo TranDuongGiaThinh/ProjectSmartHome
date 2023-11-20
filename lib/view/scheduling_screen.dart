@@ -229,7 +229,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
     Scaffold(
       body: SingleChildScrollView(child: 
       Container(
-        height: MediaQuery.of(context).size.height,
+        // : MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -378,8 +378,11 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
                   ),
                   height: 120,
                   padding:EdgeInsets.all(10.0),
-                  width: MediaQuery.of(context).size.width,
-                  child: TextField(decoration: InputDecoration(hintText:'Mô tả '),)
+                  width: MediaQuery.of(context).size.width-20,
+                  child: Column(children: [
+                    Text('Mô tả',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
+                    TextField(decoration: InputDecoration(hintText:'Mô tả '),)
+                  ],)
                 ),
               SizedBox(height: 10,),
               Row(children: [
