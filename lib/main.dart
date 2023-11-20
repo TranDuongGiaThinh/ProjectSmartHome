@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_home/model/info_reader.dart';
-import 'package:smart_home/model/setting.dart';
-import 'package:smart_home/presenter/language_presenter.dart';
-import 'package:smart_home/presenter/setting_presenter.dart';
-import 'package:smart_home/view/index_screen.dart';
-import 'package:smart_home/view/login_screen.dart';
+import 'package:smart_home/models/info_reader.dart';
+import 'package:smart_home/models/setting.dart';
+import 'package:smart_home/presenters/language_presenter.dart';
+import 'package:smart_home/presenters/setting_presenter.dart';
+import 'package:smart_home/views/index_screen.dart';
+import 'package:smart_home/views/login_screen.dart';
 
 
 void createCollection() async {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/presenter/language_presenter.dart';
-import 'package:smart_home/presenter/user_presenter.dart';
-import 'package:smart_home/view/custom_button.dart';
-import 'package:smart_home/model/user.dart';
-import 'package:smart_home/view/build_user_info.dart';
+import 'package:smart_home/presenters/language_presenter.dart';
+import 'package:smart_home/presenters/user_presenter.dart';
+import 'package:smart_home/views/custom_button.dart';
+import 'package:smart_home/models/user.dart';
+import 'package:smart_home/views/build_user_info.dart';
 
 class AccountsManagementScreen extends StatefulWidget {
   const AccountsManagementScreen({super.key});

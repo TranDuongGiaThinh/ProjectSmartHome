@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/model/language.dart';
-import 'package:smart_home/presenter/language_presenter.dart';
+import 'package:smart_home/models/language.dart';
+import 'package:smart_home/presenters/language_presenter.dart';
 
 class SchedulingScreen extends StatefulWidget {
   const SchedulingScreen({Key? key}) : super(key: key);

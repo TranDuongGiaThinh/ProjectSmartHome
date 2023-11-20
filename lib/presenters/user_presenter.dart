@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:smart_home/model/user.dart';
+import 'package:smart_home/models/user.dart';
 
 class UserPresenter {
   static User? userLogin = User();///
