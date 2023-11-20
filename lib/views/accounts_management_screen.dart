@@ -16,10 +16,9 @@ class AccountsManagementScreen extends StatefulWidget {
 class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
   User? userSelected;
 
-  getAllUser() {
-    UserPresenter.getAllUser().then((_) {
-      setState(() {});
-    });
+  getAllUser() async {
+    await UserPresenter.getAllUser();
+    setState(() {});
   }
 
   @override
