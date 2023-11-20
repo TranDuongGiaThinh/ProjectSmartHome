@@ -1,19 +1,25 @@
-import 'package:smart_home/model/user.dart';
+import 'dart:typed_data';
+
+import 'package:smart_home/models/user.dart';
 
 class UserPresenter {
-  static User? userLogin;
-  static List<User>? users;
+  static User? userLogin = User();///
+  static List<User> users = getAllUser();
 
-  static getUserById(String id) async {
-    userLogin = await User.getUserById(id);
+  static Future<User?> getUserLogin(String userName) async {
+    return await User.getUserLogin(userName);
+  }
+
+  static User getUserById(int id) {
+    return User.getUserById(id);
   }
 
   static bool checkLogin(String userName, String password){
     return User.checkLogin(userName, password);
   }
 
-  static getAllUser() async {
-    users = await User.getAllUser();
+  static List<User> getAllUser() {
+    return User.getAllUser();
   }
 
   static String getStringPermission(User user) {
@@ -38,6 +44,10 @@ class UserPresenter {
 
   static bool isUserFullPermission(User user) {
     return user.isFullPermission();
+  }
+
+  static Uint8List convertImagePathToBytes(String imagePath){
+    return User.convertImagePathToBytes(imagePath);
   }
 
   static bool blockOrUnblockUser(User user) {

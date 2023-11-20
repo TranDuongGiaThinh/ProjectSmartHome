@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
-import 'package:smart_home/presenter/firebase_presenter.dart';
+import 'package:smart_home/presenters/firebase_presenter.dart';
 
 class FirebaseModel {
   static Future<FirebaseFirestore?> initialize() async {

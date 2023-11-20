@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/view/bar_graph.dart';
+import 'package:smart_home/views/bar_graph.dart';
 // import 'package:ui_statistical_page/bar%20graph/bar_graph_demo.dart';
 
 // import 'navbar.dart';

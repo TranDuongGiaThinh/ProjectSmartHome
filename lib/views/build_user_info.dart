@@ -1,13 +1,12 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:smart_home/model/constants.dart';
-import 'package:smart_home/model/user.dart';
-import 'package:smart_home/presenter/language_presenter.dart';
-import 'package:smart_home/presenter/user_presenter.dart';
-import 'package:smart_home/view/custom_button.dart';
-import 'package:smart_home/view/show_diaglog.dart';
+import 'package:smart_home/models/constants.dart';
+import 'package:smart_home/models/user.dart';
+import 'package:smart_home/presenters/language_presenter.dart';
+import 'package:smart_home/presenters/user_presenter.dart';
+import 'package:smart_home/views/custom_button.dart';
+import 'package:smart_home/views/show_diaglog.dart';
 
 class BuildUserInfo extends StatefulWidget {
   const BuildUserInfo(
@@ -26,18 +25,15 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
   TextEditingController password = TextEditingController();
   TextEditingController comfirmPassword = TextEditingController();
 
-  late bool isInfoEditting;
-  late bool isPasswordEditting;
-  late bool ischeckAll;
+  bool isInfoEditting = false;
+  bool isPasswordEditting = false;
+  late bool ischeckAll = false;
   late User tempUser;
   late List<bool> prePermisions;
 
   initial() {
     tempUser = User.copy(widget.user);
     ischeckAll = UserPresenter.isUserFullPermission(tempUser);
-    isInfoEditting = false;
-    isPasswordEditting = false;
-    ischeckAll = false;
   }
 
   @override
@@ -192,7 +188,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           const SizedBox(width: 40),
           GestureDetector(
-              onTap: updateAvatar, child: buildAvatarUser(user.image)),
+              onTap: () => updateAvatar, child: buildAvatarUser(user.image)),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -376,15 +372,8 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         "${LanguagePresenter.language.changePassword} $strResult");
   }
 
-  void updateAvatar() async {
+  void updateAvatar() {
     //show screen upload image
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      final imageBytes = await pickedFile.readAsBytes();
-      Uint8List imageUint8List = Uint8List.fromList(imageBytes);
-    }
   }
 
   void blockOrUnblockUser() {

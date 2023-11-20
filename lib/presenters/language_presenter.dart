@@ -1,5 +1,5 @@
-import 'package:smart_home/model/language.dart';
-import 'package:smart_home/presenter/setting_presenter.dart';
+import 'package:smart_home/models/language.dart';
+import 'package:smart_home/presenters/setting_presenter.dart';
 
 class LanguagePresenter {
   static Language language = Language(SettingPresenter.setting.language);

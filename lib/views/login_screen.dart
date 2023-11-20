@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/presenter/user_presenter.dart';
-import 'package:smart_home/view/resuable_widgets.dart';
-import 'package:smart_home/view/color_utils.dart';
-import 'package:smart_home/view/index_screen.dart';
-import 'package:smart_home/view/sign_up_screen.dart';
+import 'package:smart_home/views/resuable_widgets.dart';
+import 'package:smart_home/views/color_utils.dart';
+import 'package:smart_home/views/index_screen.dart';
+import 'package:smart_home/views/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.reloadThemeMode});
@@ -16,17 +15,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailTextController=TextEditingController();
     final TextEditingController _passwordTextController=TextEditingController();
-
-  initialize() async{
-    await UserPresenter.getUserById("1");
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    initialize();
-  }
 
    @override
   Widget build(BuildContext context) {

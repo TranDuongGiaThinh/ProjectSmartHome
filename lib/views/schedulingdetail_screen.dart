@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:smart_home/view/scheduling_screen.dart';
+import 'package:smart_home/views/scheduling_screen.dart';
 
 class schedulingDetail_screen extends StatefulWidget {
   const schedulingDetail_screen({super.key});
