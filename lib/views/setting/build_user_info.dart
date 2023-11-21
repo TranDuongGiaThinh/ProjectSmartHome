@@ -5,8 +5,8 @@ import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/user.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/user_presenter.dart';
-import 'package:smart_home/views/custom_button.dart';
-import 'package:smart_home/views/show_diaglog.dart';
+import 'package:smart_home/views/setting/custom_button.dart';
+import 'package:smart_home/views/setting/show_diaglog.dart';
 
 class BuildUserInfo extends StatefulWidget {
   const BuildUserInfo(

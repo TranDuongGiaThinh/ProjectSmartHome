@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
 import 'package:smart_home/presenters/user_presenter.dart';
-import 'package:smart_home/views/accounts_management_screen.dart';
-import 'package:smart_home/views/custom_button.dart';
-import 'package:smart_home/views/build_user_info.dart';
+import 'package:smart_home/views/setting/accounts_management_screen.dart';
+import 'package:smart_home/views/setting/build_user_info.dart';
+import 'package:smart_home/views/setting/custom_button.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key, required this.reloadThemeMode});

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/views/bottom_nav.dart';
 import 'package:smart_home/views/scheduling_screen.dart';
-import 'package:smart_home/views/setting_screen.dart';
+import 'package:smart_home/views/setting/setting_screen.dart';
 import 'package:smart_home/views/statistical_screen.dart';
 
 class IndexScreen extends StatefulWidget {
