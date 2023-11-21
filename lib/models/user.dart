@@ -89,9 +89,9 @@ class User {
     };
   }
 
-  static Future<User?> getUserById(String id) async {
-    Map<String, dynamic> map = await FirebaseModel.getUserLogin(id);
-    return User.fromJson(id, map);
+  static Future<User> getUserById(String id) async {
+    Map<String, dynamic>? map = await FirebaseModel.getUserById(id);
+    return User.fromJson(id, map!);
   }
 
   static bool checkLogin(String userName, String password) {

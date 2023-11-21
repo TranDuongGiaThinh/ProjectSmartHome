@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/info_reader.dart';
@@ -9,7 +7,9 @@ import 'package:smart_home/models/setting.dart';
 import 'package:smart_home/presenters/firebase_presenter.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
+
 import 'package:smart_home/views/home/home.dart';
+
 import 'package:smart_home/views/index_screen.dart';
 import 'package:smart_home/views/login_screen.dart';
 import 'package:smart_home/views/sign_up_screen.dart';
@@ -28,7 +28,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  InfoReader infoReader = InfoReader();
   ThemeMode themeMode = SettingPresenter.setting.themeModeLight
       ? ThemeMode.light
       : ThemeMode.dark;
@@ -51,12 +50,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> loadSetting() async {
-    String str = await infoReader.getStringJsonSetting();
+    String str = await InfoReader().getStringJsonSetting();
     if (str.isNotEmpty) {
       SettingPresenter.setting = Setting.fromJson(jsonDecode(str));
       reloadThemeMode();
     } else {
-      infoReader.saveSetting();
+      InfoReader().saveSetting();
       reloadThemeMode();
     }
   }
@@ -77,7 +76,7 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
+      initialRoute: "/login",
       routes: {
         "/login": (context) => LoginScreen(reloadThemeMode: reloadThemeMode),
         "/signUp": (context) => const SignUpScreen(),

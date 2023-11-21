@@ -30,18 +30,23 @@ class FirebaseModel {
       }
     } catch (e) {
       // ignore: avoid_print
-      print("error getAllUsers() intfirebase.dart: $e");
+      print("error getAllUsers() in firebase.dart: $e");
     }
     return null;
   }
 
-  static Future<Map<String, dynamic>>
-      getUserLogin(String id) async {
+  static Future<Map<String, dynamic>?>
+      getUserById(String id) async {
+        try{
     DocumentSnapshot<Map<String, dynamic>> querySnapshot = await FirebasePresenter.firestore!
               .collection("users")
               .doc(id)
               .get();
     
     return querySnapshot.data()!;
+        }catch (e){
+          print("error getUserById() in fireBase.dart: $e");
+          return null;
+        }
   }
 }
