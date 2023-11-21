@@ -10,6 +10,7 @@ import 'package:smart_home/presenters/firebase_presenter.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
 import 'package:smart_home/views/home/home.dart';
+import 'package:smart_home/views/index_screen.dart';
 import 'package:smart_home/views/login_screen.dart';
 import 'package:smart_home/views/sign_up_screen.dart';
 
