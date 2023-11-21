@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../presenters/language_presenter.dart';
+import '../../presenters/language_presenter.dart';
+
 
 class Scheduling_DetailScreen extends StatefulWidget {
   const Scheduling_DetailScreen({Key? key}) : super(key: key);

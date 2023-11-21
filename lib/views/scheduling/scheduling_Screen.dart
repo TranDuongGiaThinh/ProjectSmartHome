@@ -1,11 +1,13 @@
 
-import 'package:flutter/material.dart';
-import 'package:smart_home/view/scheduling_screen.dart' show SchedulingScreen;
-import 'package:smart_home/view/scheduling_screen.dart';
-import 'package:smart_home/views/schedulingDetail_screen.dart';
 
 
 // ignore: camel_case_types
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:smart_home/views/scheduling/schedulingDetail_screen.dart';
+
+
+
 class scheduling_screen extends StatefulWidget {
   const scheduling_screen({super.key});
 
@@ -41,8 +43,7 @@ class _scheduling_screenState extends State<scheduling_screen> {
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width/3.5,
             padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap:() => Scheduling_DetailScreen,
-            child:const Text('20/11/23',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,) ,),),
+            ,child: const Text('20/11/23',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,) ,),
             const SizedBox(width: 10,),
             Container(height: 40,decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)
             ,color: Colors.black54),
@@ -81,8 +82,8 @@ class _scheduling_screenState extends State<scheduling_screen> {
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width/2.5,
             padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap: (){const Scheduling_DetailScreen();
-            },
+            ,child: GestureDetector(onTap:() => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Scheduling_DetailScreen())),
             child:const Text('Sửa',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,) ,),),
             const SizedBox(height: 15,),
             Row(children: [
@@ -90,9 +91,7 @@ class _scheduling_screenState extends State<scheduling_screen> {
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width/3.5,
             padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap: (){const Scheduling_DetailScreen();
-            },
-            child:const Text('20/11/23',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,) ,),),
+            ,child: const Text('20/11/23',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,) ,),
             const SizedBox(width: 10,),
             Container(height: 40,decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)
             ,color: Colors.black54),
@@ -115,8 +114,7 @@ class _scheduling_screenState extends State<scheduling_screen> {
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width-20
             ,padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap: (){const Scheduling_DetailScreen();
-            },
+            ,child: GestureDetector(onTap:() => const Scheduling_DetailScreen(),
             child:Column(children: const [Text('Mô tả',textAlign: TextAlign.center,style: TextStyle(fontSize: 20),),
             TextField(decoration: InputDecoration(hintText: 'abcdefg'),)],),),),
           ],),),
@@ -132,7 +130,8 @@ class _scheduling_screenState extends State<scheduling_screen> {
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width/2.5,
             padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap: () =>schedulingScreen(context),
+            ,child: GestureDetector(onTap:() => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Scheduling_DetailScreen())),
             child:const Text('Sửa',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,) ,),),
             const SizedBox(height: 15,),
             Row(children: [
@@ -140,21 +139,22 @@ class _scheduling_screenState extends State<scheduling_screen> {
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width/3.5,
             padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap: () =>schedulingScreen(context),
-            child:const Text('20/11/23',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,) ,),),
+            ,child: const Text('20/11/23',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,) ,),
             const SizedBox(width: 10,),
             Container(height: 40,decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width/3.5,
             padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap: () =>schedulingScreen(context),
+            ,child: GestureDetector(onTap: (){const Scheduling_DetailScreen();
+            },
             child:const Text('4:00 AM',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,) ,),),
             const SizedBox(width: 10,),
             Container(height: 40,decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width/5.5,
             padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap: () =>schedulingScreen(context),
+            ,child: GestureDetector(onTap: (){const Scheduling_DetailScreen();
+            },
             child:const Icon(Icons.timer_rounded,color: Colors.amber,) ,),),
             ],),
             const SizedBox(height: 20,),
@@ -162,7 +162,7 @@ class _scheduling_screenState extends State<scheduling_screen> {
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width-20
             ,padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap: () =>schedulingScreen(context),
+            ,child: GestureDetector(onTap:() => const Scheduling_DetailScreen(),
             child:Column(children: const [Text('Mô tả',textAlign: TextAlign.center,style: TextStyle(fontSize: 20),),
             TextField(decoration: InputDecoration(hintText: 'abcdefg'),)],),),),
           ],),),
@@ -178,7 +178,8 @@ class _scheduling_screenState extends State<scheduling_screen> {
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width/2.5,
             padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap: () =>schedulingScreen(context),
+            ,child: GestureDetector(onTap:() => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Scheduling_DetailScreen())),
             child:const Text('Sửa',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,) ,),),
             const SizedBox(height: 15,),
             Row(children: [
@@ -186,21 +187,22 @@ class _scheduling_screenState extends State<scheduling_screen> {
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width/3.5,
             padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap: () =>schedulingScreen,
-            child:const Text('20/11/23',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,) ,),),
+            ,child: const Text('20/11/23',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,) ,),
             const SizedBox(width: 10,),
             Container(height: 40,decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width/3.5,
             padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap: () =>schedulingScreen,
+            ,child: GestureDetector(onTap: (){const Scheduling_DetailScreen();
+            },
             child:const Text('4:00 AM',style: TextStyle(fontSize: 20),textAlign: TextAlign.center,) ,),),
             const SizedBox(width: 10,),
             Container(height: 40,decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width/5.5,
             padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap:() =>schedulingScreen,
+            ,child: GestureDetector(onTap: (){const Scheduling_DetailScreen();
+            },
             child:const Icon(Icons.timer_rounded,color: Colors.amber,) ,),),
             ],),
             const SizedBox(height: 20,),
@@ -208,11 +210,12 @@ class _scheduling_screenState extends State<scheduling_screen> {
             ,color: Colors.black54),
             width:MediaQuery.of(context).size.width-20
             ,padding: const EdgeInsets.fromLTRB(5, 10, 5, 10)
-            ,child: GestureDetector(onTap: () =>schedulingScreen,
+            ,child: GestureDetector(onTap:() => const Scheduling_DetailScreen(),
             child:Column(children: const [Text('Mô tả',textAlign: TextAlign.center,style: TextStyle(fontSize: 20),),
             TextField(decoration: InputDecoration(hintText: 'abcdefg'),)],),),),
           ],),),
-        )
+        ),
+        const SizedBox(height: 20,),
       ],
       ),),
       ),
@@ -220,7 +223,7 @@ class _scheduling_screenState extends State<scheduling_screen> {
   }
 }
 
-void schedulingScreen(BuildContext context) {
+void schedulingDetaiScreen(BuildContext context) {
     Navigator.push(
         context ,
         MaterialPageRoute(

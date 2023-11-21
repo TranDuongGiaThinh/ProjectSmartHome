@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-
-import 'package:smart_home/presenters/language_presenter.dart';
-import 'package:smart_home/views/bottom_nav.dart';
-import 'package:smart_home/views/home/home.dart';
-import 'package:smart_home/views/scheduling_screen.dart';
+import 'package:smart_home/views/scheduling/scheduling_Screen.dart';
 import 'package:smart_home/views/setting/setting_screen.dart';
+
 import 'package:smart_home/views/statistical_screen.dart';
+
+import '../presenters/language_presenter.dart';
+import 'bottom_nav.dart';
+import 'home/home.dart';
+
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({super.key, required this.reloadThemeMode});
@@ -59,7 +61,7 @@ class _IndexScreenState extends State<IndexScreen> {
       case 1:
         return const StatisticalScreen();
       case 2:
-        return const SchedulingScreen();
+        return const scheduling_screen();
       case 3:
         return SettingScreen(reloadThemeMode: widget.reloadThemeMode);
       default:
