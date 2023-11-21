@@ -3,42 +3,19 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/info_reader.dart';
 import 'package:smart_home/models/setting.dart';
+import 'package:smart_home/presenters/firebase_presenter.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
+import 'package:smart_home/views/home/home.dart';
 import 'package:smart_home/views/index_screen.dart';
 import 'package:smart_home/views/login_screen.dart';
-
-
-void createCollection() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  try {
-    await Firebase.initializeApp();
-  } catch (e) {
-    // ignore: avoid_print
-    print('error in Firebase.initializeApp(): $e');
-  }
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  String collectionName = 'users';
-
-  bool isCollectionExist = await firestore
-      .collection(collectionName)
-      .get()
-      .then((value) => value.docs.isNotEmpty);
-
-  if (isCollectionExist) {
-    // ignore: avoid_print
-    print('Collection already exists.');
-  } else {
-    // ignore: avoid_print
-    print('Collection does not exist!');
-  }
-}
+import 'package:smart_home/views/sign_up_screen.dart';
 
 void main() async {
-  createCollection();
+  await FirebasePresenter.initialize();
 
   runApp(const MyApp());
 }
@@ -91,17 +68,20 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         brightness: Brightness.light,
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Constants.colorLightBackground,
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.green,
+        scaffoldBackgroundColor: Constants.colorDarkBackground,
       ),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
-      initialRoute: "/login",
+      initialRoute: "/",
       routes: {
-        "/login":(context) => LoginScreen(reloadThemeMode: reloadThemeMode),
-        "/":(context) => IndexScreen(reloadThemeMode: reloadThemeMode)
+        "/login": (context) => LoginScreen(reloadThemeMode: reloadThemeMode),
+        "/signUp": (context) => const SignUpScreen(),
+        "/": (context) => IndexScreen(reloadThemeMode: reloadThemeMode)
       },
     );
   }

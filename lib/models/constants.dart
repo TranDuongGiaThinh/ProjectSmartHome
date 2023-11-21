@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+
 class Constants{
   static const int livingRoom = 0;
   static const int kitchen = 1;
@@ -21,4 +25,9 @@ class Constants{
   static const int curtainToilet = 3;
 
   static String avatarDefault = "data/images/avt_default.png";
+  static Color colorButton = Colors.blue;
+  static Color colorUserBackground = Colors.grey;
+  static Color colorLightBackground = const Color.fromARGB(255, 237, 224, 224);
+  static Color colorDarkBackground = const Color.fromARGB(255, 32, 19, 100);
+  
 }

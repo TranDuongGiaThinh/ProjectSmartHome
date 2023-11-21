@@ -7,7 +7,7 @@ void showDialogResult(BuildContext context, String title, String message) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(title),
-        content: Text(message),
+        content: Text("$message!"),
         actions: <Widget>[
           TextButton(
             onPressed: () {
