@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/info_reader.dart';
 import 'package:smart_home/models/setting.dart';
 import 'package:smart_home/presenters/firebase_presenter.dart';
@@ -11,7 +12,6 @@ import 'package:smart_home/presenters/setting_presenter.dart';
 import 'package:smart_home/views/index_screen.dart';
 import 'package:smart_home/views/login_screen.dart';
 import 'package:smart_home/views/sign_up_screen.dart';
-
 
 void createCollection() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -93,10 +93,12 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         brightness: Brightness.light,
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Constants.colorLightBackground,
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.green,
+        scaffoldBackgroundColor: Constants.colorDarkBackground,
       ),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,

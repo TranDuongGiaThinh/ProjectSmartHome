@@ -53,7 +53,8 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         child: Container(
             width: MediaQuery.of(context).size.width - 20,
             decoration: BoxDecoration(
-                color: Colors.yellow, borderRadius: BorderRadius.circular(20)),
+                color: Constants.colorUserBackground,
+                borderRadius: BorderRadius.circular(20)),
             child: Visibility(
               visible: isInfoEditting,
               replacement: isPasswordEditting
@@ -358,6 +359,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     //goto login screen
     Navigator.pushNamed(context, "/login");
   }
+
   void updatePassword() {
     bool result = UserPresenter.changePassword(widget.user, password.text);
     String strResult = result

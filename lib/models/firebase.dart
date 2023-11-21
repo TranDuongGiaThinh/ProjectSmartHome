@@ -10,6 +10,7 @@ class FirebaseModel {
       await Firebase.initializeApp();
       return FirebaseFirestore.instance;
     } catch (e) {
+      // ignore: avoid_print
       print('Error in Firebase.initializeApp(): $e');
       return null;
     }
@@ -28,6 +29,7 @@ class FirebaseModel {
         return querySnapshot.docs;
       }
     } catch (e) {
+      // ignore: avoid_print
       print("error getAllUsers() intfirebase.dart: $e");
     }
     return null;

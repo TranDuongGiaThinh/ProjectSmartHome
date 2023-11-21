@@ -54,7 +54,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   icon: Icons.person,
                   height: 100,
                   content: LanguagePresenter.language.accountsManagement,
-                  action: accountManagement),
+                  action: goToAccountManagementScreen),
             CustomButton(
                 context: context,
                 icon: SettingPresenter.setting.themeModeLight
@@ -77,7 +77,7 @@ class _SettingScreenState extends State<SettingScreen> {
         ));
   }
 
-  void accountManagement() {
+  void goToAccountManagementScreen() {
     Navigator.push(
         context,
         MaterialPageRoute(

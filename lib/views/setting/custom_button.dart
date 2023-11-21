@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/models/constants.dart';
 
 class CustomButton extends StatelessWidget {
   CustomButton({
@@ -12,7 +13,7 @@ class CustomButton extends StatelessWidget {
     Color? color,
   })  : width = width ?? MediaQuery.of(context).size.width,
         height = height ?? 50,
-        color = color ?? Colors.blue;
+        color = color ?? Constants.colorButton;
 
   final BuildContext context;
   final IconData icon;
