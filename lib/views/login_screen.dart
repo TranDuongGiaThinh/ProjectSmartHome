@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/presenters/user_presenter.dart';
 import 'package:smart_home/views/resuable_widgets.dart';
 import 'package:smart_home/views/color_utils.dart';
 import 'package:smart_home/views/index_screen.dart';
@@ -13,12 +14,26 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailTextController=TextEditingController();
-    final TextEditingController _passwordTextController=TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
 
-   @override
+  //khởi tạo UserLogin khi đăng nhập thành công
+  initialize() async {
+    await UserPresenter.getUserById("1");
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    //tạm thời khởi tạo khi mở trang
+    initialize();
+  }
+
+  @override
   Widget build(BuildContext context) {
-   return Scaffold(
+    return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -34,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 20, MediaQuery.of(context).size.height * 0.2, 20, 0),
             child: Column(
               children: <Widget>[
-              //  logoWidget("assets/images/logo1.png"),
+                //  logoWidget("assets/images/logo1.png"),
                 const SizedBox(
                   height: 30,
                 ),
@@ -48,20 +63,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 5,
                 ),
-              //  forgetPassword(context),
+                //  forgetPassword(context),
                 firebaseUIButton(context, "Sign In", () {
                   // FirebaseAuth.instance
                   //     .signInWithEmailAndPassword(
                   //         email: _emailTextController.text,
                   //         password: _passwordTextController.text)
                   //     .then((value) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) =>  IndexScreen(reloadThemeMode: widget.reloadThemeMode)));
-                //   }).onError((error, stackTrace) {
-                //     print("Error ${error.toString()}");
-                //   });
-                 }
-                ),
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => IndexScreen(
+                              reloadThemeMode: widget.reloadThemeMode)));
+                  //   }).onError((error, stackTrace) {
+                  //     print("Error ${error.toString()}");
+                  //   });
+                }),
                 signUpOption()
               ],
             ),

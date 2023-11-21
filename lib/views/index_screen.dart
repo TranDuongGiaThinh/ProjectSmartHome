@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/views/bottom_nav.dart';
 import 'package:smart_home/views/scheduling_screen.dart';
 import 'package:smart_home/views/setting_screen.dart';
 
 import 'statistical/statistical_screen.dart';
+=======
+import 'package:smart_home/views/scheduling/scheduling_Screen.dart';
+import 'package:smart_home/views/setting/setting_screen.dart';
+
+import 'package:smart_home/views/statistical_screen.dart';
+>>>>>>> fb2a70e3dfc2c1c1418c621f722e557ec9a92f15
+
+import '../presenters/language_presenter.dart';
+import 'bottom_nav.dart';
+import 'home/home.dart';
+
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({super.key, required this.reloadThemeMode});
@@ -42,8 +54,9 @@ class _IndexScreenState extends State<IndexScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Center(child: Text(title))),
+          toolbarHeight: (selectedIndex == 0) ? 0 : null,
+          automaticallyImplyLeading: false,
+          title: Center(child: Text(title))),
       body: _buildSelectedContent(),
       bottomNavigationBar: BottomNav(
         currentIndex: selectedIndex,
@@ -54,19 +67,14 @@ class _IndexScreenState extends State<IndexScreen> {
 
   Widget _buildSelectedContent() {
     switch (selectedIndex) {
-      case 0:
-        return _buildIndexScreen();
       case 1:
         return const StatisticalScreen();
       case 2:
-        return const SchedulingScreen();
+        return const scheduling_screen();
       case 3:
         return SettingScreen(reloadThemeMode: widget.reloadThemeMode);
+      default:
+        return const HomeScreen();
     }
-    return const Placeholder();
-  }
-
-  Widget _buildIndexScreen() {
-    return const Text("Chưa làm");
   }
 }

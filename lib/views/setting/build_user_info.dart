@@ -5,8 +5,8 @@ import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/user.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/user_presenter.dart';
-import 'package:smart_home/views/custom_button.dart';
-import 'package:smart_home/views/show_diaglog.dart';
+import 'package:smart_home/views/setting/custom_button.dart';
+import 'package:smart_home/views/setting/show_diaglog.dart';
 
 class BuildUserInfo extends StatefulWidget {
   const BuildUserInfo(
@@ -53,7 +53,8 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         child: Container(
             width: MediaQuery.of(context).size.width - 20,
             decoration: BoxDecoration(
-                color: Colors.yellow, borderRadius: BorderRadius.circular(20)),
+                color: Constants.colorUserBackground,
+                borderRadius: BorderRadius.circular(20)),
             child: Visibility(
               visible: isInfoEditting,
               replacement: isPasswordEditting
@@ -358,6 +359,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     //goto login screen
     Navigator.pushNamed(context, "/login");
   }
+
   void updatePassword() {
     bool result = UserPresenter.changePassword(widget.user, password.text);
     String strResult = result
