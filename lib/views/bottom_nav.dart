@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/presenter/language_presenter.dart';
+import 'package:smart_home/presenters/language_presenter.dart';
 
 class BottomNav extends StatelessWidget {
   const BottomNav({Key? key, required this.currentIndex, required this.updateIndex}) : super(key: key);

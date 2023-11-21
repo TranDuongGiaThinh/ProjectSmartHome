@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:smart_home/model/constants.dart';
-import 'package:smart_home/presenter/language_presenter.dart';
+import 'package:smart_home/models/constants.dart';
+import 'package:smart_home/presenters/language_presenter.dart';
 
 
 class User {

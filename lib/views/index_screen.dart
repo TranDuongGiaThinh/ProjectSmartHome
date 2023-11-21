@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 import 'package:smart_home/view/bottom_nav.dart';
-import 'package:smart_home/view/schedulingdetail_screen.dart';
+import 'package:smart_home/view/scheduling_screen.dart';
 import 'package:smart_home/view/setting_screen.dart';
 import 'package:smart_home/view/statistical_screen.dart';
 
@@ -58,7 +58,7 @@ class _IndexScreenState extends State<IndexScreen> {
       case 1:
         return const StatisticalScreen();
       case 2:
-        return const schedulingDetail_screen();
+        return const SchedulingScreen();
       case 3:
         return SettingScreen(reloadThemeMode: widget.reloadThemeMode);
     }

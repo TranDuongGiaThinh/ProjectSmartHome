@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/model/language.dart';
 import 'package:smart_home/presenter/language_presenter.dart';
 
 class SchedulingScreen extends StatefulWidget {
   const SchedulingScreen({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _SchedulingScreenState createState() => _SchedulingScreenState();
 }
 
@@ -39,7 +39,6 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
   int? selectedRoomId; // Sử dụng kiểu int? để đối mặt với trường hợp người dùng chưa chọn phòng
   int? selectedDeviceId;
   int? selectedFunDeviceId;
-  @override
   void initState() {
     super.initState();
     selectedDate = DateTime.now();
@@ -140,8 +139,8 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-            title: const Text("Chọn phòng"),
-            content: SizedBox(
+            title: Text("Chọn phòng"),
+            content: Container(
               width: double.maxFinite, // Đảm bảo container chiếm đầy đủ chiều rộng
               height: 300, // Đặt chiều cao cố định hoặc điều chỉnh theo cần thiết
               child: ListView.builder(
@@ -149,7 +148,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   Room room = roomList[index];
                   return ListTile(
-                    title: Text(room.name,style: const TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+                    title: Text(room.name,style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
                     onTap: () {
                       Navigator.of(context).pop(room.id);
                     },
@@ -168,8 +167,8 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Chọn thiết bị"),
-          content: SizedBox(
+          title: Text("Chọn thiết bị"),
+          content: Container(
             width: double.maxFinite,
             height: 300,
             child: ListView.builder(
@@ -177,7 +176,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
               itemBuilder: (BuildContext context, int index) {
                 Device device = room.devices[index];
                 return ListTile(
-                  title: Text(device.name, style: const TextStyle(fontSize: 20)),
+                  title: Text(device.name, style: TextStyle(fontSize: 20)),
                   onTap: () {
                     Navigator.of(context).pop(device.id);
                   },
@@ -197,7 +196,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Chọn chức năng cho ${device.name}"),
-          content: SizedBox(
+          content: Container(
             width: double.maxFinite,
             height: 200,
             child: ListView.builder(
@@ -205,7 +204,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
               itemBuilder: (BuildContext context, int index) {
                 FunctionDevice function = device.fundevices[index];
                 return ListTile(
-                  title: Text(function.name, style: const TextStyle(fontSize: 20)),
+                  title: Text(function.name, style: TextStyle(fontSize: 20)),
                   onTap: () {
                     Navigator.of(context).pop(function.id);
                   },
@@ -222,19 +221,19 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
   @override
   Widget build(BuildContext context) {
     String dateString = 'Chưa chọn ngày';
-    dateString = '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}';
+    if (selectedDate != null) {
+      dateString = '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}';
+    }
 
     return 
     Scaffold(
-      appBar: AppBar(title: Text(LanguagePresenter.language.scheduling),),
       body: SingleChildScrollView(child: 
       Container(
         // : MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.all(20.0),
-        child: Column( 
+        child: Column(
           children: [
-            
             const SizedBox(height: 30.0),
             GestureDetector(
               onTap: () => _selectDate(context),
@@ -249,7 +248,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     const Icon(Icons.date_range_outlined, size: 50),
-                    Text(dateString, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
+                    Text('$dateString', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
                   ],
                 ),
               ),
@@ -292,7 +291,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
                         width: MediaQuery.of(context).size.width,
                         child: Center(
                           child: Text(
-                            selectedRoomId != null ? roomList[selectedRoomId!].name : 'Chưa chọn phòng',
+                            selectedRoomId != null ? '${roomList[selectedRoomId!].name}' : 'Chưa chọn phòng',
                             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           ),
@@ -319,7 +318,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
                         child: Center(
                           child: Text(
                             selectedDeviceId != null && selectedRoomId != null
-                                ? roomList[selectedRoomId!].devices[selectedDeviceId!].name
+                                ? '${roomList[selectedRoomId!].devices[selectedDeviceId!].name}'
                                 : 'Chưa chọn chức năng',
                             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
@@ -346,7 +345,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
                       }
                     } else {
                       // Nếu chưa chọn thiết bị, hiển thị thông báo hoặc thực hiện hành động phù hợp với trường hợp của bạn
-                      // print('Vui lòng chọn thiết bị trước khi chọn chức năng.');
+                      print('Vui lòng chọn thiết bị trước khi chọn chức năng.');
                       // Hoặc thực hiện hành động khác tùy thuộc vào yêu cầu của bạn
                     }
                   }
@@ -363,7 +362,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
                       selectedFunDeviceId != null &&
                         selectedDeviceId != null &&
                         selectedRoomId != null
-                      ? roomList[selectedRoomId!].devices[selectedDeviceId!].fundevices[selectedFunDeviceId!].name
+                      ? '${roomList[selectedRoomId!].devices[selectedDeviceId!].fundevices[selectedFunDeviceId!].name}'
                       : 'Chưa chọn thiết bị',
                       style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
@@ -371,21 +370,21 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10,),
+              SizedBox(height: 10,),
               Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: const Color.fromARGB(255, 151, 71, 255),
                   ),
                   height: 120,
-                  padding:const EdgeInsets.all(10.0),
+                  padding:EdgeInsets.all(10.0),
                   width: MediaQuery.of(context).size.width-20,
-                  child: Column(children: const [
+                  child: Column(children: [
                     Text('Mô tả',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
                     TextField(decoration: InputDecoration(hintText:'Mô tả '),)
                   ],)
                 ),
-              const SizedBox(height: 10,),
+              SizedBox(height: 10,),
               Row(children: [
                 GestureDetector(
                   onTap: () {},
@@ -395,16 +394,16 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
                     color: const Color.fromARGB(255, 151, 71, 255),
                   ),
                   height: 80,
-                  padding:const EdgeInsets.all(10.0),
+                  padding:EdgeInsets.all(10.0),
                   width: MediaQuery.of(context).size.width/2-25,
-                  child: Column(children: const [
-                    Icon(Icons.add_alarm_sharp,size: 40,),
-                    Text('Lưu',style: TextStyle(fontSize: 15),)
+                  child: Column(children: [
+                    const Icon(Icons.add_alarm_sharp,size: 40,),
+                    const Text('Lưu',style: TextStyle(fontSize: 15),)
                   ],)
                 ),
                 ),
                 
-                const SizedBox(width: 10,),
+                SizedBox(width: 10,),
 
                 GestureDetector(onTap: (){},
                 child: Container(
@@ -413,11 +412,11 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
                     color: const Color.fromARGB(255, 151, 71, 255),
                   ),
                   height: 80,
-                  padding:const EdgeInsets.all(10.0),
+                  padding:EdgeInsets.all(10.0),
                   width: MediaQuery.of(context).size.width/2-25,
-                  child: Column(children: const [
-                    Icon(Icons.power_settings_new_rounded,size: 40,),
-                    Text('Bật/Tắt',style: TextStyle(fontSize: 15),)
+                  child: Column(children: [
+                    const Icon(Icons.power_settings_new_rounded,size: 40,),
+                    const Text('Bật/Tắt',style: TextStyle(fontSize: 15),)
                   ],)
                 ),),
               ],)
@@ -428,4 +427,3 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
     );
   }
 }
-

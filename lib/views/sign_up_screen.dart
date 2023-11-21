@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/view/resuable_widgets.dart';
-import 'package:smart_home/view/color_utils.dart';
+import 'package:smart_home/views/resuable_widgets.dart';
+import 'package:smart_home/views/color_utils.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

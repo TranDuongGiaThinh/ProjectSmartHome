@@ -1,5 +1,5 @@
-import 'package:smart_home/model/info_reader.dart';
-import 'package:smart_home/model/setting.dart';
+import 'package:smart_home/models/info_reader.dart';
+import 'package:smart_home/models/setting.dart';
 
 class SettingPresenter {
   static Setting setting = Setting();
