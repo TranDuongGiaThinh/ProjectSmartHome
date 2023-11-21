@@ -1,22 +1,10 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/views/bottom_nav.dart';
-import 'package:smart_home/views/scheduling_screen.dart';
-import 'package:smart_home/views/setting_screen.dart';
-
-import 'statistical/statistical_screen.dart';
-=======
+import 'package:smart_home/views/statistical/statistical_screen.dart';
 import 'package:smart_home/views/scheduling/scheduling_Screen.dart';
 import 'package:smart_home/views/setting/setting_screen.dart';
-
-import 'package:smart_home/views/statistical_screen.dart';
->>>>>>> fb2a70e3dfc2c1c1418c621f722e557ec9a92f15
-
-import '../presenters/language_presenter.dart';
-import 'bottom_nav.dart';
 import 'home/home.dart';
-
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({super.key, required this.reloadThemeMode});
