@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/model/Duy_model/individual_bar.dart';
+
+import 'individual_bar.dart';
 
 class BarData {
   final double sunAmount;
