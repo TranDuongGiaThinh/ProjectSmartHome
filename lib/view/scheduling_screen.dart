@@ -232,8 +232,9 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
         // : MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.all(20.0),
-        child: Column(
+        child: Column( 
           children: [
+            
             const SizedBox(height: 30.0),
             GestureDetector(
               onTap: () => _selectDate(context),
