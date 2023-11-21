@@ -9,35 +9,9 @@ import 'package:smart_home/models/setting.dart';
 import 'package:smart_home/presenters/firebase_presenter.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
-import 'package:smart_home/views/index_screen.dart';
+import 'package:smart_home/views/home/home.dart';
 import 'package:smart_home/views/login_screen.dart';
 import 'package:smart_home/views/sign_up_screen.dart';
-
-void createCollection() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  try {
-    await Firebase.initializeApp();
-  } catch (e) {
-    // ignore: avoid_print
-    print('error in Firebase.initializeApp(): $e');
-  }
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  String collectionName = 'users';
-
-  bool isCollectionExist = await firestore
-      .collection(collectionName)
-      .get()
-      .then((value) => value.docs.isNotEmpty);
-
-  if (isCollectionExist) {
-    // ignore: avoid_print
-    print('Collection already exists.');
-  } else {
-    // ignore: avoid_print
-    print('Collection does not exist!');
-  }
-}
 
 void main() async {
   await FirebasePresenter.initialize();
@@ -102,7 +76,7 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
-      initialRoute: "/login",
+      initialRoute: "/",
       routes: {
         "/login": (context) => LoginScreen(reloadThemeMode: reloadThemeMode),
         "/signUp": (context) => const SignUpScreen(),
