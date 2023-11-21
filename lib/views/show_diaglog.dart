@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/presenter/language_presenter.dart';
+import 'package:smart_home/presenters/language_presenter.dart';
 
 void showDialogResult(BuildContext context, String title, String message) {
   showDialog(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/presenter/language_presenter.dart';
-import 'package:smart_home/presenter/user_presenter.dart';
-import 'package:smart_home/view/custom_button.dart';
-import 'package:smart_home/model/user.dart';
-import 'package:smart_home/view/build_user_info.dart';
+import 'package:smart_home/presenters/language_presenter.dart';
+import 'package:smart_home/presenters/user_presenter.dart';
+import 'package:smart_home/views/custom_button.dart';
+import 'package:smart_home/models/user.dart';
+import 'package:smart_home/views/build_user_info.dart';
 
 class AccountsManagementScreen extends StatefulWidget {
   const AccountsManagementScreen({super.key});
@@ -43,7 +43,8 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
                 content: LanguagePresenter.language.addNewUser,
                 icon: Icons.person_add_alt,
               )),
-          if (userSelected != null) BuildUserInfo(iconButtonLogOut: false, user: userSelected!),
+          if (userSelected != null)
+            BuildUserInfo(iconButtonLogOut: false, user: userSelected!),
           buildListUser()
         ],
       ),
@@ -66,8 +67,7 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
               border: TableBorder.all(),
               children: [
                 TableRow(
-                  decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 148, 143, 143)),
+                  decoration: const BoxDecoration(color: Colors.grey),
                   children: [
                     TableCell(
                       child: Center(
@@ -90,7 +90,9 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
                 for (int i = 0; i < UserPresenter.users.length; i++)
                   TableRow(
                     decoration: BoxDecoration(
-                      color: UserPresenter.users[i] == userSelected ? Colors.blue : null,
+                      color: UserPresenter.users[i] == userSelected
+                          ? Colors.blue
+                          : null,
                     ),
                     children: [
                       TableCell(
@@ -98,14 +100,8 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
                         onTap: () {
                           updateUserSelected(UserPresenter.users[i]);
                         },
-                        child: Center(child: Text(UserPresenter.users[i].userName)),
-                      )),
-                      TableCell(
-                          child: InkWell(
-                        onTap: () {
-                          updateUserSelected(UserPresenter.users[i]);
-                        },
-                        child: Center(child: Text(UserPresenter.users[i].fullName)),
+                        child: Center(
+                            child: Text(UserPresenter.users[i].userName)),
                       )),
                       TableCell(
                           child: InkWell(
@@ -113,15 +109,28 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
                           updateUserSelected(UserPresenter.users[i]);
                         },
                         child: Center(
-                            child: Text(
-                                UserPresenter.getStringPermission(UserPresenter.users[i]))),
+                            child: Text(UserPresenter.users[i].fullName)),
                       )),
                       TableCell(
                           child: InkWell(
                         onTap: () {
                           updateUserSelected(UserPresenter.users[i]);
                         },
-                        child: Center(child: Text(UserPresenter.users[i].blocked.toString())),
+                        child: Center(
+                            child: Text(UserPresenter.getStringPermission(
+                                UserPresenter.users[i]))),
+                      )),
+                      TableCell(
+                          child: InkWell(
+                        onTap: () {
+                          updateUserSelected(UserPresenter.users[i]);
+                        },
+                        child: Center(
+                            child: Checkbox(
+                                onChanged: (valua) {
+                                  updateUserSelected(UserPresenter.users[i]);
+                                },
+                                value: UserPresenter.users[i].blocked)),
                       )),
                     ],
                   ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/view/resuable_widgets.dart';
-import 'package:smart_home/view/color_utils.dart';
-import 'package:smart_home/view/index_screen.dart';
-import 'package:smart_home/view/sign_up_screen.dart';
+import 'package:smart_home/views/resuable_widgets.dart';
+import 'package:smart_home/views/color_utils.dart';
+import 'package:smart_home/views/index_screen.dart';
+import 'package:smart_home/views/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.reloadThemeMode});
