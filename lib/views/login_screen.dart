@@ -17,18 +17,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
 
-  //khởi tạo UserLogin khi đăng nhập thành công
-  initialize() async {
-    await UserPresenter.getUserById("1");
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
 
-    //tạm thời khởi tạo khi mở trang
-    initialize();
+    //tạm thời khởi tạo user khi mở trang (-> Sau khi checkLogin thành công mới lấy user)
+    UserPresenter.getUserLogin("1").then((value) {
+      setState(() {});
+    });
   }
 
   @override
