@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/views/bottom_nav.dart';
+import 'package:smart_home/views/home/home.dart';
 import 'package:smart_home/views/scheduling_screen.dart';
 import 'package:smart_home/views/setting_screen.dart';
 import 'package:smart_home/views/statistical_screen.dart';
@@ -41,8 +42,9 @@ class _IndexScreenState extends State<IndexScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Center(child: Text(title))),
+          toolbarHeight: (selectedIndex == 0) ? 0 : null,
+          automaticallyImplyLeading: false,
+          title: Center(child: Text(title))),
       body: _buildSelectedContent(),
       bottomNavigationBar: BottomNav(
         currentIndex: selectedIndex,
@@ -53,19 +55,14 @@ class _IndexScreenState extends State<IndexScreen> {
 
   Widget _buildSelectedContent() {
     switch (selectedIndex) {
-      case 0:
-        return _buildIndexScreen();
       case 1:
         return const StatisticalScreen();
       case 2:
         return const SchedulingScreen();
       case 3:
         return SettingScreen(reloadThemeMode: widget.reloadThemeMode);
+      default:
+        return const HomeScreen();
     }
-    return const Placeholder();
-  }
-
-  Widget _buildIndexScreen() {
-    return const Text("Chưa làm");
   }
 }

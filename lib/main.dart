@@ -7,9 +7,8 @@ import 'package:smart_home/models/info_reader.dart';
 import 'package:smart_home/models/setting.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
-import 'package:smart_home/views/index_screen.dart';
+import 'package:smart_home/views/home/home.dart';
 import 'package:smart_home/views/login_screen.dart';
-
 
 void createCollection() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +37,7 @@ void createCollection() async {
 }
 
 void main() async {
-  createCollection();
+  // createCollection();
 
   runApp(const MyApp());
 }
@@ -98,10 +97,13 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
-      initialRoute: "/login",
+      initialRoute: "/",
       routes: {
-        "/login":(context) => LoginScreen(reloadThemeMode: reloadThemeMode),
-        "/":(context) => IndexScreen(reloadThemeMode: reloadThemeMode)
+        "/": (context) => LoginScreen(
+              reloadThemeMode: reloadThemeMode,
+            ),
+        "/login": (context) => LoginScreen(reloadThemeMode: reloadThemeMode),
+        "/home": (context) => const HomeScreen()
       },
     );
   }
