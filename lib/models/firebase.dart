@@ -35,13 +35,17 @@ class FirebaseModel {
     return null;
   }
 
-  static Future<Map<String, dynamic>>
+  static Future<Map<String, dynamic>?>
       getUserLogin(String id) async {
+  try{
     DocumentSnapshot<Map<String, dynamic>> querySnapshot = await FirebasePresenter.firestore!
               .collection("users")
-              .doc(id)
+              .doc()
               .get();
-    
     return querySnapshot.data()!;
+      }catch(e){
+        print("lỗi :::::::::::::::::: $e");
+      }
+    return null;
   }
 }

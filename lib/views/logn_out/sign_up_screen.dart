@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/views/resuable_widgets.dart';
 import 'package:smart_home/views/color_utils.dart';
-
+import 'package:smart_home/views/resuable_widgets/resuable_widgets.dart';
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -15,13 +14,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _userNameTextController = TextEditingController();
   final TextEditingController _fullnNameTextController =
       TextEditingController();
-  final TextEditingController _PhoneTextController = TextEditingController();
+  final TextEditingController _phoneTextController = TextEditingController();
+  bool isLivingRoomSelected = false;
+  bool isKitChenSelected = false;
+  bool isBedRoomSelected = false;
+  bool isToiletSelected = false;
   @override
   Widget build(BuildContext context) {
-    bool isLivingRoomSelected = false;
-    bool isKitChenSelected = false;
-    bool isBedRoomSelected = false;
-    bool isToiletSelected = false;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -49,7 +48,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                resuableTextFile("Enter Email Id", Icons.person_outline, false,
+                resuableTextFile("Enter Emai", Icons.person_outline, false,
                     _emailTextController),
                 const SizedBox(
                   height: 20,
@@ -70,34 +69,46 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 20,
                 ),
                 resuableTextFile("Enter Phone", Icons.lock_outlined, true,
-                    _PhoneTextController),
+                    _phoneTextController),
                 const SizedBox(
                   height: 20,
                 ),
                 Column(children: [
-                  reusableCheckboxListTile("Living Room", isLivingRoomSelected, (bool? newValue) {
-                setState(() {
-              isLivingRoomSelected=newValue??false;
-                });
-               }),
-                  reusableCheckboxListTile("Kitchen", isKitChenSelected, (bool? newValue) {
-                setState(() {
-              isLivingRoomSelected=newValue??false;
-                });
-               }),
-                  reusableCheckboxListTile("Bedroom", isBedRoomSelected, (bool? newValue) {
-                setState(() {
-              isLivingRoomSelected=newValue??false;
-                });
-               }),
-                  reusableCheckboxListTile("Bathroom", isToiletSelected, (bool? newValue) {
-                setState(() {
-              isLivingRoomSelected=newValue??false;
-                });
-               }),
-               
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        resualRow("LivingRoom", isLivingRoomSelected, () {
+                          setState(() {
+                            isLivingRoomSelected = !isLivingRoomSelected;
+                          });
+                        }),
+                        resualRow("Kitchen", isKitChenSelected, () {
+                          setState(() {
+                            isKitChenSelected = !isKitChenSelected;
+                          });
+                        }),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        resualRow("BedRoom", isBedRoomSelected, () {
+                          setState(() {
+                            isBedRoomSelected = !isBedRoomSelected;
+                          });
+                        }),
+                        resualRow("Toilet", isToiletSelected, () {
+                          setState(() {
+                            isToiletSelected = !isToiletSelected;
+                          });
+                        })
+                      ],
+                    ),
+                  ),
                 ]),
-                
                 firebaseUIButton(context, "Sign Up", () {
                   // FirebaseAuth.instance
                   //     .createUserWithEmailAndPassword(

@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/info_reader.dart';
@@ -9,10 +7,9 @@ import 'package:smart_home/models/setting.dart';
 import 'package:smart_home/presenters/firebase_presenter.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
-import 'package:smart_home/views/home/home.dart';
 import 'package:smart_home/views/index_screen.dart';
-import 'package:smart_home/views/login_screen.dart';
-import 'package:smart_home/views/sign_up_screen.dart';
+import 'package:smart_home/views/login/login_screen.dart';
+import 'package:smart_home/views/logn_out/sign_up_screen.dart';
 
 void main() async {
   await FirebasePresenter.initialize();
@@ -77,7 +74,7 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
+      initialRoute: "/login",
       routes: {
         "/login": (context) => LoginScreen(reloadThemeMode: reloadThemeMode),
         "/signUp": (context) => const SignUpScreen(),

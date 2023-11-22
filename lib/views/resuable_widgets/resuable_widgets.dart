@@ -6,7 +6,7 @@ Image logoWidget(String imageName) {
     fit: BoxFit.fitWidth,
     width: 240,
     height: 240,
-    color: Colors.black,
+    color:Colors.black,
   );
 }
 
@@ -38,16 +38,25 @@ TextField resuableTextFile(String text, IconData icon, bool isPasswordType,
   );
 }
 
-CheckboxListTile reusableCheckboxListTile(String texts, bool values, void Function(bool?)? onChanged) {
-  return CheckboxListTile(
-    title: Text(texts),
+Row resualRow(String texts,bool values, Function onTap)
+{
+  return Row(
+  children: [
+    Text(texts),
+   Checkbox(
     value: values,
-    onChanged: onChanged,
-  );
+    onChanged: (value) {
+      onTap(); 
+    },
+   )
+  ],
+);
 }
+
+
 Container firebaseUIButton(BuildContext context, String title, Function onTap) {
   return Container(
-    width: MediaQuery.of(context).size.width,
+    width: MediaQuery.of(context).size.width*0.6,
     height: 50,
     margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
