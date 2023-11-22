@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
 
     //tạm thời khởi tạo user khi mở trang (-> Sau khi checkLogin thành công mới lấy user)
-    UserPresenter.getUserLogin("1").then((value) {
+    UserPresenter.checkLogin("tdgthinh", "12345").then((value) {
       setState(() {});
     });
   }

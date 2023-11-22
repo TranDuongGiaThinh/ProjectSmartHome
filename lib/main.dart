@@ -4,15 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/info_reader.dart';
 import 'package:smart_home/models/setting.dart';
+import 'package:smart_home/models/user.dart';
 import 'package:smart_home/presenters/firebase_presenter.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
+import 'package:smart_home/presenters/user_presenter.dart';
 import 'package:smart_home/views/index_screen.dart';
 import 'package:smart_home/views/login_screen.dart';
 import 'package:smart_home/views/sign_up_screen.dart';
 
 void main() async {
   await FirebasePresenter.initialize();
+  User user = User();
+  user.password = "0000";
+  UserPresenter.addUser(user);
 
   runApp(const MyApp());
 }
