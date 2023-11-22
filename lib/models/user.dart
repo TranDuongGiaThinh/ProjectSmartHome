@@ -7,7 +7,6 @@ import 'package:smart_home/models/firebase.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 
 class User {
-  late String? id;
   late Uint8List? image;
   late String userName;
   String? password;
@@ -19,20 +18,18 @@ class User {
   late bool blocked;
 
   User() {
-    id = "1";
     image = null;
-    userName = "tghthinh";
-    fullName = "Trần Dương Gia Thịnh";
-    email = "tdgt@gmail.com";
-    phoneNumber = "0123456789";
-    permissions = [true, true, true, true];
-    isHost = true;
+    userName = "";
+    fullName = "";
+    email = "";
+    phoneNumber = "";
+    permissions = [false, false, false, false];
+    isHost = false;
     blocked = false;
   }
 
   User.info(
-      {required this.id,
-      required this.image,
+      {required this.image,
       required this.userName,
       required this.fullName,
       required this.email,
@@ -41,7 +38,7 @@ class User {
       required this.isHost,
       required this.blocked});
 
-  User.fromJson(String this.id, Map<String, dynamic> json)
+  User.fromJson(Map<String, dynamic> json)
       : image = json['image'] != null && json['image'] != "null"
             ? convertStringToUint8List(json['image'])
             : null,
@@ -59,8 +56,7 @@ class User {
         blocked = json['blocked'];
 
   User.copy(User user)
-      : id = user.id,
-        image = user.image,
+      : image = user.image,
         userName = user.userName,
         fullName = user.fullName,
         email = user.email,
@@ -69,33 +65,40 @@ class User {
         isHost = user.isHost,
         blocked = user.blocked;
 
-  static Map<String, dynamic> toJson(User user) {
+  Map<String, dynamic> toJson() {
     return {
-      'image': user.image?.isNotEmpty ?? false
-          ? convertImageToString(user.image!)
-          : 'null',
-      'userName': user.userName,
-      'password': user.password!,
-      'fullName': user.fullName,
-      'email': user.email,
-      'phoneNumber': user.phoneNumber,
-      'accessLivingRoom': user.permissions[Constants.livingRoom],
-      'accessKitchen': user.permissions[Constants.kitchen],
-      'accessBedRoom': user.permissions[Constants.bedRoom],
-      'accessToilet': user.permissions[Constants.toilet],
-      'isHost': user.isHost,
-      'blocked': user.blocked,
+      'image':
+          image?.isNotEmpty ?? false ? convertImageToString(image!) : 'null',
+      'userName': userName,
+      'password': password!,
+      'fullName': fullName,
+      'email': email,
+      'phoneNumber': phoneNumber,
+      'accessLivingRoom': permissions[Constants.livingRoom],
+      'accessKitchen': permissions[Constants.kitchen],
+      'accessBedRoom': permissions[Constants.bedRoom],
+      'accessToilet': permissions[Constants.toilet],
+      'isHost': isHost,
+      'blocked': blocked,
       'deleted': false
     };
   }
 
-  static Future<User> getUserById(String id) async {
-    Map<String, dynamic>? map = await FirebaseModel.getUserById(id);
-    return User.fromJson(id, map!);
+  static Future<User?> getUserByUserName(String userName) async {
+    Map<String, dynamic>? map = await FirebaseModel.getUserByUserName(userName);
+    if (map != null) {
+      return User.fromJson(map);
+    }
+    return null;
   }
 
-  static bool checkLogin(String userName, String password) {
-    return true; //
+  static Future<User?> checkAccount(String userName, String password) async {
+    Map<String, dynamic>? json =
+        await FirebaseModel.checkAccount(userName, password);
+    if (json != null) {
+      return User.fromJson(json);
+    }
+    return null;
   }
 
   static Future<List<User>> getAllUser() async {
@@ -103,49 +106,14 @@ class User {
     List<QueryDocumentSnapshot<Map<String, dynamic>>>? querySnapshotDocs =
         await FirebaseModel.getAllUsers();
 
-      for (var document in querySnapshotDocs!) {
-        String userId = document.id;
-        Map<String, dynamic> userData = document.data();
+    for (var document in querySnapshotDocs!) {
+      Map<String, dynamic> userData = document.data();
 
-        User user = User.fromJson(userId, userData);
-        users.add(user);
-      }
+      User user = User.fromJson(userData);
+      users.add(user);
+    }
 
-      return users;
-
-    /*return [
-      User(),
-      User.info(
-          id: "2",
-          image: null,
-          userName: "userName",
-          fullName: "fullName",
-          email: "email",
-          phoneNumber: "phoneNumber",
-          permissions: [true, false, true, false],
-          isHost: false,
-          blocked: true),
-      User.info(
-          id: "3",
-          image: null,
-          userName: "userName2",
-          fullName: "fullName2",
-          email: "email2",
-          phoneNumber: "phoneNumber2",
-          permissions: [true, true, true, false],
-          isHost: false,
-          blocked: false),
-      User.info(
-          id: "4",
-          image: null,
-          userName: "userName3",
-          fullName: "fullName3",
-          email: "email3",
-          phoneNumber: "phoneNumber3",
-          permissions: [true, false, false, false],
-          isHost: false,
-          blocked: false),
-    ];*/
+    return users;
   }
 
   static Uint8List convertStringToUint8List(String base64String) {
@@ -223,8 +191,8 @@ class User {
     return false;
   }
 
-  bool add() {
-    return false;
+  Future<bool> add() async {
+    return await FirebaseModel.addUser(toJson());
   }
 
   bool update() {

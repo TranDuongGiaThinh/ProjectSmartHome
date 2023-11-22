@@ -45,7 +45,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.user.id != tempUser.id) {
+    if (widget.user.userName != tempUser.userName) {
       initial();
     }
     return Padding(
@@ -123,7 +123,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("${LanguagePresenter.language.userName}: ${user.userName}"),
+        Text("${LanguagePresenter.language.userName}: ${user.userName}", style: TextStyle(color: Colors.black),),
         Text("${LanguagePresenter.language.fullName}: ${user.fullName}"),
         Text("${LanguagePresenter.language.email}: ${user.email}"),
         Text("${LanguagePresenter.language.phoneNumber}: ${user.phoneNumber}"),
@@ -157,7 +157,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
                 action: () => setState(() {
                       isPasswordEditting = true;
                     })),
-            if (UserPresenter.userLogin!.id != widget.user.id)
+            if (UserPresenter.userLogin!.userName != widget.user.userName)
               Column(
                 children: [
                   CustomButton(
@@ -202,7 +202,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         buildTextField("${LanguagePresenter.language.email}: ", email),
         buildTextField(
             "${LanguagePresenter.language.phoneNumber}: ", phoneNumber),
-        if (UserPresenter.userLogin!.id != user.id) buildPermissionEditting(),
+        if (UserPresenter.userLogin!.userName != user.userName) buildPermissionEditting(),
         buildButtonSave()
       ])
     ]);

@@ -35,18 +35,55 @@ class FirebaseModel {
     return null;
   }
 
-  static Future<Map<String, dynamic>?>
-      getUserById(String id) async {
-        try{
-    DocumentSnapshot<Map<String, dynamic>> querySnapshot = await FirebasePresenter.firestore!
+  static Future<Map<String, dynamic>?> getUserByUserName(
+      String userName) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebasePresenter.firestore!
               .collection("users")
-              .doc(id)
+              .where("userName", isEqualTo: userName)
+              .limit(1)
               .get();
-    
-    return querySnapshot.data()!;
-        }catch (e){
-          print("error getUserById() in fireBase.dart: $e");
-          return null;
-        }
+
+      return querySnapshot.docs.first.data();
+    } catch (e) {
+      // ignore: avoid_print
+      print("error getUserByUserName() in fireBase.dart: $e");
+      return null;
+    }
+  }
+
+  static Future<Map<String, dynamic>?> checkAccount(
+      String userName, String password) async {
+    try {
+      QuerySnapshot querySnapshot = await FirebasePresenter.firestore!
+          .collection("users")
+          .where("userName", isEqualTo: userName)
+          .where("password", isEqualTo: password)
+          .where("deleted", isEqualTo: false)
+          .limit(1)
+          .get();
+
+      return querySnapshot.docs.first.data() as Map<String, dynamic>;
+    } catch (e) {
+      // ignore: avoid_print
+      print("error checkLogin() in fireBase.dart: $e");
+      return null;
+    }
+  }
+
+  static Future<bool> addUser(Map<String, dynamic> json) async {
+    try {
+      DocumentReference? doc =
+          await FirebasePresenter.firestore!.collection('users').add(json);
+
+      // ignore: avoid_print
+      print("add User success, id new user = ${doc.id}");
+      return true;
+    } catch (e) {
+      // ignore: avoid_print
+      print('error addUser() in firebase.dart: $e');
+      return false;
+    }
   }
 }
