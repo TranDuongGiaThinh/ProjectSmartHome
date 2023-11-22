@@ -30,7 +30,7 @@ class FirebaseModel {
       }
     } catch (e) {
       // ignore: avoid_print
-      print("error getAllUsers() intfirebase.dart: $e");
+      print("error getAllUsers() in firebase.dart: $e");
     }
     return null;
   }
@@ -43,8 +43,9 @@ class FirebaseModel {
               .doc()
               .get();
     return querySnapshot.data()!;
+
       }catch(e){
-        print("lỗi :::::::::::::::::: $e");
+        print("error getAllUsers() in firebase.dart: $e");
       }
     return null;
   }

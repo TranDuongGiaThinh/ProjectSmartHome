@@ -4,8 +4,12 @@ class UserPresenter {
   static User? userLogin;
   static List<User>? users;
 
-  static getUserById(String id) async {
+  static Future<void> getUserLogin(String id) async {
     userLogin = await User.getUserById(id);
+  }
+
+  static Future<User> getUserById(String id) async {
+    return await User.getUserById(id);
   }
 
   static bool checkLogin(String userName, String password){
