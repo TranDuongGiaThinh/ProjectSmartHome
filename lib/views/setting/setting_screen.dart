@@ -15,28 +15,22 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  TextEditingController fullName = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController phoneNumber = TextEditingController();
-
-  bool isEditting = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  updateState() {
-    setState(() {
-      isEditting = !isEditting;
-    });
+  reloadUserLogin() async {
+    await UserPresenter.getUserLogin(UserPresenter.userLogin!.userName);
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        BuildUserInfo(iconButtonLogOut: true, user: UserPresenter.userLogin!),
+        BuildUserInfo(
+          iconButtonLogOut: true,
+          user: UserPresenter.userLogin!,
+          reloadUsers: () => {},
+          reloadUserLogin: reloadUserLogin,
+          updateUserOfWidget: (value) => {},
+        ),
         buildListButton()
       ],
     );
@@ -81,7 +75,8 @@ class _SettingScreenState extends State<SettingScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const AccountsManagementScreen(),
+          builder: (context) =>
+              AccountsManagementScreen(reloadUserLogin: reloadUserLogin),
         ));
   }
 

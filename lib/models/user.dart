@@ -65,12 +65,12 @@ class User {
         isHost = user.isHost,
         blocked = user.blocked;
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson({bool? deleted}) {
     return {
       'image':
-          image?.isNotEmpty ?? false ? convertImageToString(image!) : 'null',
+          image?.isNotEmpty ?? false ? convertImageToString(image!) : "null",
       'userName': userName,
-      'password': password!,
+      'password': password,
       'fullName': fullName,
       'email': email,
       'phoneNumber': phoneNumber,
@@ -80,8 +80,19 @@ class User {
       'accessToilet': permissions[Constants.toilet],
       'isHost': isHost,
       'blocked': blocked,
-      'deleted': false
+      'deleted': deleted ?? false
     };
+  }
+
+  bool isEqual(User otherUser) {
+    return userName == otherUser.userName &&
+        fullName == otherUser.fullName &&
+        email == otherUser.email &&
+        phoneNumber == otherUser.phoneNumber &&
+        isHost == otherUser.isHost &&
+        blocked == otherUser.blocked &&
+        image == otherUser.image &&
+        permissions == otherUser.permissions;
   }
 
   static Future<User?> getUserByUserName(String userName) async {
@@ -179,12 +190,14 @@ class User {
     return strPermission;
   }
 
-  bool block() {
-    return false;
+  Future<bool> block() async {
+    blocked = false;
+    return await FirebaseModel.updateUser(userName, toJson());
   }
 
-  bool unblock() {
-    return false;
+  Future<bool> unblock() async {
+    blocked = false;
+    return await FirebaseModel.updateUser(userName, toJson());
   }
 
   bool changePassword(String newPassword) {
@@ -195,11 +208,11 @@ class User {
     return await FirebaseModel.addUser(toJson());
   }
 
-  bool update() {
-    return false;
+  Future<bool> update() async {
+    return await FirebaseModel.updateUser(userName, toJson());
   }
 
-  bool delete() {
-    return false;
+  Future<bool> delete() async{
+    return await FirebaseModel.updateUser(userName, toJson(deleted: true));
   }
 }

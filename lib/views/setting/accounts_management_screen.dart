@@ -6,7 +6,8 @@ import 'package:smart_home/views/setting/build_user_info.dart';
 import 'package:smart_home/views/setting/custom_button.dart';
 
 class AccountsManagementScreen extends StatefulWidget {
-  const AccountsManagementScreen({super.key});
+  const AccountsManagementScreen({super.key, required this.reloadUserLogin});
+  final Function() reloadUserLogin;
 
   @override
   State<AccountsManagementScreen> createState() =>
@@ -16,7 +17,7 @@ class AccountsManagementScreen extends StatefulWidget {
 class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
   User? userSelected;
 
-  getAllUser() async {
+  reloadUsers() async {
     await UserPresenter.getAllUser();
     setState(() {});
   }
@@ -24,7 +25,7 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
   @override
   void initState() {
     super.initState();
-    getAllUser();
+    reloadUsers();
   }
 
   updateUserSelected(User newSelected) {
@@ -55,7 +56,16 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
                 icon: Icons.person_add_alt,
               )),
           if (userSelected != null)
-            BuildUserInfo(iconButtonLogOut: false, user: userSelected!),
+            BuildUserInfo(
+                iconButtonLogOut: false,
+                user: userSelected!,
+                reloadUsers: reloadUsers,
+                reloadUserLogin: widget.reloadUserLogin,
+                updateUserOfWidget: (updatedUser) {
+                  setState(() {
+                    userSelected = updatedUser;
+                  });
+                }),
           buildListUser()
         ],
       ),
