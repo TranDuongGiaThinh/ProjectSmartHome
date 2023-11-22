@@ -1,10 +1,14 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_home/models/bar_data.dart';
+
+import '../../models/Duy_model/bar_data.dart';
 
 class MyBarGraph extends StatelessWidget {
   final List weeklySummary;
-  const MyBarGraph({super.key, required this.weeklySummary});
+
+  const MyBarGraph(
+      {Key? key, required this.weeklySummary})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,33 +22,37 @@ class MyBarGraph extends StatelessWidget {
         satAmount: weeklySummary[6]);
     myBarData.initializeBarData();
 
-    return BarChart(
-      BarChartData(
-          maxY: 10,
-          minY: 0,
-          gridData: FlGridData(
-            show: true,
-            drawVerticalLine: false,
-          ),
-          borderData: FlBorderData(
-            border: const Border(
-              left: BorderSide(width: 1.0, color: Colors.blue),
-              bottom: BorderSide(width: 1.0, color: Colors.blue),
-            ),
-          ),
-          titlesData: FlTitlesData(
+    return Container(
+      margin: const EdgeInsets.fromLTRB(0, 10, 30, 10),
+      child: AspectRatio(
+        aspectRatio: 1.5,
+        child: BarChart(
+          BarChartData(
+            titlesData: FlTitlesData(
               show: true,
               topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-              leftTitles: AxisTitles(
-                sideTitles: SideTitles(
-                  showTitles: false)),
               rightTitles:
                   AxisTitles(sideTitles: SideTitles(showTitles: false)),
               bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                      showTitles: true, getTitlesWidget: getBottomTitles))),
-          barGroups: myBarData.barData
-              .map((data) => BarChartGroupData(
+                sideTitles: SideTitles(
+                  getTitlesWidget: getBottomTitles,
+                  showTitles: true,
+                ),
+              ),
+            ),
+            gridData: FlGridData(
+              show: true,
+              drawVerticalLine: false,
+            ),
+            borderData: FlBorderData(
+              border: const Border(
+                left: BorderSide(width: 1.0, color: Colors.blue),
+                bottom: BorderSide(width: 1.0, color: Colors.blue),
+              ),
+            ),
+            barGroups: myBarData.barData
+                .map(
+                  (data) => BarChartGroupData(
                     x: data.x,
                     barRods: [
                       BarChartRodData(
@@ -54,13 +62,15 @@ class MyBarGraph extends StatelessWidget {
                         borderRadius: BorderRadius.circular(1),
                       ),
                     ],
-                  ))
-              .toList()),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      ),
     );
   }
 }
-
-
 
 Widget getBottomTitles(double value, TitleMeta meta) {
   const style = TextStyle(fontWeight: FontWeight.normal, fontSize: 14);
@@ -92,5 +102,5 @@ Widget getBottomTitles(double value, TitleMeta meta) {
       break;
   }
 
-  return SideTitleWidget(child: text, axisSide: meta.axisSide);
+  return SideTitleWidget(axisSide: meta.axisSide, child: text);
 }
