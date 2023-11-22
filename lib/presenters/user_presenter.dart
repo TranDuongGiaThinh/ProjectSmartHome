@@ -8,7 +8,7 @@ class UserPresenter {
     userLogin = await User.getUserById(id);
   }
 
-  static Future<User> getUserById(String id) async {
+  static Future<User?> getUserById(String id) async {
     return await User.getUserById(id);
   }
 
