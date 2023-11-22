@@ -4,16 +4,31 @@ class UserPresenter {
   static User? userLogin;
   static List<User>? users;
 
-  static Future<void> getUserLogin(String id) async {
-    userLogin = await User.getUserById(id);
+  static Future<void> getUserLogin(String userName) async {
+    userLogin = await User.getUserByUserName(userName);
   }
 
-  static Future<User> getUserById(String id) async {
-    return await User.getUserById(id);
+  static Future<User?> getUserByUserName(String userName) async {
+    return await User.getUserByUserName(userName);
   }
 
-  static bool checkLogin(String userName, String password){
-    return User.checkLogin(userName, password);
+  static Future<User?> checkAccount(String userName, String password) async {
+    return await User.checkAccount(userName, password);
+  }
+
+  static Future<bool> checkLogin(String userName, String password) async {
+    //check userName, password is true?
+    User? user = await checkAccount(userName, password);
+
+    //check user is blocked?
+    if(user != null){
+      if(!user.blocked){
+        //non blocked -> initialize userLogin
+        userLogin = user;
+        return true;
+      }
+    }
+    return false;
   }
 
   static getAllUser() async {
@@ -52,8 +67,10 @@ class UserPresenter {
     }
   }
 
-  static bool addUser(User user) {
-    return user.add();
+  static Future<bool> addUser(User user) async {
+    if(user.password == null){return false;}
+    
+    return await user.add();
   }
 
   static bool updateUser(User user) {

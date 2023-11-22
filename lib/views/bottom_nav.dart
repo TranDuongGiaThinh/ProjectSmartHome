@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 
 class BottomNav extends StatelessWidget {
@@ -9,6 +10,7 @@ class BottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Constants.colorBottomNavBackground,
       type: BottomNavigationBarType.fixed,
       fixedColor: Colors.blueAccent,
        
