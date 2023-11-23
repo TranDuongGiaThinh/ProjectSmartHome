@@ -139,13 +139,18 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
           "${LanguagePresenter.language.userName}: ${user.userName}",
           style: const TextStyle(color: Colors.black),
         ),
-        Text("${LanguagePresenter.language.fullName}: ${user.fullName}"),
-        Text("${LanguagePresenter.language.email}: ${user.email}"),
-        Text("${LanguagePresenter.language.phoneNumber}: ${user.phoneNumber}"),
+        Text("${LanguagePresenter.language.fullName}: ${user.fullName}",
+            style: const TextStyle(color: Colors.black)),
+        Text("${LanguagePresenter.language.email}: ${user.email}",
+            style: const TextStyle(color: Colors.black)),
+        Text("${LanguagePresenter.language.phoneNumber}: ${user.phoneNumber}",
+            style: const TextStyle(color: Colors.black)),
         Text(
-            "${LanguagePresenter.language.permission}: ${UserPresenter.getStringPermission(user)}"),
+            "${LanguagePresenter.language.permission}: ${UserPresenter.getStringPermission(user)}",
+            style: const TextStyle(color: Colors.black)),
         Text(
-            "${LanguagePresenter.language.accountState}: ${user.blocked ? LanguagePresenter.language.blocked : LanguagePresenter.language.active}"),
+            "${LanguagePresenter.language.accountState}: ${user.blocked ? LanguagePresenter.language.blocked : LanguagePresenter.language.active}",
+            style: const TextStyle(color: Colors.black)),
       ],
     );
   }
@@ -376,22 +381,29 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     Navigator.pushNamed(context, "/login");
   }
 
-  void updatePassword() {
-    bool result = UserPresenter.changePassword(widget.user, password.text);
-    String strResult = result
-        ? LanguagePresenter.language.success
-        : LanguagePresenter.language.failure;
-
-    setState(() {
-      isPasswordEditting = false;
-    });
-
-    showDialogResult(context, strResult,
-        "${LanguagePresenter.language.changePassword} $strResult");
-  }
-
   void updateAvatar() {
     //show screen upload image
+  }
+
+  void updatePassword() {
+    if (password.text != comfirmPassword.text) {
+      showDialogResult(context, LanguagePresenter.language.failure,
+          "${LanguagePresenter.language.password} ${LanguagePresenter.language.and} ${LanguagePresenter.language.confirmPassword} ${LanguagePresenter.language.doNotMatch}");
+      return;
+    }
+
+    UserPresenter.changePassword(widget.user, password.text).then((value) {
+      String strResult = value
+          ? LanguagePresenter.language.success
+          : LanguagePresenter.language.failure;
+
+      setState(() {
+        isPasswordEditting = false;
+      });
+
+      showDialogResult(context, strResult,
+          "${LanguagePresenter.language.changePassword} $strResult");
+    });
   }
 
   void blockOrUnblockUser() {

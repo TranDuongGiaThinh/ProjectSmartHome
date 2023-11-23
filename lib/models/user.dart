@@ -200,8 +200,9 @@ class User {
     return await FirebaseModel.updateUser(userName, toJson());
   }
 
-  bool changePassword(String newPassword) {
-    return false;
+  Future<bool> changePassword(String newPassword) async {
+    password = newPassword;
+    return await FirebaseModel.updateUser(userName, toJson());
   }
 
   Future<bool> add() async {

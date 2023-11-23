@@ -59,13 +59,11 @@ class UserPresenter {
     return user.isFullPermission();
   }
 
-  static bool isEqual(User user1, User user2){
+  static bool isEqual(User user1, User user2) {
     return user1.isEqual(user2);
   }
 
   static Future<bool> addUser(User user) async {
-    //if(user.password == null){return false;}
-    
     return await user.add();
   }
 
@@ -77,7 +75,7 @@ class UserPresenter {
     return await user.delete();
   }
 
-  static bool changePassword(User user, String password) {
-    return user.changePassword(password);
+  static Future<bool> changePassword(User user, String newPassword) async {
+    return await user.changePassword(newPassword);
   }
 }
