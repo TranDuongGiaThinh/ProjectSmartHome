@@ -39,6 +39,8 @@ class Language {
   late String ok;
   late String success;
   late String failure;
+  late String and;
+  late String doNotMatch;
   
 
   Language(String typeLanguage) {
@@ -82,6 +84,8 @@ class Language {
       ok = "Ok";
       success = "Thành công";
       failure = "Thất bại";
+      and = "và";
+      doNotMatch = "không khớp nhau";
       
     } else {
       appName = "Smart home";
@@ -123,6 +127,8 @@ class Language {
       ok = "Ok";
       success = "Success";
       failure = "Failure";
+      and = "and";
+      doNotMatch = "do not match";
 
     }
   }

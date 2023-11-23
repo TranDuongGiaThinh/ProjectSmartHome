@@ -59,29 +59,23 @@ class UserPresenter {
     return user.isFullPermission();
   }
 
-  static bool blockOrUnblockUser(User user) {
-    if (user.blocked) {
-      return user.unblock();
-    } else {
-      return user.block();
-    }
+  static bool isEqual(User user1, User user2) {
+    return user1.isEqual(user2);
   }
 
   static Future<bool> addUser(User user) async {
-    if(user.password == null){return false;}
-    
     return await user.add();
   }
 
-  static bool updateUser(User user) {
-    return user.update();
+  static Future<bool> updateUser(User user) async {
+    return await user.update();
   }
 
-  static bool deleteUser(User user) {
-    return user.delete();
+  static Future<bool> deleteUser(User user) async {
+    return await user.delete();
   }
 
-  static bool changePassword(User user, String password) {
-    return user.changePassword(password);
+  static Future<bool> changePassword(User user, String newPassword) async {
+    return await user.changePassword(newPassword);
   }
 }

@@ -32,4 +32,7 @@ class InfoReader{
     final localFile = await _localFileSetting;
     return await localFile.writeAsString(jsonEncode(SettingPresenter.setting.toJson()).toString());
   }
+
+  //token
+  
 }

@@ -74,15 +74,49 @@ class FirebaseModel {
 
   static Future<bool> addUser(Map<String, dynamic> json) async {
     try {
-      DocumentReference? doc =
-          await FirebasePresenter.firestore!.collection('users').add(json);
+      await FirebasePresenter.firestore!.collection('users').add(json);
 
       // ignore: avoid_print
-      print("add User success, id new user = ${doc.id}");
+      print("add User success");
       return true;
     } catch (e) {
       // ignore: avoid_print
       print('error addUser() in firebase.dart: $e');
+      return false;
+    }
+  }
+
+  static Future<bool> updateUser(
+      String userName, Map<String, dynamic> json) async {
+    try {
+      Map<String, dynamic> data = Map.fromEntries(
+        json.entries.where((entry) {
+          //delete key: "null"
+          return entry.value != null && entry.value.toString() != "null";
+        }),
+      );
+
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance
+              .collection("users")
+              .where("userName", isEqualTo: userName)
+              .limit(1)
+              .get();
+
+      FirebasePresenter.firestore!
+          .collection("users")
+          .doc(querySnapshot.docs.first.id)
+          .set(
+            data,
+            SetOptions(merge: true),
+          );
+
+      // ignore: avoid_print
+      print("update User success");
+      return true;
+    } catch (e) {
+      // ignore: avoid_print
+      print('error updateUser() in firebase.dart: $e');
       return false;
     }
   }
