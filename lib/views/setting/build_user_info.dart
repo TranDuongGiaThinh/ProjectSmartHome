@@ -7,6 +7,7 @@ import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/user_presenter.dart';
 import 'package:smart_home/views/setting/custom_button.dart';
 import 'package:smart_home/views/setting/show_diaglog.dart';
+import 'package:smart_home/views/setting/upload_image.dart';
 
 class BuildUserInfo extends StatefulWidget {
   const BuildUserInfo(
@@ -209,7 +210,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           const SizedBox(width: 40),
           GestureDetector(
-              onTap: () => updateAvatar, child: buildAvatarUser(user.image)),
+              onTap: changeAvatar, child: buildAvatarUser(user.image)),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -375,14 +376,18 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     });
   }
 
-  void logOut() {
-    //clear file account.json
-    //goto login screen
-    Navigator.pushNamed(context, "/login");
+  logOut() {
+    UserPresenter.logOut().then(() {
+      Navigator.pushNamed(context, "/login");
+    });
   }
 
-  void updateAvatar() {
-    //show screen upload image
+  changeAvatar() async {
+    image = await uploadImage();
+    if (image != tempUser.image) {
+      tempUser.image = image;
+      setState(() {});
+    }
   }
 
   void updatePassword() {

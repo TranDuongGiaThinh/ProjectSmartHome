@@ -31,6 +31,10 @@ class UserPresenter {
     return false;
   }
 
+  static logOut() async {
+    //deleted token in file user.json
+  }
+
   static getAllUser() async {
     users = await User.getAllUser();
   }
