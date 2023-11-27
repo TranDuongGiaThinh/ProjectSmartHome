@@ -8,6 +8,10 @@ class UserPresenter {
     userLogin = await User.getUserByUserName(userName);
   }
 
+  static setUserLogin(User newUser) {
+    userLogin = newUser;
+  }
+
   static Future<User?> getUserByUserName(String userName) async {
     return await User.getUserByUserName(userName);
   }
@@ -35,8 +39,18 @@ class UserPresenter {
     //deleted token in file user.json
   }
 
-  static getAllUser() async {
+  static bool isEqualUsers(List<User> lst){
+    for(int i = 0; i< users!.length && i< lst.length; i ++){
+      if(!users![i].isEqual(lst[i])){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  static Future<List<User>?> getAllUser() async {
     users = await User.getAllUser();
+    return users;
   }
 
   static String getStringPermission(User user) {

@@ -41,6 +41,7 @@ class Language {
   late String failure;
   late String and;
   late String doNotMatch;
+  late String noChanges;
   
 
   Language(String typeLanguage) {
@@ -86,6 +87,7 @@ class Language {
       failure = "Thất bại";
       and = "và";
       doNotMatch = "không khớp nhau";
+      noChanges = "Không có dữ liệu thay đổi";
       
     } else {
       appName = "Smart home";
@@ -129,6 +131,7 @@ class Language {
       failure = "Failure";
       and = "and";
       doNotMatch = "do not match";
+      noChanges = "No data changes";
 
     }
   }
