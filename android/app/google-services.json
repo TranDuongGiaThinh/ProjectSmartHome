@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "486093919888",
+    "firebase_url": "https://iotx-e71c4-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "iotx-e71c4",
+    "storage_bucket": "iotx-e71c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486093919888:android:539270cdc2cdc36ae72a15",
+        "android_client_info": {
+          "package_name": "com.example.firebase_demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiA-QSKVuyh82NBEbfSHmIxPIYI3CN9pY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486093919888:android:ae298644f8c591f1e72a15",
+        "android_client_info": {
+          "package_name": "com.example.kiemtralan2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiA-QSKVuyh82NBEbfSHmIxPIYI3CN9pY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

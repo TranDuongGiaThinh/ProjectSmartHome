@@ -1,6 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import '../../firebase_options.dart';
 import 'device_control/device_control.dart';
 import 'lite_rolling_switch.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,8 +18,22 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
+    initFirebase();
     tabController = TabController(length: 2, vsync: this);
     super.initState();
+  }
+
+  Future<void> initFirebase() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    FirebaseAuth.instance.currentUser;
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: "thuycherry@gmail.com", password: "11111111");
+
+    FirebaseAuth.instance.currentUser;
+    // FirebaseAuth.instance.
   }
 
   @override
@@ -350,8 +367,10 @@ class _DeviceControlState extends State<DeviceControl> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const DeviceControlScreen()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const DeviceControlScreen()));
       },
       child: Container(
         height: MediaQuery.of(context).size.width * 0.35,
