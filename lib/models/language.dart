@@ -42,7 +42,7 @@ class Language {
   late String and;
   late String doNotMatch;
   late String noChanges;
-  
+  late String notBeEmpty;
 
   Language(String typeLanguage) {
     if (typeLanguage == "vi") {
@@ -88,7 +88,7 @@ class Language {
       and = "và";
       doNotMatch = "không khớp nhau";
       noChanges = "Không có dữ liệu thay đổi";
-      
+      notBeEmpty = "không được bỏ trống";
     } else {
       appName = "Smart home";
       setting = "Setting";
@@ -132,7 +132,7 @@ class Language {
       and = "and";
       doNotMatch = "do not match";
       noChanges = "No data changes";
-
+      notBeEmpty = "not be empty";
     }
   }
 }
