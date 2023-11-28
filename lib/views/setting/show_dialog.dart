@@ -8,7 +8,7 @@ void showDialogResult(BuildContext context, String title, String message) {
       return AlertDialog(
         title: Text(title),
         content: Text("$message!"),
-        actions: <Widget>[
+        actions: [
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
