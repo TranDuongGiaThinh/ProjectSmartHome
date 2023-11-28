@@ -6,7 +6,7 @@ import 'package:smart_home/models/user.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/user_presenter.dart';
 import 'package:smart_home/views/setting/custom_button.dart';
-import 'package:smart_home/views/setting/show_diaglog.dart';
+import 'package:smart_home/views/setting/show_dialog.dart';
 import 'package:smart_home/views/setting/upload_image.dart';
 
 class BuildUserInfo extends StatefulWidget {
@@ -386,7 +386,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
   void updatePassword() {
     if (password.text != comfirmPassword.text) {
       showDialogResult(context, LanguagePresenter.language.failure,
-          "${LanguagePresenter.language.password} ${LanguagePresenter.language.and} ${LanguagePresenter.language.confirmPassword} ${LanguagePresenter.language.doNotMatch}\n${LanguagePresenter.language.noChanges}");
+          "${LanguagePresenter.language.password} ${LanguagePresenter.language.and} ${LanguagePresenter.language.confirmPassword} ${LanguagePresenter.language.doNotMatch}");
       return;
     }
 
@@ -427,15 +427,30 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
   }
 
   updateUser() {
-    tempUser.userName = tempUser.userName;
     tempUser.fullName = fullName.text;
     tempUser.email = email.text;
     tempUser.phoneNumber = phoneNumber.text;
     tempUser.permissions = permissions;
 
+    if (fullName.text.isEmpty) {
+      showDialogResult(context, LanguagePresenter.language.failure,
+          "${LanguagePresenter.language.fullName} ${LanguagePresenter.language.notBeEmpty}");
+      return;
+    }
+    if (email.text.isEmpty) {
+      showDialogResult(context, LanguagePresenter.language.failure,
+          "${LanguagePresenter.language.email} ${LanguagePresenter.language.notBeEmpty}");
+      return;
+    }
+    if (phoneNumber.text.isEmpty) {
+      showDialogResult(context, LanguagePresenter.language.failure,
+          "${LanguagePresenter.language.phoneNumber} ${LanguagePresenter.language.notBeEmpty}");
+      return;
+    }
+
     if (tempUser.isEqual(widget.user)) {
       showDialogResult(context, LanguagePresenter.language.failure,
-          "${LanguagePresenter.language.updateUser} ${LanguagePresenter.language.failure}");
+          "${LanguagePresenter.language.updateUser} ${LanguagePresenter.language.failure}\n${LanguagePresenter.language.noChanges}");
 
       setState(() {
         isInfoEditting = false;
