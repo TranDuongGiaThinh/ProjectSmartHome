@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
-class DeviceControlScreen extends StatefulWidget {
-  const DeviceControlScreen({super.key});
+import '../../../models/device.dart';
+
+// ignore: must_be_immutable
+class DeviceScreen extends StatefulWidget {
+  DeviceScreen({super.key, required this.device});
+  late Device device;
 
   @override
-  State<DeviceControlScreen> createState() => _DeviceControlScreenState();
+  State<DeviceScreen> createState() => _DeviceScreenState();
 }
 
-class _DeviceControlScreenState extends State<DeviceControlScreen> {
+class _DeviceScreenState extends State<DeviceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
