@@ -179,7 +179,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
                 action: () => setState(() {
                       isPasswordEditting = true;
                     })),
-            if (UserPresenter.userLogin!.userName != widget.user.userName)
+            if (UserPresenter.userLogin.userName != widget.user.userName)
               Column(
                 children: [
                   CustomButton(
@@ -224,7 +224,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         buildTextField("${LanguagePresenter.language.email}: ", email),
         buildTextField(
             "${LanguagePresenter.language.phoneNumber}: ", phoneNumber),
-        if (UserPresenter.userLogin!.userName != user.userName)
+        if (UserPresenter.userLogin.userName != user.userName)
           buildPermissionEditting(),
         buildButtonSave()
       ])
@@ -477,9 +477,9 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         widget.reloadUsers()!.then((value) {
           widget.updateUserOfWidget(widget.user.userName);
 
-          if (tempUser.userName == UserPresenter.userLogin!.userName) {
+          if (tempUser.userName == UserPresenter.userLogin.userName) {
             UserPresenter.getUserLogin(tempUser.userName).then((value) {
-              widget.reloadUserLogin(UserPresenter.userLogin!);
+              widget.reloadUserLogin(UserPresenter.userLogin);
             });
           }
         });

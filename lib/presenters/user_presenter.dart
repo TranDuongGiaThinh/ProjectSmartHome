@@ -1,11 +1,11 @@
 import 'package:smart_home/models/user.dart';
 
 class UserPresenter {
-  static User? userLogin;
+  static User userLogin = User();
   static List<User>? users;
 
   static Future<void> getUserLogin(String userName) async {
-    userLogin = await User.getUserByUserName(userName);
+    userLogin = (await User.getUserByUserName(userName))!;
   }
 
   static setUserLogin(User newUser) {
@@ -58,19 +58,19 @@ class UserPresenter {
   }
 
   static bool getPermissionLivingRoom() {
-    return userLogin!.getPermissionLivingRoom();
+    return userLogin.getPermissionLivingRoom();
   }
 
   static bool getPermissionKitchen() {
-    return userLogin!.getPermissionKitchen();
+    return userLogin.getPermissionKitchen();
   }
 
   static bool getPermissionBedRoom() {
-    return userLogin!.getPermissionBedRoom();
+    return userLogin.getPermissionBedRoom();
   }
 
   static bool getPermissionToilet() {
-    return userLogin!.getPermissionToilet();
+    return userLogin.getPermissionToilet();
   }
 
   static bool isUserFullPermission(User user) {

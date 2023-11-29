@@ -28,7 +28,7 @@ class _SettingScreenState extends State<SettingScreen> {
       children: [
         BuildUserInfo(
           iconButtonLogOut: true,
-          user: UserPresenter.userLogin!,
+          user: UserPresenter.userLogin,
           reloadUsers: () => {},
           reloadUserLogin: reloadUserLogin,
           updateUserOfWidget: (value) => {},
@@ -44,7 +44,7 @@ class _SettingScreenState extends State<SettingScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (UserPresenter.userLogin!.isHost)
+            if (UserPresenter.userLogin.isHost)
               CustomButton(
                   context: context,
                   icon: Icons.person,

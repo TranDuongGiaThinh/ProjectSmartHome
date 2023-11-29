@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/firebase.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
