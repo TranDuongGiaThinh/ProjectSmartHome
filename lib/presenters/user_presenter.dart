@@ -1,11 +1,15 @@
 import 'package:smart_home/models/user.dart';
 
 class UserPresenter {
-  static User? userLogin;
+  static User userLogin = User();
   static List<User>? users;
 
   static Future<void> getUserLogin(String userName) async {
-    userLogin = await User.getUserByUserName(userName);
+    userLogin = (await User.getUserByUserName(userName))!;
+  }
+
+  static setUserLogin(User newUser) {
+    userLogin = newUser;
   }
 
   static Future<User?> getUserByUserName(String userName) async {
@@ -31,8 +35,22 @@ class UserPresenter {
     return false;
   }
 
-  static getAllUser() async {
+  static logOut() async {
+    //deleted token in file user.json
+  }
+
+  static bool isEqualUsers(List<User> lst){
+    for(int i = 0; i< users!.length && i< lst.length; i ++){
+      if(!users![i].isEqual(lst[i])){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  static Future<List<User>?> getAllUser() async {
     users = await User.getAllUser();
+    return users;
   }
 
   static String getStringPermission(User user) {
@@ -40,19 +58,19 @@ class UserPresenter {
   }
 
   static bool getPermissionLivingRoom() {
-    return userLogin!.getPermissionLivingRoom();
+    return userLogin.getPermissionLivingRoom();
   }
 
   static bool getPermissionKitchen() {
-    return userLogin!.getPermissionKitchen();
+    return userLogin.getPermissionKitchen();
   }
 
   static bool getPermissionBedRoom() {
-    return userLogin!.getPermissionBedRoom();
+    return userLogin.getPermissionBedRoom();
   }
 
   static bool getPermissionToilet() {
-    return userLogin!.getPermissionToilet();
+    return userLogin.getPermissionToilet();
   }
 
   static bool isUserFullPermission(User user) {

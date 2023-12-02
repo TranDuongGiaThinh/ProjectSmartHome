@@ -6,7 +6,8 @@ import 'package:smart_home/models/user.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/user_presenter.dart';
 import 'package:smart_home/views/setting/custom_button.dart';
-import 'package:smart_home/views/setting/show_diaglog.dart';
+import 'package:smart_home/views/setting/show_dialog.dart';
+import 'package:smart_home/views/setting/upload_image.dart';
 
 class BuildUserInfo extends StatefulWidget {
   const BuildUserInfo(
@@ -20,15 +21,14 @@ class BuildUserInfo extends StatefulWidget {
   final bool iconButtonLogOut;
   final User user;
   final Function() reloadUsers;
-  final Function() reloadUserLogin;
-  final Function(User?) updateUserOfWidget;
+  final Function(User) reloadUserLogin;
+  final Function(String) updateUserOfWidget;
 
   @override
   State<BuildUserInfo> createState() => _BuildUserInfoState();
 }
 
 class _BuildUserInfoState extends State<BuildUserInfo> {
-  Uint8List? image;
   TextEditingController fullName = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
@@ -37,6 +37,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
 
   bool isInfoEditting = false;
   bool isPasswordEditting = false;
+  bool isChanges = false;
   late bool ischeckAll = false;
   late List<bool> permissions;
   late User tempUser;
@@ -57,7 +58,8 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
 
   @override
   Widget build(BuildContext context) {
-    if (!tempUser.isEqual(widget.user)) {
+    if (!isChanges || widget.user.userName != tempUser.userName) {
+      isChanges = false;
       initial();
     }
     return Padding(
@@ -177,7 +179,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
                 action: () => setState(() {
                       isPasswordEditting = true;
                     })),
-            if (UserPresenter.userLogin!.userName != widget.user.userName)
+            if (UserPresenter.userLogin.userName != widget.user.userName)
               Column(
                 children: [
                   CustomButton(
@@ -209,7 +211,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           const SizedBox(width: 40),
           GestureDetector(
-              onTap: () => updateAvatar, child: buildAvatarUser(user.image)),
+              onTap: changeAvatar, child: buildAvatarUser(user.image)),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -222,7 +224,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         buildTextField("${LanguagePresenter.language.email}: ", email),
         buildTextField(
             "${LanguagePresenter.language.phoneNumber}: ", phoneNumber),
-        if (UserPresenter.userLogin!.userName != user.userName)
+        if (UserPresenter.userLogin.userName != user.userName)
           buildPermissionEditting(),
         buildButtonSave()
       ])
@@ -375,14 +377,10 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     });
   }
 
-  void logOut() {
-    //clear file account.json
-    //goto login screen
-    Navigator.pushNamed(context, "/login");
-  }
-
-  void updateAvatar() {
-    //show screen upload image
+  logOut() {
+    UserPresenter.logOut().then((value) {
+      Navigator.pushNamed(context, "/login");
+    });
   }
 
   void updatePassword() {
@@ -411,45 +409,79 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
 
     UserPresenter.updateUser(tempUser).then((value) {
       if (value) {
-        widget.reloadUsers().then((value) {
-          setState(() {});
-        });
-        UserPresenter.getUserByUserName(widget.user.userName).then((value) {
-          widget.updateUserOfWidget(value!);
-          setState(() {});
-        });
+        widget.reloadUsers();
+        widget.updateUserOfWidget(widget.user.userName);
       }
     });
   }
 
-  void updateUser() {
-    tempUser.image = image;
-    tempUser.userName = tempUser.userName;
+  changeAvatar() async {
+    Uint8List? image = await uploadImage();
+    if (image != null) {
+      tempUser.image = image;
+
+      setState(() {
+        isChanges = true;
+      });
+    }
+  }
+
+  updateUser() {
     tempUser.fullName = fullName.text;
     tempUser.email = email.text;
     tempUser.phoneNumber = phoneNumber.text;
     tempUser.permissions = permissions;
 
+    if (fullName.text.isEmpty) {
+      showDialogResult(context, LanguagePresenter.language.failure,
+          "${LanguagePresenter.language.fullName} ${LanguagePresenter.language.notBeEmpty}");
+      return;
+    }
+    if (email.text.isEmpty) {
+      showDialogResult(context, LanguagePresenter.language.failure,
+          "${LanguagePresenter.language.email} ${LanguagePresenter.language.notBeEmpty}");
+      return;
+    }
+    if (phoneNumber.text.isEmpty) {
+      showDialogResult(context, LanguagePresenter.language.failure,
+          "${LanguagePresenter.language.phoneNumber} ${LanguagePresenter.language.notBeEmpty}");
+      return;
+    }
+
+    if (tempUser.isEqual(widget.user)) {
+      showDialogResult(context, LanguagePresenter.language.failure,
+          "${LanguagePresenter.language.updateUser} ${LanguagePresenter.language.failure}\n${LanguagePresenter.language.noChanges}");
+
+      setState(() {
+        isInfoEditting = false;
+        isChanges = true;
+      });
+
+      return;
+    }
+
     UserPresenter.updateUser(tempUser).then((value) {
       String strResult = value
           ? LanguagePresenter.language.success
           : LanguagePresenter.language.failure;
-      setState(() {
-        isInfoEditting = false;
-      });
 
       showDialogResult(context, strResult,
           "${LanguagePresenter.language.updateUser} $strResult");
 
+      setState(() {
+        isInfoEditting = false;
+        isChanges = true;
+      });
+
       if (value) {
-        widget.reloadUsers().then((value) {
-          setState(() {});
-        });
-        if (tempUser.userName == UserPresenter.userLogin!.userName) {
-          widget.reloadUserLogin();
-        }
-        UserPresenter.getUserByUserName(widget.user.userName).then((value) {
-          widget.updateUserOfWidget(value!);
+        widget.reloadUsers()!.then((value) {
+          widget.updateUserOfWidget(widget.user.userName);
+
+          if (tempUser.userName == UserPresenter.userLogin.userName) {
+            UserPresenter.getUserLogin(tempUser.userName).then((value) {
+              widget.reloadUserLogin(UserPresenter.userLogin);
+            });
+          }
         });
       }
     });
@@ -466,10 +498,12 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
 
       if (value) {
         widget.reloadUsers().then((value) {
-          setState(() {});
+          setState(() {
+            isChanges = true;
+          });
         });
 
-        widget.updateUserOfWidget(null);
+        widget.updateUserOfWidget("null");
       }
     });
   }

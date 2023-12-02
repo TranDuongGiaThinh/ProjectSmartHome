@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/firebase.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
@@ -85,14 +85,16 @@ class User {
   }
 
   bool isEqual(User otherUser) {
-    return userName == otherUser.userName &&
-        fullName == otherUser.fullName &&
-        email == otherUser.email &&
-        phoneNumber == otherUser.phoneNumber &&
-        isHost == otherUser.isHost &&
-        blocked == otherUser.blocked &&
-        image == otherUser.image &&
-        permissions == otherUser.permissions;
+    bool result = userName == otherUser.userName;
+    result = result && fullName == otherUser.fullName;
+    result = result && email == otherUser.email;
+    result = result && phoneNumber == otherUser.phoneNumber;
+    result = result && isHost == otherUser.isHost;
+    result = result && blocked == otherUser.blocked;
+    result = result && image == otherUser.image;
+    result = result && listEquals(permissions, otherUser.permissions);
+
+    return result;
   }
 
   static Future<User?> getUserByUserName(String userName) async {
@@ -213,7 +215,7 @@ class User {
     return await FirebaseModel.updateUser(userName, toJson());
   }
 
-  Future<bool> delete() async{
+  Future<bool> delete() async {
     return await FirebaseModel.updateUser(userName, toJson(deleted: true));
   }
 }

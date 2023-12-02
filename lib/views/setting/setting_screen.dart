@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:smart_home/models/user.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
 import 'package:smart_home/presenters/user_presenter.dart';
@@ -15,9 +17,9 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  reloadUserLogin() async {
-    await UserPresenter.getUserLogin(UserPresenter.userLogin!.userName);
-    setState(() {});
+  reloadUserLogin(User newUser) {
+    UserPresenter.setUserLogin(newUser);
+      setState(() {});
   }
 
   @override
@@ -26,7 +28,7 @@ class _SettingScreenState extends State<SettingScreen> {
       children: [
         BuildUserInfo(
           iconButtonLogOut: true,
-          user: UserPresenter.userLogin!,
+          user: UserPresenter.userLogin,
           reloadUsers: () => {},
           reloadUserLogin: reloadUserLogin,
           updateUserOfWidget: (value) => {},
@@ -42,7 +44,7 @@ class _SettingScreenState extends State<SettingScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (UserPresenter.userLogin!.isHost)
+            if (UserPresenter.userLogin.isHost)
               CustomButton(
                   context: context,
                   icon: Icons.person,
