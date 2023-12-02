@@ -2,14 +2,19 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:smart_home/Utils/Utils.dart';
 import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/firebase.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smart_home/views/home/home.dart';
+import 'package:smart_home/views/login.dart/login_screen.dart';
 
 class User {
+ late String id;
   late Uint8List? image;
   late String userName;
-  String? password;
   late String fullName;
   late String email;
   late String phoneNumber;
@@ -18,6 +23,7 @@ class User {
   late bool blocked;
 
   User() {
+    id="";
     image = null;
     userName = "";
     fullName = "";
@@ -29,7 +35,9 @@ class User {
   }
 
   User.info(
-      {required this.image,
+      {
+        this.id = '',
+      required this.image,
       required this.userName,
       required this.fullName,
       required this.email,
@@ -70,7 +78,6 @@ class User {
       'image':
           image?.isNotEmpty ?? false ? convertImageToString(image!) : "null",
       'userName': userName,
-      'password': password,
       'fullName': fullName,
       'email': email,
       'phoneNumber': phoneNumber,
@@ -202,10 +209,10 @@ class User {
     return await FirebaseModel.updateUser(userName, toJson());
   }
 
-  Future<bool> changePassword(String newPassword) async {
-    password = newPassword;
-    return await FirebaseModel.updateUser(userName, toJson());
-  }
+  // Future<bool> changePassword(String newPassword) async {
+  //   password = newPassword;
+  //   return await FirebaseModel.updateUser(userName, toJson());
+  // }
 
   Future<bool> add() async {
     return await FirebaseModel.addUser(toJson());
@@ -218,4 +225,93 @@ class User {
   Future<bool> delete() async {
     return await FirebaseModel.updateUser(userName, toJson(deleted: true));
   }
+}
+Future<void> signUp(BuildContext context, User user, String password) async {
+    
+
+   try {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    final auth = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: user.email.trim(),
+      password: password.trim(),
+    );
+    user.id = auth.user!.uid;
+    print('Tài khoản đã được tạo thành công!');
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(auth.user!.uid)
+        .set(user.toJson());
+
+    Utils.showSnackBarTrue('Tài khoản đã được tạo thành công!');
+  } on FirebaseAuthException catch (e) {
+    // Ẩn loading indicator
+    Navigator.of(context).pop();
+
+    // Hiển thị thông báo thất bại
+    Utils.showSnackBarFalse(e.message);
+  }finally {
+    // Đóng hộp thoại
+    Navigator.pop(context);
+  }
+}
+
+Future<void> signIn(BuildContext context, String email, String password) async {
+  try { 
+
+    // Hiển thị hộp thoại đợi
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
+    // Xóa thông tin đăng nhập trước đó (nếu có)
+    FirebaseAuth.instance.currentUser?.delete();
+
+    // Thực hiện đăng nhập
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email.trim(),
+      password: password.trim(),
+    );
+    print(FirebaseAuth.instance.currentUser); 
+    // Kiểm tra xem người dùng có đăng nhập thành công không
+    if (FirebaseAuth.instance.currentUser != null) {
+      print("Chuyển trang");
+      // Đăng nhập thành công, chuyển hướng đến màn hình Home
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+    } else {
+      // Đăng nhập không thành công, xuất thông báo
+      print("Mật khẩu không hợp lệ");
+      Utils.showSnackBarFalse("Mật khẩu không hợp lệ");
+    }
+  } on FirebaseAuthException {
+    // Utils.showSnackBarFalse(e.message)
+    Utils.showSnackBarFalse("Mật khẩu không hợp lệ");
+  } finally {
+    // Đóng hộp thoại
+    Navigator.pop(context);
+  }
+}
+
+void logOut(BuildContext context) async {
+   await FirebaseAuth.instance.signOut();
+
+print("Đã đăng xuất"); 
+
+print(FirebaseAuth.instance.currentUser); 
+   Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
 }

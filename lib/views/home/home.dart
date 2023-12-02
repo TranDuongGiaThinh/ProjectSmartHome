@@ -182,7 +182,7 @@ class Weather extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 30, top: 25),
-              child: Column(
+              child:  Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text("22 Feb 2023 /25°C",

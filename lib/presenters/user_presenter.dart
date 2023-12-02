@@ -93,7 +93,7 @@ class UserPresenter {
     return await user.delete();
   }
 
-  static Future<bool> changePassword(User user, String newPassword) async {
-    return await user.changePassword(newPassword);
-  }
+  // static Future<bool> changePassword(User user, String newPassword) async {
+  //   return await user.changePassword(newPassword);
+  // }
 }
