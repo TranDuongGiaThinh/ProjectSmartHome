@@ -1,4 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
+import 'package:kiemtralan2/viewmodels/room_viewmodel.dart';
+import '../data/data.dart';
 import '../models/device.dart';
 
 class DeviceViewModel {
@@ -13,51 +16,54 @@ class DeviceViewModel {
   }
 
   Future<List<Device>> getDevices() async {
+    if (Data.devices.isNotEmpty) return Data.devices;
+
     List<Device> devices = [];
 
     try {
       final data = await FirebaseDatabase.instance.ref("device/").get();
 
-      final Map<String, dynamic> map = data.value as Map<String, dynamic>;
+      final Map<dynamic, dynamic> map = data.value as Map<dynamic, dynamic>;
 
       map.forEach((key, value) {
         devices.add(Device(
+            id: key,
             name: value["name"],
-            board: board,
-            wattage: wattage,
-            id: value["id"],
+            image: value["image"],
+            board: value["board"]["id"],
+            wattage: value["wattage"],
+            roomName: RoomViewModel.instance.getNameByID(value["room_id"]),
             roomID: value["room_id"],
             pin: value["board"]["pin"],
             state: value["status"]));
-        // devices
-        //     .add(Device(
-        //       pin: key.toString(),
-        //        state: value == 0 ? false : true,
-        //        name:
-        //        ));
       });
     } catch (e) {
-      print("Error get data: ${e.toString()}");
+      if (kDebugMode) {
+        print("Error get data: ${e.toString()}");
+      }
     }
-
     return devices;
   }
 
+  String getRef(Device device) {
+    return "board/${device.board}/outputs/digital/${device.pin}/";
+  }
+
+  Device getDeviceById(String id) {
+    Device device = Data.devices.where((element) => element.id == id).first;
+    return device;
+  }
+
   Future<void> setStatus(Device device) async {
-    final data =
-        await FirebaseDatabase.instance.ref("board1/outputs/digital/").get();
+    final deviceDataPath = "device/${device.id}/";
+    final boardDataPath = "board/${device.board}/outputs/digital/";
 
-    final Map<dynamic, dynamic> map = data.value as Map<dynamic, dynamic>;
+    FirebaseDatabase.instance
+        .ref(deviceDataPath)
+        .update({"status": device.state});
 
-    map.forEach((key, value) {
-      if (key == device.pin.toString()) {
-        if (value != device.state) {
-          FirebaseDatabase.instance
-              .ref("board1/outputs/digital/")
-              .update({device.pin: device.state ? 1 : 0});
-          return;
-        }
-      }
-    });
+    FirebaseDatabase.instance
+        .ref(boardDataPath)
+        .update({device.pin: device.state});
   }
 }

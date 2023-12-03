@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kiemtralan2">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
    <application
-        android:label="kiemtralan2"
+        android:label="Home Plus"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

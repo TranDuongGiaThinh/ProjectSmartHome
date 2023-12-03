@@ -1,9 +1,14 @@
+import 'dart:async';
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:kiemtralan2/viewmodels/device_viewmodel.dart';
 import '../../../../models/device.dart';
 import '../../screens/device.dart';
 
 class DeviceStautsRoom extends StatefulWidget {
-  const DeviceStautsRoom({super.key});
+  const DeviceStautsRoom({super.key, required this.deviceId});
+  final String deviceId;
 
   @override
   State<DeviceStautsRoom> createState() => _DeviceStautsRoomState();
@@ -12,37 +17,74 @@ class DeviceStautsRoom extends StatefulWidget {
 class _DeviceStautsRoomState extends State<DeviceStautsRoom> {
   final redDot = 'assets/home/redDot.png';
   final greenDot = 'assets/home/greenDot.png';
-  var state = '';
-  var state_Str = '';
+  // late final double screenWidth;
+  late Device device;
+  late StreamSubscription _counterSubscription;
+
 
   @override
   void initState() {
-    state = redDot;
-    state_Str = 'tắt';
+    device = DeviceViewModel.instance.getDeviceById(widget.deviceId);
+
+    _counterSubscription = FirebaseDatabase.instance
+        .ref(DeviceViewModel.instance.getRef(device))
+        .onValue
+        .listen(_callBack);
     super.initState();
+  }
+
+  _onClick() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DeviceScreen(
+            deviceID: widget.deviceId,
+          ),
+        ));
+  }
+
+  _callBack(DatabaseEvent event) {
+    if (event.snapshot.value != device.state) {
+      setState(() {
+        device.state = event.snapshot.value! as int;
+      });
+    }
+  }
+
+  _buttonStateClick() {
+    setState(() {
+      device.state = device.state == 1 ? 0 : 1;
+      DeviceViewModel.instance.setStatus(device);
+    });
+  }
+
+  @override
+  void dispose() {
+    _counterSubscription.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DeviceScreen(
-              device: Device(pin: "1", state: true),
-            ),
-          ),
-        )
-      },
+      onTap: _onClick,
       child: Container(
-        width: 190,
-        height: 150,
+        width: 100,
+        height: 100,
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3), // Màu của đổ bóng
+              spreadRadius: 2, // Độ mở rộng của đổ bóng
+              blurRadius: 7, // Độ mờ của đổ bóng
+              offset: const Offset(
+                  0, 4), // Độ dịch chuyển của đổ bóng theo trục x và y
+            ),
+          ],
           border: Border.all(
-              color: const Color.fromARGB(255, 208, 208, 208), width: 3),
+              color: const Color.fromARGB(255, 208, 208, 208), width: 1),
           color: const Color.fromARGB(255, 230, 230, 230),
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(40),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,33 +94,42 @@ class _DeviceStautsRoomState extends State<DeviceStautsRoom> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: Image.asset('assets/home/light.png'),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      print("Test Button");
-                      // FirebaseDatabase.instance.
-                      setState(() => {
-                            if (state == redDot)
-                              {state = greenDot, state_Str = 'bật'}
-                            else
-                              {state = redDot, state_Str = 'tắt'}
-                          });
-                    },
-                    child: SizedBox(
-                      width: 35,
-                      height: 35,
-                      child: Image.asset('assets/home/onoff.png'),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, left: 10),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color.fromARGB(255, 169, 167, 167)
+                                .withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 7,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      width: 50,
+                      height: 50,
+                      child: Image.asset('assets/home/${device.image}',
+                          fit: BoxFit.cover),
                     ),
-                  )
+                  ),
+                  ElevatedButton(
+                      style: const ButtonStyle(
+                          shape: MaterialStatePropertyAll(CircleBorder()),
+                          elevation: MaterialStatePropertyAll(5),
+                          backgroundColor: MaterialStatePropertyAll(
+                              Color.fromARGB(255, 230, 230, 230))),
+                      onPressed: _buttonStateClick,
+                      child: SizedBox(
+                          width: 35,
+                          height: 35,
+                          child: Image.asset('assets/home/onoff.png')))
                 ],
               ),
             ),
-            const Text('Đèn',
-                style: TextStyle(
+            Text(device.name,
+                style: const TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 115, 115, 115))),
@@ -87,16 +138,33 @@ class _DeviceStautsRoomState extends State<DeviceStautsRoom> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  SizedBox(
-                    width: 13,
-                    height: 13,
-                    child: Image.asset(state),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        minimumSize:
+                            const MaterialStatePropertyAll(Size(50, 30)),
+                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20))),
+                        elevation: const MaterialStatePropertyAll(0.5),
+                        backgroundColor: const MaterialStatePropertyAll(
+                            Color.fromARGB(255, 230, 230, 230))),
+                    onPressed: () {},
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 14,
+                            height: 14,
+                            child: Image.asset(
+                                device.state == 1 ? greenDot : redDot),
+                          ),
+                          Text(
+                            '  Đang ${device.state == 1 ? 'bật' : 'tắt'}',
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 135, 134, 134),
+                                fontWeight: FontWeight.bold),
+                          )
+                        ]),
                   ),
-                  Text(
-                    '  Đang $state_Str',
-                    style: const TextStyle(
-                        color: Color.fromARGB(255, 186, 186, 186)),
-                  )
                 ],
               ),
             )

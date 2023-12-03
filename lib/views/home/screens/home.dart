@@ -1,11 +1,15 @@
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:kiemtralan2/viewmodels/device_viewmodel.dart';
-import '../../../models/device.dart';
-import '../components/tabs/device_tabbar_view.dart';
+import 'package:kiemtralan2/main.dart';
+import '../components/tabs/devicetab/device_tabbar_view.dart';
 import '../components/tabs/main_tabbar.dart';
-import '../components/tabs/room_tabbar_view.dart';
+import '../components/tabs/roomtab/room_tabbar_view.dart';
 import '../components/widgets/weather.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+const tabLenght = 2;
+const tabViewRoom = 0;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,17 +21,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-  List<Device> devices = [];
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
+    //test
     checkLogin();
-    tabController = TabController(length: 2, vsync: this);
 
-    DeviceViewModel.instance.getDevices().then((value) {
-      devices = value;
-    });
-
+    tabController = TabController(length: tabLenght, vsync: this);
     super.initState();
   }
 
@@ -35,70 +41,79 @@ class _HomeScreenState extends State<HomeScreen>
   Future<void> checkLogin() async {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
-        print('Test: User is currently signed out!');
+        if (kDebugMode) {
+          print('Test: User is currently signed out!');
+        }
       } else {
-        print('Test: User is signed in!');
+        if (kDebugMode) {
+          print('Test: User is signed in!');
+        }
       }
     });
 
     try {
+      FirebaseDatabase.instance.setPersistenceEnabled(true);
       if (FirebaseAuth.instance.currentUser == null) {
+        // ignore: unused_local_variable
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(
                 email: "thuycherry14@gmail.com", password: "11111111");
       }
-      print("Test: Sign in succses");
+      if (kDebugMode) {
+        print("Test: Sign in succses");
+      }
     } catch (e) {
-      print("Test: Error Sign in");
+      if (kDebugMode) {
+        print("Test: Error Sign in");
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    MyApp.screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
           elevation: 0, // chỉnh độ cao của appbar
           toolbarHeight: 0,
         ),
-        body: Container(
-          child: Column(children: [
-            if (tabController.index == 0)
-              Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [Weather()],
+        // ignore: avoid_unnecessary_containers
+        body: AnimatedBuilder(
+          animation: tabController,
+          builder: (context, child) {
+            return Transform.translate(
+                offset: Offset(MyApp.screenWidth * tabController.offset, 0),
+                child: Column(children: [
+                  if (tabController.index == tabViewRoom)
+                    const Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Center(
+                          child: Weather(),
+                        )),
+                  Center(
+                      child: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: MainTabBar(
+                      tabController: tabController,
+                      onTap: () {
+                        setState(() {});
+                      },
+                    ),
                   )),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              MainTabBar(
-                tabController: tabController,
-                onTap: () {
-                  setState(() {});
-                },
-              )
-            ]),
-            const SizedBox(
-              height: 17,
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: tabController,
-                children: [
-                  const SingleChildScrollView(
-                    child: RoomTabBarView(),
+                  const SizedBox(
+                    height: 17,
                   ),
-                  SingleChildScrollView(
-                    child: DiveceTabBarView(
-                      devices: devices,
+                  Expanded(
+                    child: TabBarView(
+                      controller: tabController,
+                      children: const [
+                        RoomTabBarView(),
+                        DiveceTabBarView(),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ]),
+                ]));
+          },
         ));
   }
 }
