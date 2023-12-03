@@ -1,4 +1,5 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_home/Utils/color_utils.dart';
 import 'package:smart_home/models/user.dart';
@@ -19,9 +20,18 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
+  
   @override
   initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // Nếu đã đăng nhập, chuyển hướng đến trang chủ
+      Navigator.pushReplacementNamed(context, "/");
+    }
+  });
   }
 
   @override

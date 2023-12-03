@@ -10,20 +10,18 @@ import 'package:smart_home/models/setting.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
 import 'package:smart_home/views/login.dart/login_screen.dart';
-import 'package:smart_home/views/main/main_screen.dart';
 import 'package:smart_home/views/signup_screen/sign_up_screen.dart';
 import 'package:smart_home/views/index_screen.dart';
 
-Future main() async { 
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseAppCheck.instance.activate();
   runApp(const MyApp());
-   // Initialize App Check
-
-
 }
-final navigatorKey=GlobalKey<NavigatorState>();
+
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -82,13 +80,11 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
-      initialRoute: "/main_screen",
+      initialRoute: "/login_screen",
       routes: {
-        "/main_screen": (context) =>const Main(),
-        "/ login_screen":(context)=> const LoginScreen(),
+        "/login_screen": (context) => const LoginScreen(),
         "/signUp": (context) => const SignUpScreen(),
         "/": (context) => IndexScreen(reloadThemeMode: reloadThemeMode),
-
       },
     );
   }

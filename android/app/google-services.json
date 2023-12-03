@@ -1,33 +1,13 @@
 {
   "project_info": {
-    "project_number": "864450310750",
-    "firebase_url": "https://fir-example-30b54-default-rtdb.firebaseio.com",
-    "project_id": "fir-example-30b54",
-    "storage_bucket": "fir-example-30b54.appspot.com"
+    "project_number": "869451437404",
+    "project_id": "test-65280",
+    "storage_bucket": "test-65280.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:864450310750:android:17db672879cd0a55603acf",
-        "android_client_info": {
-          "package_name": "com.example.firebase_sigin"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyADUo5ijCOy3YBDC3A7BX8rTX8KQ8rHhQQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:864450310750:android:0279b5d1d0adfbc1603acf",
+        "mobilesdk_app_id": "1:869451437404:android:37e074b0fe5a0de3ec9d99",
         "android_client_info": {
           "package_name": "com.example.smart_home"
         }
@@ -35,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyADUo5ijCOy3YBDC3A7BX8rTX8KQ8rHhQQ"
+          "current_key": "AIzaSyCYXhbmCPMALPk8i_fDoqUEdmGQvnFiE2g"
         }
       ],
       "services": {

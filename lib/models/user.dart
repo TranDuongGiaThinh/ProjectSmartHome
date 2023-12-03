@@ -8,11 +8,9 @@ import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/firebase.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:smart_home/views/home/home.dart';
-import 'package:smart_home/views/login.dart/login_screen.dart';
 
-class User {
- late String id;
+class UserModel {
+  late String id;
   late Uint8List? image;
   late String userName;
   late String fullName;
@@ -22,8 +20,8 @@ class User {
   late bool isHost;
   late bool blocked;
 
-  User() {
-    id="";
+  UserModel() {
+    id = "";
     image = null;
     userName = "";
     fullName = "";
@@ -34,9 +32,8 @@ class User {
     blocked = false;
   }
 
-  User.info(
-      {
-        this.id = '',
+  UserModel.info(
+      {this.id = '',
       required this.image,
       required this.userName,
       required this.fullName,
@@ -46,7 +43,7 @@ class User {
       required this.isHost,
       required this.blocked});
 
-  User.fromJson(Map<String, dynamic> json)
+  UserModel.fromJson(Map<String, dynamic> json)
       : image = json['image'] != null && json['image'] != "null"
             ? convertStringToUint8List(json['image'])
             : null,
@@ -63,7 +60,7 @@ class User {
         isHost = json['isHost'],
         blocked = json['blocked'];
 
-  User.copy(User user)
+  UserModel.copy(UserModel user)
       : image = user.image,
         userName = user.userName,
         fullName = user.fullName,
@@ -91,7 +88,7 @@ class User {
     };
   }
 
-  bool isEqual(User otherUser) {
+  bool isEqual(UserModel otherUser) {
     bool result = userName == otherUser.userName;
     result = result && fullName == otherUser.fullName;
     result = result && email == otherUser.email;
@@ -104,32 +101,23 @@ class User {
     return result;
   }
 
-  static Future<User?> getUserByUserName(String userName) async {
+  static Future<UserModel?> getUserByUserName(String userName) async {
     Map<String, dynamic>? map = await FirebaseModel.getUserByUserName(userName);
     if (map != null) {
-      return User.fromJson(map);
+      return UserModel.fromJson(map);
     }
     return null;
   }
 
-  static Future<User?> checkAccount(String userName, String password) async {
-    Map<String, dynamic>? json =
-        await FirebaseModel.checkAccount(userName, password);
-    if (json != null) {
-      return User.fromJson(json);
-    }
-    return null;
-  }
-
-  static Future<List<User>> getAllUser() async {
-    List<User> users = [];
+  static Future<List<UserModel>> getAllUser() async {
+    List<UserModel> users = [];
     List<QueryDocumentSnapshot<Map<String, dynamic>>>? querySnapshotDocs =
         await FirebaseModel.getAllUsers();
 
     for (var document in querySnapshotDocs!) {
       Map<String, dynamic> userData = document.data();
 
-      User user = User.fromJson(userData);
+      UserModel user = UserModel.fromJson(userData);
       users.add(user);
     }
 
@@ -171,7 +159,7 @@ class User {
     return true;
   }
 
-  String getStringPermission(User user) {
+  String getStringPermission(UserModel user) {
     bool isFirst = true;
     bool isFullPermission = true;
     String strPermission = "";
@@ -226,10 +214,10 @@ class User {
     return await FirebaseModel.updateUser(userName, toJson(deleted: true));
   }
 }
-Future<void> signUp(BuildContext context, User user, String password) async {
-    
 
-   try {
+Future<void> signUp(
+    BuildContext context, UserModel user, String password) async {
+  try {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -242,6 +230,7 @@ Future<void> signUp(BuildContext context, User user, String password) async {
       password: password.trim(),
     );
     user.id = auth.user!.uid;
+    // ignore: avoid_print
     print('Tài khoản đã được tạo thành công!');
     await FirebaseFirestore.instance
         .collection('users')
@@ -255,41 +244,46 @@ Future<void> signUp(BuildContext context, User user, String password) async {
 
     // Hiển thị thông báo thất bại
     Utils.showSnackBarFalse(e.message);
-  }finally {
+  } finally {
     // Đóng hộp thoại
     Navigator.pop(context);
   }
 }
 
 Future<void> signIn(BuildContext context, String email, String password) async {
-  try { 
-
-    // Hiển thị hộp thoại đợi
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-
+  try {
     // Xóa thông tin đăng nhập trước đó (nếu có)
     FirebaseAuth.instance.currentUser?.delete();
-
-    // Thực hiện đăng nhập
     await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email.trim(),
       password: password.trim(),
     );
-    print(FirebaseAuth.instance.currentUser); 
-    // Kiểm tra xem người dùng có đăng nhập thành công không
+
+// Không in ở đây, kiểm tra bên trong điều kiện if
     if (FirebaseAuth.instance.currentUser != null) {
-      print("Chuyển trang");
-      // Đăng nhập thành công, chuyển hướng đến màn hình Home
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
+      DocumentSnapshot<Map<String, dynamic>> userData = await FirebaseFirestore
+          .instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+
+      if (userData.exists) {
+        bool isDeleted = userData.data()?["deleted"] ?? false;
+        bool blocked = userData.data()?["blocked"] ?? false;
+        if (isDeleted) {
+          // Tài khoản đã bị đánh dấu xóa
+          // Xử lý tùy thuộc vào yêu cầu của bạn
+          Utils.showSnackBarFalse("Tài khoản đã bị Xóa!");
+        } else if (blocked) {
+          // Tài khoản đã bị đánh dấu xóa
+          // Xử lý tùy thuộc vào yêu cầu của bạn
+          Utils.showSnackBarFalse("Tài khoản đã bị Khóa!");
+        } else {
+          print("Chuyển trang");
+          // Đăng nhập thành công, chuyển hướng đến màn hình Home
+          Navigator.pushNamed(context, "/");
+        }
+      }
     } else {
       // Đăng nhập không thành công, xuất thông báo
       print("Mật khẩu không hợp lệ");
@@ -298,20 +292,5 @@ Future<void> signIn(BuildContext context, String email, String password) async {
   } on FirebaseAuthException {
     // Utils.showSnackBarFalse(e.message)
     Utils.showSnackBarFalse("Mật khẩu không hợp lệ");
-  } finally {
-    // Đóng hộp thoại
-    Navigator.pop(context);
   }
-}
-
-void logOut(BuildContext context) async {
-   await FirebaseAuth.instance.signOut();
-
-print("Đã đăng xuất"); 
-
-print(FirebaseAuth.instance.currentUser); 
-   Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
-      );
 }
