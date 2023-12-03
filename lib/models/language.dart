@@ -1,3 +1,5 @@
+import 'package:smart_home/views/forgot_password/forgot_password.dart';
+
 class Language {
   late String appName;
   late String setting;
@@ -43,6 +45,12 @@ class Language {
   late String doNotMatch;
   late String noChanges;
   late String notBeEmpty;
+  late String enter;
+  late String enterEmailValid;
+  late String passwordValid;
+  late String forgotPassword;
+  late String sendPasswordResetEmail;
+
 
   Language(String typeLanguage) {
     if (typeLanguage == "vi") {
@@ -89,6 +97,13 @@ class Language {
       doNotMatch = "không khớp nhau";
       noChanges = "Không có dữ liệu thay đổi";
       notBeEmpty = "không được bỏ trống";
+      enter = "Nhập";
+      enterEmailValid = "Nhập địa chỉ Email hợp lệ";
+      passwordValid = "Mật khẩu phải có độ dài tối thiểu là 8 kí tự";
+      forgotPassword = "Quên mật khẩu";
+      sendPasswordResetEmail = "Liên kết đổi mật khẩu đã được gửi đến email";
+
+
     } else {
       appName = "Smart home";
       setting = "Setting";
@@ -133,6 +148,12 @@ class Language {
       doNotMatch = "do not match";
       noChanges = "No data changes";
       notBeEmpty = "not be empty";
+      enter = "Enter";
+      enterEmailValid = "Enter a valid email address";
+      passwordValid = "Password must be at least 8 characters";
+      forgotPassword = "Forgot password";
+      sendPasswordResetEmail = "A password reset link has been sent to email";
+
     }
   }
 }
