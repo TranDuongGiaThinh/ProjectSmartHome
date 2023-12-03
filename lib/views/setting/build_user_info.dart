@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/user.dart';
@@ -88,7 +87,8 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              if (iconButtonLogOut) buildIconLogOut(),
+              if (iconButtonLogOut)
+               buildIconLogOut(context),
               const SizedBox(width: 40, height: 80),
             ],
           )
@@ -99,13 +99,16 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     ]);
   }
 
-  Widget buildIconLogOut() {
-    return SizedBox(
-      width: 40,
-      height: 40,
-      child: IconButton(onPressed: logOut, icon: const Icon(Icons.logout)),
-    );
-  }
+Widget buildIconLogOut(BuildContext context) {
+  return SizedBox(
+    width: 40,
+    height: 40,
+    child: IconButton(
+      onPressed: () => logOut(context),
+      icon: const Icon(Icons.logout),
+    ),
+  );
+}
 
   Widget buildAvatarUser(Uint8List? image) {
     if (image != null) {
@@ -306,8 +309,8 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
           action: () => {
                 if (isInfoEditting)
                   updateUser()
-                else if (isPasswordEditting)
-                  updatePassword()
+                // else if (isPasswordEditting)
+                //   updatePassword()
               }),
     );
   }
@@ -377,32 +380,43 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     });
   }
 
-  logOut() {
-    UserPresenter.logOut().then((value) {
-      Navigator.pushNamed(context, "/login");
-    });
-  }
+// void logOut() async {
+//   try {
+//     await FirebaseAuth.instance.signOut();
+//     User? currentUser = FirebaseAuth.instance.currentUser;
 
-  void updatePassword() {
-    if (password.text != comfirmPassword.text) {
-      showDialogResult(context, LanguagePresenter.language.failure,
-          "${LanguagePresenter.language.password} ${LanguagePresenter.language.and} ${LanguagePresenter.language.confirmPassword} ${LanguagePresenter.language.doNotMatch}");
-      return;
-    }
+//     if (currentUser == null) {
+//       Navigator.pushNamed(context, "/login");
+//     } else {
+//       // Người dùng vẫn tồn tại, xử lý tùy thuộc vào trạng thái hiện tại của ứng dụng.
+//       // ...
+//     }
+//   } catch (e) {
+//     print("Đã xảy ra lỗi khi đăng xuất: $e");
+//   }
+// }
 
-    UserPresenter.changePassword(widget.user, password.text).then((value) {
-      String strResult = value
-          ? LanguagePresenter.language.success
-          : LanguagePresenter.language.failure;
 
-      setState(() {
-        isPasswordEditting = false;
-      });
+  // void updatePassword() {
+  //   if (password.text != comfirmPassword.text) {
+  //     showDialogResult(context, LanguagePresenter.language.failure,
+  //         "${LanguagePresenter.language.password} ${LanguagePresenter.language.and} ${LanguagePresenter.language.confirmPassword} ${LanguagePresenter.language.doNotMatch}");
+  //     return;
+  //   }
 
-      showDialogResult(context, strResult,
-          "${LanguagePresenter.language.changePassword} $strResult");
-    });
-  }
+  //   UserPresenter.changePassword(widget.user, password.text).then((value) {
+  //     String strResult = value
+  //         ? LanguagePresenter.language.success
+  //         : LanguagePresenter.language.failure;
+
+  //     setState(() {
+  //       isPasswordEditting = false;
+  //     });
+
+  //     showDialogResult(context, strResult,
+  //         "${LanguagePresenter.language.changePassword} $strResult");
+  //   });
+  // }
 
   void blockOrUnblockUser() {
     tempUser.blocked = !tempUser.blocked;
