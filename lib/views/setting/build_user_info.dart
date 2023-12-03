@@ -175,7 +175,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
                 })
               },
             ),
-            CustomButton(
+            if(widget.user.userName == UserPresenter.userLogin.userName)CustomButton(
                 context: context,
                 icon: Icons.shield,
                 content: LanguagePresenter.language.changePassword,
