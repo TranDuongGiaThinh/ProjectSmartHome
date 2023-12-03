@@ -35,7 +35,6 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
   TextEditingController comfirmPassword = TextEditingController();
 
   bool isInfoEditting = false;
-  bool isPasswordEditting = false;
   bool isChanges = false;
   late bool ischeckAll = false;
   late List<bool> permissions;
@@ -70,9 +69,8 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
                 borderRadius: BorderRadius.circular(20)),
             child: Visibility(
               visible: isInfoEditting,
-              replacement: isPasswordEditting
-                  ? buildPasswordEditting()
-                  : buildInfoUserReadOnly(widget.iconButtonLogOut, tempUser),
+              replacement:
+                  buildInfoUserReadOnly(widget.iconButtonLogOut, tempUser),
               child: buildInfoUserEditting(tempUser),
             )));
   }
@@ -179,9 +177,9 @@ Widget buildIconLogOut(BuildContext context) {
                 context: context,
                 icon: Icons.shield,
                 content: LanguagePresenter.language.changePassword,
-                action: () => setState(() {
-                      isPasswordEditting = true;
-                    })),
+                action: () {
+                      gotoPasswordChange();
+                    }),
             if (UserPresenter.userLogin.userName != widget.user.userName)
               Column(
                 children: [
@@ -243,7 +241,6 @@ Widget buildIconLogOut(BuildContext context) {
             onPressed: () {
               setState(() {
                 isInfoEditting = false;
-                isPasswordEditting = false;
               });
             },
             icon: const Icon(Icons.cancel)),
@@ -278,25 +275,8 @@ Widget buildIconLogOut(BuildContext context) {
         ));
   }
 
-  Widget buildPasswordEditting() {
-    return Padding(
-        padding: const EdgeInsets.all(5),
-        child: Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(width: 40),
-              Text(LanguagePresenter.language.changePassword,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 18)),
-              buildButtonExit(),
-            ],
-          ),
-          buildTextField(LanguagePresenter.language.password, password),
-          buildTextField(
-              LanguagePresenter.language.confirmPassword, comfirmPassword),
-          buildButtonSave()
-        ]));
+  gotoPasswordChange() {
+    //
   }
 
   Widget buildButtonSave() {
@@ -306,12 +286,9 @@ Widget buildIconLogOut(BuildContext context) {
           context: context,
           icon: Icons.save,
           content: LanguagePresenter.language.save,
-          action: () => {
-                if (isInfoEditting)
-                  updateUser()
-                // else if (isPasswordEditting)
-                //   updatePassword()
-              }),
+          action: () {
+            updateUser();
+          }),
     );
   }
 
@@ -380,7 +357,8 @@ Widget buildIconLogOut(BuildContext context) {
     });
   }
 
-// void logOut() async {
+
+// logOut() async {
 //   try {
 //     await FirebaseAuth.instance.signOut();
 //     User? currentUser = FirebaseAuth.instance.currentUser;
@@ -395,28 +373,6 @@ Widget buildIconLogOut(BuildContext context) {
 //     print("Đã xảy ra lỗi khi đăng xuất: $e");
 //   }
 // }
-
-
-  // void updatePassword() {
-  //   if (password.text != comfirmPassword.text) {
-  //     showDialogResult(context, LanguagePresenter.language.failure,
-  //         "${LanguagePresenter.language.password} ${LanguagePresenter.language.and} ${LanguagePresenter.language.confirmPassword} ${LanguagePresenter.language.doNotMatch}");
-  //     return;
-  //   }
-
-  //   UserPresenter.changePassword(widget.user, password.text).then((value) {
-  //     String strResult = value
-  //         ? LanguagePresenter.language.success
-  //         : LanguagePresenter.language.failure;
-
-  //     setState(() {
-  //       isPasswordEditting = false;
-  //     });
-
-  //     showDialogResult(context, strResult,
-  //         "${LanguagePresenter.language.changePassword} $strResult");
-  //   });
-  // }
 
   void blockOrUnblockUser() {
     tempUser.blocked = !tempUser.blocked;

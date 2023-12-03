@@ -44,7 +44,7 @@ class _SettingScreenState extends State<SettingScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (UserPresenter.userLogin.isHost)
+            if (true/*UserPresenter.userLogin.isHost*/)
               CustomButton(
                   context: context,
                   icon: Icons.person,
