@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_home/Utils/color_utils.dart';
 import 'package:smart_home/models/user.dart';
+import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/views/forgot_password/forgot_password.dart';
 import 'package:smart_home/views/resuable_widgets/resuable_widgets.dart';
 
@@ -70,14 +71,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 30,
                 ),
                   resuableTextFile(
-                      'Enter Email',
+                      "${LanguagePresenter.language.enter} ${LanguagePresenter.language.email}",
                       Icons.email,
                       false, // Không phải là mật khẩu
                       false, // Không phải là số điện thoại
                       _emailTextController,
                       (value) {
                         if (value != null && !EmailValidator.validate(value)) {
-                          return 'Enter a valid email address';
+                          return LanguagePresenter.language.enterEmailValid;
                         }
                         return null;
                       },
@@ -86,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20,
                 ),
                  resuableTextFile(
-                      'Enter Password',
+                      "${LanguagePresenter.language.enter} ${LanguagePresenter.language.password}",
                       Icons.lock,
                       true, // Đây là mật khẩu
                       false, // Không phải là số điện thoại
@@ -94,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       (value) {
                         if (value != null && value.isNotEmpty) {
                           if (value.length < 8) {
-                            return 'Password must be at least 8 characters';
+                            return LanguagePresenter.language.passwordValid;
                           }
                         }
                         return null;
@@ -112,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 GestureDetector(
                   child: Text(
-                    'Forgot Password?',
+                    LanguagePresenter.language.forgotPassword,
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: Theme.of(context).colorScheme.secondary,
