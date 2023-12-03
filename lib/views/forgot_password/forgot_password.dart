@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_home/Utils/Utils.dart';
 import 'package:smart_home/Utils/color_utils.dart';
+import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/views/resuable_widgets/resuable_widgets.dart';
 
 class ForGotPassword extends StatefulWidget {
@@ -22,9 +23,9 @@ class _ForGotPasswordState extends State<ForGotPassword> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
-          "Reset Password",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        title: Text(
+          "${LanguagePresenter.language.save} ${LanguagePresenter.language.password}" ,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
       body: Container(
@@ -45,14 +46,14 @@ class _ForGotPasswordState extends State<ForGotPassword> {
                   height: 20,
                 ),
                 resuableTextFile(
-                      'Enter Email',
+                      "${LanguagePresenter.language.enter} ${LanguagePresenter.language.email}",
                       Icons.email,
                       false, // Không phải là mật khẩu
                       false, // Không phải là số điện thoại
                       _emailTextController,
                       (value) {
                         if (value != null && !EmailValidator.validate(value)) {
-                          return 'Enter a valid email address';
+                          return LanguagePresenter.language.enterEmailValid;
                         }
                         return null;
                       },
@@ -67,14 +68,14 @@ class _ForGotPasswordState extends State<ForGotPassword> {
                   await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
                   // Thông báo cho người dùng rằng liên kết đã được gửi
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('A password reset link has been sent to $email'),
+                    content: Text('${LanguagePresenter.language.sendPasswordResetEmail} $email'),
                   ));
                 } catch (e) {
                   // Xử lý lỗi (ví dụ: email không tồn tại)
                   print('Error: $e');
                 }
               },
-              child: const Text('Reset Password'),
+              child: Text("${LanguagePresenter.language.save} ${LanguagePresenter.language.password}"),
             ),
                 
               ],
@@ -94,7 +95,7 @@ class _ForGotPasswordState extends State<ForGotPassword> {
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: _emailTextController.text.trim());
-      Utils.showSnackBarTrue('Passwprd Reset Email Sent');
+      Utils.showSnackBarTrue(LanguagePresenter.language.sendPasswordResetEmail);
       Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
       print(e);
