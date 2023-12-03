@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/user.dart';
@@ -86,7 +85,8 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              if (iconButtonLogOut) buildIconLogOut(),
+              if (iconButtonLogOut)
+               buildIconLogOut(context),
               const SizedBox(width: 40, height: 80),
             ],
           )
@@ -97,13 +97,16 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     ]);
   }
 
-  Widget buildIconLogOut() {
-    return SizedBox(
-      width: 40,
-      height: 40,
-      child: IconButton(onPressed: logOut, icon: const Icon(Icons.logout)),
-    );
-  }
+Widget buildIconLogOut(BuildContext context) {
+  return SizedBox(
+    width: 40,
+    height: 40,
+    child: IconButton(
+      onPressed: () => logOut(context),
+      icon: const Icon(Icons.logout),
+    ),
+  );
+}
 
   Widget buildAvatarUser(Uint8List? image) {
     if (image != null) {
@@ -354,9 +357,22 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     });
   }
 
-  logOut() {
-    Navigator.pushNamed(context, "/login");
-  }
+
+// logOut() async {
+//   try {
+//     await FirebaseAuth.instance.signOut();
+//     User? currentUser = FirebaseAuth.instance.currentUser;
+
+//     if (currentUser == null) {
+//       Navigator.pushNamed(context, "/login");
+//     } else {
+//       // Người dùng vẫn tồn tại, xử lý tùy thuộc vào trạng thái hiện tại của ứng dụng.
+//       // ...
+//     }
+//   } catch (e) {
+//     print("Đã xảy ra lỗi khi đăng xuất: $e");
+//   }
+// }
 
   void blockOrUnblockUser() {
     tempUser.blocked = !tempUser.blocked;
