@@ -1,9 +1,12 @@
 import 'dart:typed_data';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/user.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/user_presenter.dart';
+import 'package:smart_home/views/forgot_password/forgot_password.dart';
+import 'package:smart_home/views/login.dart/login_screen.dart';
 import 'package:smart_home/views/setting/custom_button.dart';
 import 'package:smart_home/views/setting/show_dialog.dart';
 import 'package:smart_home/views/setting/upload_image.dart';
@@ -18,9 +21,9 @@ class BuildUserInfo extends StatefulWidget {
       required this.updateUserOfWidget});
 
   final bool iconButtonLogOut;
-  final User user;
+  final UserModel user;
   final Function() reloadUsers;
-  final Function(User) reloadUserLogin;
+  final Function(UserModel) reloadUserLogin;
   final Function(String) updateUserOfWidget;
 
   @override
@@ -38,11 +41,11 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
   bool isChanges = false;
   late bool ischeckAll = false;
   late List<bool> permissions;
-  late User tempUser;
+  late UserModel tempUser;
   late List<bool> prePermisions;
 
   initial() {
-    tempUser = User.copy(widget.user);
+    tempUser = UserModel.copy(widget.user);
     permissions = List.from(tempUser.permissions);
     ischeckAll = UserPresenter.isUserFullPermission(tempUser);
   }
@@ -75,7 +78,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
             )));
   }
 
-  Widget buildInfoUserReadOnly(bool iconButtonLogOut, User user) {
+  Widget buildInfoUserReadOnly(bool iconButtonLogOut, UserModel user) {
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,8 +88,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              if (iconButtonLogOut)
-               buildIconLogOut(context),
+              if (iconButtonLogOut) buildIconLogOut(context),
               const SizedBox(width: 40, height: 80),
             ],
           )
@@ -97,16 +99,16 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
     ]);
   }
 
-Widget buildIconLogOut(BuildContext context) {
-  return SizedBox(
-    width: 40,
-    height: 40,
-    child: IconButton(
-      onPressed: () => logOut(context),
-      icon: const Icon(Icons.logout),
-    ),
-  );
-}
+  Widget buildIconLogOut(BuildContext context) {
+    return SizedBox(
+      width: 40,
+      height: 40,
+      child: IconButton(
+        onPressed: (){logOut(context);},
+        icon: const Icon(Icons.logout),
+      ),
+    );
+  }
 
   Widget buildAvatarUser(Uint8List? image) {
     if (image != null) {
@@ -134,7 +136,7 @@ Widget buildIconLogOut(BuildContext context) {
     }
   }
 
-  Widget buildTextUser(User user) {
+  Widget buildTextUser(UserModel user) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -178,8 +180,8 @@ Widget buildIconLogOut(BuildContext context) {
                 icon: Icons.shield,
                 content: LanguagePresenter.language.changePassword,
                 action: () {
-                      gotoPasswordChange();
-                    }),
+                  gotoPasswordChange();
+                }),
             if (UserPresenter.userLogin.userName != widget.user.userName)
               Column(
                 children: [
@@ -202,7 +204,7 @@ Widget buildIconLogOut(BuildContext context) {
         ));
   }
 
-  Widget buildInfoUserEditting(User user) {
+  Widget buildInfoUserEditting(UserModel user) {
     fullName.text = user.fullName;
     email.text = user.email;
     phoneNumber.text = user.phoneNumber;
@@ -276,7 +278,8 @@ Widget buildIconLogOut(BuildContext context) {
   }
 
   gotoPasswordChange() {
-    //
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const ForGotPassword()));
   }
 
   Widget buildButtonSave() {
@@ -357,22 +360,20 @@ Widget buildIconLogOut(BuildContext context) {
     });
   }
 
+  logOut(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
 
-// logOut() async {
-//   try {
-//     await FirebaseAuth.instance.signOut();
-//     User? currentUser = FirebaseAuth.instance.currentUser;
+// ignore: avoid_print
+    print("Đã đăng xuất");
 
-//     if (currentUser == null) {
-//       Navigator.pushNamed(context, "/login");
-//     } else {
-//       // Người dùng vẫn tồn tại, xử lý tùy thuộc vào trạng thái hiện tại của ứng dụng.
-//       // ...
-//     }
-//   } catch (e) {
-//     print("Đã xảy ra lỗi khi đăng xuất: $e");
-//   }
-// }
+// ignore: avoid_print
+    print(FirebaseAuth.instance.currentUser);
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+    );
+  }
 
   void blockOrUnblockUser() {
     tempUser.blocked = !tempUser.blocked;
@@ -448,7 +449,7 @@ Widget buildIconLogOut(BuildContext context) {
           widget.updateUserOfWidget(widget.user.userName);
 
           if (tempUser.userName == UserPresenter.userLogin.userName) {
-            UserPresenter.getUserLogin(tempUser.userName).then((value) {
+            UserPresenter.getUserLogin().then((value) {
               widget.reloadUserLogin(UserPresenter.userLogin);
             });
           }

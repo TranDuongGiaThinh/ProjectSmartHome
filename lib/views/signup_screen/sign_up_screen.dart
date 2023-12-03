@@ -173,7 +173,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     firebaseUIButton(context, "Sign Ups", () {
                       final isVail = _formKey.currentState!.validate();
                       if (!isVail) return;
-                      final newUser =User.info(
+                      final newUser =UserModel.info(
                         blocked: false,
                         email: _emailTextController.text,
                         fullName: _fullnNameTextController.text,

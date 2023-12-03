@@ -7,7 +7,7 @@ import 'package:smart_home/views/setting/custom_button.dart';
 
 class AccountsManagementScreen extends StatefulWidget {
   const AccountsManagementScreen({super.key, required this.reloadUserLogin});
-  final Function(User) reloadUserLogin;
+  final Function(UserModel) reloadUserLogin;
 
   @override
   State<AccountsManagementScreen> createState() =>
@@ -15,8 +15,8 @@ class AccountsManagementScreen extends StatefulWidget {
 }
 
 class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
-  User? userSelected;
-  List<User>? users = [];
+  UserModel? userSelected;
+  List<UserModel>? users = [];
 
   reloadUsers() {
     UserPresenter.getAllUser().then((value) {
@@ -31,7 +31,7 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
     reloadUsers();
   }
 
-  updateUserSelected(User newSelected) {
+  updateUserSelected(UserModel newSelected) {
     setState(() {
       userSelected = newSelected;
     });
@@ -70,11 +70,15 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
                 reloadUsers: reloadUsers,
                 reloadUserLogin: widget.reloadUserLogin,
                 updateUserOfWidget: (userName) {
-                  UserPresenter.getUserByUserName(userName).then((value) {
-                    setState(() {
-                      userSelected = value;
+                  if (userName == "null") {
+                    userSelected = null;
+                  } else {
+                    UserPresenter.getUserByUserName(userName).then((value) {
+                      setState(() {
+                        userSelected = value;
+                      });
                     });
-                  });
+                  }
                 }),
           buildListUser()
         ],

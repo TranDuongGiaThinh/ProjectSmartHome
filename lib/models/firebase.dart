@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
-import 'package:smart_home/presenters/firebase_presenter.dart';
 
 class FirebaseModel {
   static Future<FirebaseFirestore?> initialize() async {
@@ -19,12 +18,13 @@ class FirebaseModel {
   static Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>?>
       getAllUsers() async {
     try {
-      QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await FirebasePresenter.firestore!
-              .collection("users")
-              .where("deleted", isEqualTo: false)
-              .get();
+      // Truy vấn Firestore
+      Query<Map<String, dynamic>> query = FirebaseFirestore.instance
+          .collection("users")
+          .where("deleted", isEqualTo: false);
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await query.get();
 
+      // Kiểm tra xem có tài liệu nào hay không
       if (querySnapshot.docs.isNotEmpty) {
         return querySnapshot.docs;
       }
@@ -32,6 +32,7 @@ class FirebaseModel {
       // ignore: avoid_print
       print("error getAllUsers() in firebase.dart: $e");
     }
+
     return null;
   }
 
@@ -39,7 +40,7 @@ class FirebaseModel {
       String userName) async {
     try {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await FirebasePresenter.firestore!
+          await FirebaseFirestore.instance
               .collection("users")
               .where("userName", isEqualTo: userName)
               .limit(1)
@@ -53,28 +54,9 @@ class FirebaseModel {
     }
   }
 
-  static Future<Map<String, dynamic>?> checkAccount(
-      String userName, String password) async {
-    try {
-      QuerySnapshot querySnapshot = await FirebasePresenter.firestore!
-          .collection("users")
-          .where("userName", isEqualTo: userName)
-          .where("password", isEqualTo: password)
-          .where("deleted", isEqualTo: false)
-          .limit(1)
-          .get();
-
-      return querySnapshot.docs.first.data() as Map<String, dynamic>;
-    } catch (e) {
-      // ignore: avoid_print
-      print("error checkLogin() in fireBase.dart: $e");
-      return null;
-    }
-  }
-
   static Future<bool> addUser(Map<String, dynamic> json) async {
     try {
-      await FirebasePresenter.firestore!.collection('users').add(json);
+      await FirebaseFirestore.instance.collection('users').add(json);
 
       // ignore: avoid_print
       print("add User success");
@@ -103,7 +85,7 @@ class FirebaseModel {
               .limit(1)
               .get();
 
-      FirebasePresenter.firestore!
+      FirebaseFirestore.instance
           .collection("users")
           .doc(querySnapshot.docs.first.id)
           .set(

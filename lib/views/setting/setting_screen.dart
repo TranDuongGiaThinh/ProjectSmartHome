@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:smart_home/models/user.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
@@ -17,9 +16,16 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  reloadUserLogin(User newUser) {
+  @override
+  initState() {
+    super.initState();
+
+    UserPresenter.getUserLogin().then((value) => setState(() {}));
+  }
+
+  reloadUserLogin(UserModel newUser) {
     UserPresenter.setUserLogin(newUser);
-      setState(() {});
+    setState(() {});
   }
 
   @override
@@ -44,7 +50,7 @@ class _SettingScreenState extends State<SettingScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (true/*UserPresenter.userLogin.isHost*/)
+            if (UserPresenter.userLogin.isHost)
               CustomButton(
                   context: context,
                   icon: Icons.person,
