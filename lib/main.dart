@@ -11,6 +11,7 @@ import 'package:smart_home/presenters/device_viewmodel.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/room_viewmodel.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
+import 'package:smart_home/views/login.dart/login_screen.dart';
 import 'package:smart_home/views/signup_screen/sign_up_screen.dart';
 import 'package:smart_home/views/index_screen.dart';
 
@@ -96,7 +97,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       initialRoute: "/login_screen",
       routes: {
-        "/login_screen": (context) => const SignUpScreen(),
+        "/login_screen": (context) => const LoginScreen(),
         "/signUp": (context) => const SignUpScreen(),
         "/": (context) => IndexScreen(reloadThemeMode: reloadThemeMode),
       },
