@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:kiemtralan2/viewmodels/weather_viewmodel.dart';
+
+import '../../../../viewmodels/weather_viewmodel.dart';
 
 class Weather extends StatefulWidget {
   const Weather({super.key});

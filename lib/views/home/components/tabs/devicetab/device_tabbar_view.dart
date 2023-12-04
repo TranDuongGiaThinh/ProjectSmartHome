@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:kiemtralan2/viewmodels/device_viewmodel.dart';
 import '../../../../../data/data.dart';
 import '../../devices/device_status.dart';
 

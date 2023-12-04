@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/main.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/views/bottom_nav.dart';
+import 'package:smart_home/views/home/screens/home.dart';
 import 'package:smart_home/views/statistical/statistical_screen.dart';
 import 'package:smart_home/views/scheduling/scheduling_Screen.dart';
 import 'package:smart_home/views/setting/setting_screen.dart';
-import 'home/home.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({super.key, required this.reloadThemeMode});
@@ -40,6 +41,7 @@ class _IndexScreenState extends State<IndexScreen> {
 
   @override
   Widget build(BuildContext context) {
+    MyApp.screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
           toolbarHeight: (selectedIndex == 0) ? 0 : null,

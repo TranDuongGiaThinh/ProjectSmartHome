@@ -1,6 +1,7 @@
 // ignore: must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:kiemtralan2/main.dart';
+
+import '../../../../main.dart';
 
 // ignore: must_be_immutable
 class MainTabBar extends StatefulWidget {

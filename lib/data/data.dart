@@ -1,5 +1,5 @@
-import 'package:kiemtralan2/models/device.dart';
-import 'package:kiemtralan2/models/room.dart';
+import '../models/device.dart';
+import '../models/room.dart';
 
 class Data {
   static List<Room> rooms = [];

@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
-import 'package:kiemtralan2/viewmodels/room_viewmodel.dart';
+import 'package:smart_home/viewmodels/room_viewmodel.dart';
 import '../data/data.dart';
 import '../models/device.dart';
 

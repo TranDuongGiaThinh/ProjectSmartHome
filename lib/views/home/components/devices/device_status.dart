@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:kiemtralan2/viewmodels/device_viewmodel.dart';
-import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import '../../../../main.dart';
 import '../../../../models/device.dart';
+import '../../../../viewmodels/device_viewmodel.dart';
+import '../../lite_rolling_switch.dart';
 import '../../screens/device.dart';
 
 // ignore: must_be_immutable

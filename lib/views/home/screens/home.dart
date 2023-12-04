@@ -1,7 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:kiemtralan2/main.dart';
+import '../../../main.dart';
 import '../components/tabs/devicetab/device_tabbar_view.dart';
 import '../components/tabs/main_tabbar.dart';
 import '../components/tabs/roomtab/room_tabbar_view.dart';
@@ -30,8 +30,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
-    //test
-    checkLogin();
+   
 
     tabController = TabController(length: tabLenght, vsync: this);
     super.initState();

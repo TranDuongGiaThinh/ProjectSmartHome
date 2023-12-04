@@ -1,7 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
-import 'package:kiemtralan2/data/data.dart';
-import 'package:kiemtralan2/models/room.dart';
+
+import '../data/data.dart';
+import '../models/room.dart';
 
 class RoomViewModel {
   static RoomViewModel? _instance;

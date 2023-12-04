@@ -60,6 +60,7 @@ dependencies:
   firebase_app_check: ^0.2.1+6
 
   shared_preferences: ^2.0.8
+  geolocator: ^10.1.0
 
 dev_dependencies:
   flutter_test:

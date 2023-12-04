@@ -9,13 +9,24 @@ import 'package:smart_home/models/info_reader.dart';
 import 'package:smart_home/models/setting.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
+import 'package:smart_home/viewmodels/device_viewmodel.dart';
+import 'package:smart_home/viewmodels/room_viewmodel.dart';
 import 'package:smart_home/views/login.dart/login_screen.dart';
 import 'package:smart_home/views/signup_screen/sign_up_screen.dart';
 import 'package:smart_home/views/index_screen.dart';
 
+import 'data/data.dart';
+import 'firebase_options.dart';
+
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  Data.rooms = await RoomViewModel.instance.getRooms();
+  Data.devices = await DeviceViewModel.instance.getDevices();
   await FirebaseAppCheck.instance.activate();
   runApp(const MyApp());
 }
@@ -27,6 +38,7 @@ class MyApp extends StatefulWidget {
 
   @override
   State<MyApp> createState() => _MyAppState();
+  static late double screenWidth;
 }
 
 class _MyAppState extends State<MyApp> {

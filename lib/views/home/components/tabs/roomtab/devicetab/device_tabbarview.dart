@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:kiemtralan2/models/device.dart';
-import 'package:kiemtralan2/views/home/components/devices/device_status_room.dart';
 
 import '../../../../../../data/data.dart';
+import '../../../../../../models/device.dart';
+import '../../../devices/device_status_room.dart';
 
 class DeviceInRoomTabBarView extends StatefulWidget {
   const DeviceInRoomTabBarView({super.key, required this.roomId});

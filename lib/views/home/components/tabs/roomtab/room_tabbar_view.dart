@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kiemtralan2/views/home/components/tabs/roomtab/room_tabbar.dart';
+import 'package:smart_home/views/home/components/tabs/roomtab/room_tabbar.dart';
 import '../../../../../data/data.dart';
 import 'devicetab/device_tabbarview.dart';
 

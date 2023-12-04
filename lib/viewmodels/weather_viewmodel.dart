@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import 'package:kiemtralan2/config/config.dart';
+import '../config/config.dart';
 
 class WeatherViewModel {
   static WeatherViewModel? _instance;

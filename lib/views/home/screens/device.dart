@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:kiemtralan2/main.dart';
-import 'package:kiemtralan2/models/device.dart';
-import 'package:kiemtralan2/viewmodels/device_viewmodel.dart';
+import '../../../main.dart';
+import '../../../models/device.dart';
+import '../../../viewmodels/device_viewmodel.dart';
 
 // ignore: must_be_immutable
 class DeviceScreen extends StatefulWidget {
