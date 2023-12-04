@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
     User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
+    if (user == null) {
       // Nếu đã đăng nhập, chuyển hướng đến trang chủ
       Navigator.pushReplacementNamed(context, "/");
     }
