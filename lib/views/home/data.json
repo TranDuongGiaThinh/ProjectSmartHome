@@ -1,0 +1,127 @@
+{
+  "board": {
+    "b01": {
+      "outputs": {
+        "digital": {
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "8": 0,
+          "9": 0,
+          "10": 0,
+          "11": 0,
+          "12": 0,
+          "13": 0
+        }
+      }
+    }
+  },
+  "room": {
+    "t01": "Phòng khách",
+    "t02": "Phòng vệ sinh",
+    "t03": "Phòng bếp",
+    "t04": "Phòng ngủ"
+  },
+  "device": {
+    "d01": {
+      "image": "light.png",
+      "name": "Đèn",
+      "status": 0,
+      "wattage": 9.9,
+      "room_id": "t01",
+      "board": {
+        "id": "b01",
+        "pin": "3"
+      }
+    },
+    "d02": {
+      "image": "light.png",
+      "name": "Đèn 2",
+      "status": 0,
+      "wattage": 9.9,
+      "room_id": "t01",
+      "board": {
+        "id": "b01",
+        "pin": "5"
+      }
+    },
+    "d04": {
+      "name": "Đèn",
+      "image": "light.png",
+      "status": 0,
+      "wattage": 9.9,
+      "room_id": "t02",
+      "board": {
+        "id": "b01",
+        "pin": "6"
+      }
+    },
+    "d05": {
+      "name": "Đèn 1",
+      "image": "light.png",
+      "status": 0,
+      "wattage": 9.9,
+      "room_id": "t03",
+      "board": {
+        "id": "b01",
+        "pin": "9"
+      }
+    },
+    "d06": {
+      "image": "light.png",
+      "name": "Đèn 2",
+      "status": 0,
+      "wattage": 9.9,
+      "room_id": "t03",
+      "board": {
+        "id": "b01",
+        "pin": "10"
+      }
+    },
+    "d07": {
+      "image": "light.png",
+      "name": "Đèn 1",
+      "status": 0,
+      "wattage": 9.9,
+      "room_id": "t04",
+      "board": {
+        "id": "b01",
+        "pin": "11"
+      }
+    },
+    "d03": {
+      "image": "light.png",
+      "name": "Đèn 2",
+      "status": 0,
+      "wattage": 9.9,
+      "room_id": "t04",
+      "board": {
+        "id": "b01",
+        "pin": "12"
+      }
+    },
+    "d08": {
+      "image": "button.png",
+      "name": "Nút đèn",
+      "status": 0,
+      "wattage": 9.9,
+      "room_id": "t04",
+      "board": {
+        "id": "b01",
+        "pin": "100"
+      }
+    }
+  },
+  "device_consumption": {
+    "01-01-2023": {
+      "d01": {
+        "start_time": "00:00",
+        "end_time": "01:00",
+        "energy_usage": 0
+      }
+    }
+  }
+}

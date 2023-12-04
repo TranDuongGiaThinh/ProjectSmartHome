@@ -7,16 +7,29 @@ import 'package:smart_home/Utils/Utils.dart';
 import 'package:smart_home/models/constants.dart';
 import 'package:smart_home/models/info_reader.dart';
 import 'package:smart_home/models/setting.dart';
+import 'package:smart_home/presenters/device_viewmodel.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
+import 'package:smart_home/presenters/room_viewmodel.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
-import 'package:smart_home/views/login.dart/login_screen.dart';
 import 'package:smart_home/views/signup_screen/sign_up_screen.dart';
 import 'package:smart_home/views/index_screen.dart';
+
+import 'config/config.dart';
+import 'data/data.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseAppCheck.instance.activate();
+
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
+
+  Data.rooms = await RoomViewModel.instance.getRooms();
+  Data.devices = await DeviceViewModel.instance.getDevices();
+
+  await AppConfig.getJson();
   runApp(const MyApp());
 }
 
@@ -27,6 +40,7 @@ class MyApp extends StatefulWidget {
 
   @override
   State<MyApp> createState() => _MyAppState();
+  static late double screenWidth;
 }
 
 class _MyAppState extends State<MyApp> {
@@ -82,7 +96,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       initialRoute: "/login_screen",
       routes: {
-        "/login_screen": (context) => const LoginScreen(),
+        "/login_screen": (context) => const SignUpScreen(),
         "/signUp": (context) => const SignUpScreen(),
         "/": (context) => IndexScreen(reloadThemeMode: reloadThemeMode),
       },

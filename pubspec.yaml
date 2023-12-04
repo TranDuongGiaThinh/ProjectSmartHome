@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
     
-  http: ^0.13.3
+  http: ^0.13.6
   intl: ^0.18.0
   fl_chart: ^0.60.0
   flutter_lints: ^2.0.0
@@ -60,6 +60,8 @@ dependencies:
   firebase_app_check: ^0.2.1+6
 
   shared_preferences: ^2.0.8
+  lite_rolling_switch: ^1.0.1
+  geolocator: ^10.1.0
 
 dev_dependencies:
   flutter_test:
@@ -86,6 +88,8 @@ flutter:
   assets:
    - data/images/avt_default.png
    - assets/home/
+   - assets/home/
+   - lib/config/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
