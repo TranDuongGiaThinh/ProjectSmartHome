@@ -1,0 +1,7 @@
+{
+    "weather": {
+        "api_key": "cd0a33ca5654d1a09bcb7bb450d4c040",
+        "api_url": "https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={apikey}",
+        "icon_url": "https://openweathermap.org/img/wn/{iconid}.png"
+    }
+}
