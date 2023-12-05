@@ -75,7 +75,7 @@ class _ForGotPasswordState extends State<ForGotPassword> {
                   print('Error: $e');
                 }
               },
-              child: Text("${LanguagePresenter.language.save} ${LanguagePresenter.language.password}"),
+              child: Text("${LanguagePresenter.language.change} ${LanguagePresenter.language.password}"),
             ),
                 
               ],
