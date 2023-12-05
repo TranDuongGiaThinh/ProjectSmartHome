@@ -1,0 +1,38 @@
+{
+    "buttons": [
+        {
+            "name": "Nút nhấn 1",
+            "mission": "Bật/tắt đèn phòng khách",
+            "producer": "Seeed Studio",
+            "location": "Phòng khách"
+        },
+        {
+            "name": "Nút nhấn 2",
+            "mission": "Bật/tắt đèn phòng bếp",
+            "producer": "Seeed Studio",
+            "location": "Bếp"
+        },
+        {
+            "name": "Nút nhấn 3",
+            "mission": "Bật/tắt đèn WC",
+            "producer": "DFRobot",
+            "location": "WC"
+        },
+        {
+            "name": "Nút nhấn 4",
+            "mission": "Bật/tắt đèn phòng ngủ",
+            "producer": "DFRobot",
+            "location": "Phòng ngủ"
+        }
+    ],
+    "LCD": {
+        "name": "LCD điều khiển",
+        "mission": "Điều khiển hệ thống thiết bị trong nhà",
+        "producer": "Adafruit Industries",
+        "secon_mission_1": "Bật/tắt toàn bộ đèn trong nhà",
+        "secon_mission_2": "Tạo hiệu ứng đèn nhấp nháy đế báo cháy",
+        "secon_mission_3": "Hiện trạng thái thiết bị trong nhà",
+        "location": "Phòng khách",
+        "status": 0
+    }
+}

@@ -75,6 +75,14 @@ class _SettingScreenState extends State<SettingScreen> {
                     ? LanguagePresenter.language.typeLanguageVi
                     : LanguagePresenter.language.typeLanguageEn,
                 action: changeLanguage),
+            CustomButton(
+                context: context,
+                icon: Icons.device_unknown_rounded,
+                height: 100,
+                content: 'Các thiết bị',
+                action: () {
+                  Navigator.pushNamed(context, '/de');
+                }),
           ],
         ));
   }
