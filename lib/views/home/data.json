@@ -45,7 +45,7 @@
       "room_id": "t01",
       "board": {
         "id": "b01",
-        "pin": "5"
+        "pin": "12"
       }
     },
     "d04": {
@@ -67,7 +67,7 @@
       "room_id": "t03",
       "board": {
         "id": "b01",
-        "pin": "9"
+        "pin": "5"
       }
     },
     "d06": {
@@ -100,18 +100,73 @@
       "room_id": "t04",
       "board": {
         "id": "b01",
-        "pin": "12"
+        "pin": "9"
       }
     },
     "d08": {
       "image": "button.png",
-      "name": "Nút đèn",
+      "name": "Nút",
       "status": 0,
-      "wattage": 9.9,
+      "wattage": 0.1,
+      "room_id": "t01",
+      "board": {
+        "id": "b01",
+        "pin": "1"
+      }
+    },
+    "d09": {
+      "image": "button.png",
+      "name": "Nút",
+      "status": 0,
+      "wattage": 0.1,
+      "room_id": "t02",
+      "board": {
+        "id": "b01",
+        "pin": "1"
+      }
+    },
+    "d10": {
+      "image": "button.png",
+      "name": "Nút",
+      "status": 0,
+      "wattage": 0.1,
+      "room_id": "t03",
+      "board": {
+        "id": "b01",
+        "pin": "1"
+      }
+    },
+    "d11": {
+      "image": "button.png",
+      "name": "Nút",
+      "status": 0,
+      "wattage": 0.1,
       "room_id": "t04",
       "board": {
         "id": "b01",
-        "pin": "100"
+        "pin": "1"
+      }
+    },
+    "d12": {
+      "image": "curtain.png",
+      "name": "Rèm",
+      "status": 0,
+      "wattage": 10.1,
+      "room_id": "t01",
+      "board": {
+        "id": "b01",
+        "pin": "2"
+      }
+    },
+    "d13": {
+      "image": "fan.png",
+      "name": "Quạt",
+      "status": 0,
+      "wattage": 10.1,
+      "room_id": "t01",
+      "board": {
+        "id": "b01",
+        "pin": "3"
       }
     }
   },
