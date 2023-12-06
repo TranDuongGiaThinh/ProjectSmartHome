@@ -12,7 +12,7 @@ import 'package:smart_home/views/home/home.dart';
 import 'package:smart_home/views/login.dart/login_screen.dart';
 
 class User {
- late String id;
+  late String id;
   late Uint8List? image;
   late String userName;
   late String fullName;
@@ -23,7 +23,7 @@ class User {
   late bool blocked;
 
   User() {
-    id="";
+    id = "";
     image = null;
     userName = "";
     fullName = "";
@@ -35,8 +35,7 @@ class User {
   }
 
   User.info(
-      {
-        this.id = '',
+      {this.id = '',
       required this.image,
       required this.userName,
       required this.fullName,
@@ -226,10 +225,9 @@ class User {
     return await FirebaseModel.updateUser(userName, toJson(deleted: true));
   }
 }
-Future<void> signUp(BuildContext context, User user, String password) async {
-    
 
-   try {
+Future<void> signUp(BuildContext context, User user, String password) async {
+  try {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -255,36 +253,23 @@ Future<void> signUp(BuildContext context, User user, String password) async {
 
     // Hiển thị thông báo thất bại
     Utils.showSnackBarFalse(e.message);
-  }finally {
+  } finally {
     // Đóng hộp thoại
     Navigator.pop(context);
   }
 }
 
 Future<void> signIn(BuildContext context, String email, String password) async {
-  try { 
-
-    // Hiển thị hộp thoại đợi
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-
-    // Xóa thông tin đăng nhập trước đó (nếu có)
-    FirebaseAuth.instance.currentUser?.delete();
-
-    // Thực hiện đăng nhập
+  try {
+    FirebaseAuth.instance.signOut();
     await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email.trim(),
       password: password.trim(),
     );
-    print(FirebaseAuth.instance.currentUser); 
-    // Kiểm tra xem người dùng có đăng nhập thành công không
+
+// Không in ở đây, kiểm tra bên trong điều kiện if
     if (FirebaseAuth.instance.currentUser != null) {
-      print("Chuyển trang");
+      print("Thông tin người dùng hiện tại: ${FirebaseAuth.instance.currentUser}");
       // Đăng nhập thành công, chuyển hướng đến màn hình Home
       Navigator.push(
         context,
@@ -298,20 +283,17 @@ Future<void> signIn(BuildContext context, String email, String password) async {
   } on FirebaseAuthException {
     // Utils.showSnackBarFalse(e.message)
     Utils.showSnackBarFalse("Mật khẩu không hợp lệ");
-  } finally {
-    // Đóng hộp thoại
-    Navigator.pop(context);
   }
 }
 
 void logOut(BuildContext context) async {
-   await FirebaseAuth.instance.signOut();
+  await FirebaseAuth.instance.signOut();
 
-print("Đã đăng xuất"); 
+  print("Đã đăng xuất");
 
-print(FirebaseAuth.instance.currentUser); 
-   Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
-      );
+  print(FirebaseAuth.instance.currentUser);
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => const LoginScreen()),
+  );
 }

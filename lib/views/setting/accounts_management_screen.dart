@@ -95,7 +95,9 @@ class _AccountsManagementScreenState extends State<AccountsManagementScreen> {
                         fontWeight: FontWeight.bold, fontSize: 16)),
               ),
             ),
+        
             Table(
+              
               border: TableBorder.all(),
               children: [
                 TableRow(
