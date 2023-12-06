@@ -3,6 +3,8 @@
     "b01": {
       "outputs": {
         "digital": {
+          "0": 0,
+          "1": 0,
           "2": 0,
           "3": 0,
           "4": 0,
@@ -21,14 +23,14 @@
   },
   "room": {
     "t01": "Phòng khách",
-    "t02": "Phòng vệ sinh",
-    "t03": "Phòng bếp",
+    "t02": "Phòng bếp",
+    "t03": "Phòng vệ sinh",
     "t04": "Phòng ngủ"
   },
   "device": {
     "d01": {
       "image": "light.png",
-      "name": "Đèn",
+      "name": "Đèn 1K",
       "status": 0,
       "wattage": 9.9,
       "room_id": "t01",
@@ -39,7 +41,7 @@
     },
     "d02": {
       "image": "light.png",
-      "name": "Đèn 2",
+      "name": "Đèn 2K",
       "status": 0,
       "wattage": 9.9,
       "room_id": "t01",
@@ -48,42 +50,42 @@
         "pin": "12"
       }
     },
-    "d04": {
-      "name": "Đèn",
+    "d03": {
+      "name": "Đèn 1B",
       "image": "light.png",
       "status": 0,
       "wattage": 9.9,
       "room_id": "t02",
       "board": {
         "id": "b01",
-        "pin": "6"
-      }
-    },
-    "d05": {
-      "name": "Đèn 1",
-      "image": "light.png",
-      "status": 0,
-      "wattage": 9.9,
-      "room_id": "t03",
-      "board": {
-        "id": "b01",
         "pin": "5"
       }
     },
-    "d06": {
+    "d04": {
+      "name": "Đèn 2B",
       "image": "light.png",
-      "name": "Đèn 2",
       "status": 0,
       "wattage": 9.9,
-      "room_id": "t03",
+      "room_id": "t02",
       "board": {
         "id": "b01",
         "pin": "10"
       }
     },
-    "d07": {
+    "d05": {
       "image": "light.png",
-      "name": "Đèn 1",
+      "name": "Đèn 1vs",
+      "status": 0,
+      "wattage": 9.9,
+      "room_id": "t03",
+      "board": {
+        "id": "b01",
+        "pin": "6"
+      }
+    },
+    "d06": {
+      "image": "light.png",
+      "name": "Đèn 1n",
       "status": 0,
       "wattage": 9.9,
       "room_id": "t04",
@@ -92,9 +94,9 @@
         "pin": "11"
       }
     },
-    "d03": {
+    "d07": {
       "image": "light.png",
-      "name": "Đèn 2",
+      "name": "Đèn 2n",
       "status": 0,
       "wattage": 9.9,
       "room_id": "t04",
@@ -178,5 +180,41 @@
         "energy_usage": 0
       }
     }
-  }
+  },
+  "LCD": {
+    "location": "Phòng khách",
+    "mission": "Điều khiển hệ thống thiết bị trong nhà",
+    "name": "LCD điều khiển",
+    "producer": "Adafruit Industries",
+    "secon_mission_1": "Bật/tắt toàn bộ đèn trong nhà",
+    "secon_mission_2": "Tạo hiệu ứng đèn nhấp nháy đế báo cháy",
+    "secon_mission_3": "Hiện trạng thái thiết bị trong nhà",
+    "status": 0
+  },
+  "buttons": [
+    {
+      "location": "Phòng khách",
+      "mission": "Bật/tắt đèn",
+      "name": "Nút nhấn",
+      "producer": "Seeed Studio"
+    },
+    {
+      "location": "Bếp",
+      "mission": "Bật/tắt đèn",
+      "name": "Nút nhấn",
+      "producer": "Seeed Studio"
+    },
+    {
+      "location": "WC",
+      "mission": "Bật/tắt đèn",
+      "name": "Nút nhấn",
+      "producer": "DFRobot"
+    },
+    {
+      "location": "Phòng ngủ",
+      "mission": "Bật/tắt đèn",
+      "name": "Nút nhấn",
+      "producer": "DFRobot"
+    }
+  ]
 }

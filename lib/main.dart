@@ -11,7 +11,7 @@ import 'package:smart_home/presenters/device_viewmodel.dart';
 import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/presenters/room_viewmodel.dart';
 import 'package:smart_home/presenters/setting_presenter.dart';
-import 'package:smart_home/views/home/screens/other_devices.dart';
+import 'package:smart_home/views/home/screens/firebase_data_screen.dart';
 import 'package:smart_home/views/login.dart/login_screen.dart';
 import 'package:smart_home/views/signup_screen/sign_up_screen.dart';
 import 'package:smart_home/views/index_screen.dart';
@@ -101,7 +101,7 @@ class _MyAppState extends State<MyApp> {
         "/login_screen": (context) => const LoginScreen(),
         "/signUp": (context) => const SignUpScreen(),
         "/": (context) => IndexScreen(reloadThemeMode: reloadThemeMode),
-        "/de": (context) => const OtherDevices()
+        "/de": (context) =>  FirebaseDataScreen()
       },
     );
   }

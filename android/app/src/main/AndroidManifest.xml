@@ -2,7 +2,7 @@
     package="com.example.smart_home">
       <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
    <application
-        android:label="smart_home"
+        android:label="Home Plus"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
