@@ -253,7 +253,7 @@ Future<void> signUp(
 Future<void> signIn(BuildContext context, String email, String password) async {
   try {
     // Xóa thông tin đăng nhập trước đó (nếu có)
-    FirebaseAuth.instance.currentUser?.delete();
+    FirebaseAuth.instance.signOut();
     await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email.trim(),
       password: password.trim(),

@@ -468,23 +468,28 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
   }
 
   void deleteUser() {
-    UserPresenter.deleteUser(widget.user).then((value) {
-      String strResult = value
-          ? LanguagePresenter.language.success
-          : LanguagePresenter.language.failure;
+    if (tempUser.userName == UserPresenter.userLogin.userName) {
+      showDialogResult(context, LanguagePresenter.language.failure,
+          "${LanguagePresenter.language.deleteUser} ${LanguagePresenter.language.failure}");
+    } else {
+      UserPresenter.deleteUser(widget.user).then((value) {
+        String strResult = value
+            ? LanguagePresenter.language.success
+            : LanguagePresenter.language.failure;
 
-      showDialogResult(context, strResult,
-          "${LanguagePresenter.language.deleteUser} $strResult");
+        showDialogResult(context, strResult,
+            "${LanguagePresenter.language.deleteUser} $strResult");
 
-      if (value) {
-        widget.reloadUsers().then((value) {
-          setState(() {
-            isChanges = true;
+        if (value) {
+          widget.reloadUsers().then((value) {
+            setState(() {
+              isChanges = true;
+            });
           });
-        });
 
-        widget.updateUserOfWidget("null");
-      }
-    });
+          widget.updateUserOfWidget("null");
+        }
+      });
+    }
   }
 }

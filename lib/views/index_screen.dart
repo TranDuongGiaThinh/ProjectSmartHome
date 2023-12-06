@@ -43,6 +43,11 @@ class _IndexScreenState extends State<IndexScreen> {
   @override
   Widget build(BuildContext context) {
     MyApp.screenWidth = MediaQuery.of(context).size.width;
+
+    if (selectedIndex == 3 && title != LanguagePresenter.language.setting) {
+      title = LanguagePresenter.language.setting;
+    }
+
     return Scaffold(
       appBar: AppBar(
           toolbarHeight: (selectedIndex == 0) ? 0 : null,

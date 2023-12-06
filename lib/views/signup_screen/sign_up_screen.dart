@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_home/Utils/color_utils.dart';
 import 'package:smart_home/models/user.dart';
+import 'package:smart_home/presenters/language_presenter.dart';
 import 'package:smart_home/views/resuable_widgets/resuable_widgets.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -31,9 +32,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
-          "Sign Up",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        title: Text(
+          LanguagePresenter.language.singUp,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
       body: Container(
@@ -56,14 +57,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 20,
                     ),
                     resuableTextFile(
-                      'Enter Email',
+                      "${LanguagePresenter.language.enter} ${LanguagePresenter.language.email}",
                       Icons.email,
                       false, // Không phải là mật khẩu
                       false, // Không phải là số điện thoại
                       _emailTextController,
                       (value) {
                         if (value != null && !EmailValidator.validate(value)) {
-                          return 'Enter a valid email address';
+                          return LanguagePresenter.language.enterEmailValid;
                         }
                         return null;
                       },
@@ -72,14 +73,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 20,
                     ),
                     resuableTextFile(
-                      "Enter FullName",
+                      "${LanguagePresenter.language.enter} ${LanguagePresenter.language.fullName}",
                       Icons.person_rounded,
                       false,
                       false,
                       _fullnNameTextController,
                       (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Full name is required';
+                          return "${LanguagePresenter.language.fullName} ${LanguagePresenter.language.notBeEmpty}";
                         }
                         return null; // Valid
                       },
@@ -88,14 +89,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 20,
                     ),
                     resuableTextFile(
-                      'Enter Name',
+                      "${LanguagePresenter.language.enter} ${LanguagePresenter.language.userName}",
                       Icons.person,
                       false, // Không phải là mật khẩu
                       false, // Không phải là số điện thoại
                       _userNameTextController,
                       (value) {
                         if (value == null || value.isEmpty) {
-                          return ' Name is required';
+                          return "${LanguagePresenter.language.userName} ${LanguagePresenter.language.notBeEmpty}";
                         }
                         return null;
                       },
@@ -104,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 20,
                     ),
                     resuableTextFile(
-                      'Enter Password',
+                      "${LanguagePresenter.language.enter} ${LanguagePresenter.language.password}",
                       Icons.lock,
                       true, // Đây là mật khẩu
                       false, // Không phải là số điện thoại
@@ -112,7 +113,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       (value) {
                         if (value != null && value.isNotEmpty) {
                           if (value.length < 8) {
-                            return 'Password must be at least 8 characters';
+                            return LanguagePresenter.language.passwordValid;
                           }
                         }
                         return null;
@@ -122,7 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 20,
                     ),
                     resuableTextFile(
-                      'Enter Phone',
+                      "${LanguagePresenter.language.enter} ${LanguagePresenter.language.phoneNumber}",
                       Icons.phone,
                       false, // Không phải là mật khẩu
                       true, // Đây là số điện thoại
@@ -130,7 +131,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       (value) {
                         if (value != null && value.isNotEmpty) {
                           if (value.length != 10) {
-                            return 'Phone number must be 10 digits';
+                            return LanguagePresenter.language.passwordValid;
                           }
                         }
                         return null;
@@ -147,22 +148,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           borderRadius: BorderRadius.circular(10.0)),
                       child: Column(
                         children: [
-                          resualRow("LivingRoom", isLivingRoomSelected, () {
+                          resualRow(LanguagePresenter.language.livingRoom, isLivingRoomSelected, () {
                             setState(() {
                               isLivingRoomSelected = !isLivingRoomSelected;
                             });
                           }),
-                          resualRow("Kitchen", isKitChenSelected, () {
+                          resualRow(LanguagePresenter.language.kitchen, isKitChenSelected, () {
                             setState(() {
                               isKitChenSelected = !isKitChenSelected;
                             });
                           }),
-                          resualRow("BedRoom", isBedRoomSelected, () {
+                          resualRow(LanguagePresenter.language.bedRoom, isBedRoomSelected, () {
                             setState(() {
                               isBedRoomSelected = !isBedRoomSelected;
                             });
                           }),
-                          resualRow("Toilet", isToiletSelected, () {
+                          resualRow(LanguagePresenter.language.toilet, isToiletSelected, () {
                             setState(() {
                               isToiletSelected = !isToiletSelected;
                             });
@@ -170,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ],
                       ),
                     ),
-                    firebaseUIButton(context, "Sign Ups", () {
+                    firebaseUIButton(context, LanguagePresenter.language.singUp, () {
                       final isVail = _formKey.currentState!.validate();
                       if (!isVail) return;
                       final newUser =UserModel.info(

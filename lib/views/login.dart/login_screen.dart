@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         return null;
                       },
                     ),
-                firebaseUIButton(context, "Sign In", () async {
+                firebaseUIButton(context, LanguagePresenter.language.login, () async {
                   final isVail = _formKey.currentState!.validate();
                   if (!isVail) return;
                   signIn(context, _emailTextController.text,
