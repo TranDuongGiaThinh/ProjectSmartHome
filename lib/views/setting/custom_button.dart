@@ -37,15 +37,14 @@ class CustomButton extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20), color: color),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(width: MediaQuery.of(context).size.width / 3),
               Icon(icon,color: Colors.white),
               Container(width: 10),
               Text(
                 content,
                 style: const TextStyle(
-                    fontWeight: FontWeight.bold, color: Colors.white),
+                    fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
               )
             ],
           ),
