@@ -104,7 +104,9 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
       width: 40,
       height: 40,
       child: IconButton(
-        onPressed: (){logOut(context);},
+        onPressed: () {
+          logOut(context);
+        },
         icon: const Icon(Icons.logout),
       ),
     );
@@ -172,16 +174,18 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
               action: () => {
                 setState(() {
                   isInfoEditting = true;
+                  isChanges = true;
                 })
               },
             ),
-            if(widget.user.userName == UserPresenter.userLogin.userName)CustomButton(
-                context: context,
-                icon: Icons.shield,
-                content: LanguagePresenter.language.changePassword,
-                action: () {
-                  gotoPasswordChange();
-                }),
+            if (widget.user.userName == UserPresenter.userLogin.userName)
+              CustomButton(
+                  context: context,
+                  icon: Icons.shield,
+                  content: LanguagePresenter.language.changePassword,
+                  action: () {
+                    gotoPasswordChange();
+                  }),
             if (UserPresenter.userLogin.userName != widget.user.userName)
               Column(
                 children: [
@@ -317,7 +321,10 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
           width: MediaQuery.of(context).size.width / 2 - 15,
           child: Row(children: [
             Checkbox(
-                value: ischeckAll, onChanged: (value) => changeValueAllItem()),
+                value: ischeckAll,
+                onChanged: (value) {
+                  changeValueAllItem();
+                }),
             GestureDetector(
                 onTap: changeValueAllItem,
                 child: Text(LanguagePresenter.language.fullPermission)),
@@ -328,36 +335,38 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
           child: Row(children: [
             Checkbox(
                 value: permissions[idRoom],
-                onChanged: (value) => changeValueItem(idRoom)),
+                onChanged: (value) {
+                  changeValueItem(idRoom);
+                }),
             GestureDetector(
-                onTap: () => changeValueItem(idRoom),
+                onTap: () {
+                  changeValueItem(idRoom);
+                },
                 child: Text(LanguagePresenter.language.listRoom[idRoom])),
           ]));
     }
   }
 
   changeValueItem(int index) {
-    setState(() {
-      prePermisions = List.from(permissions);
-      permissions[index] = !permissions[index];
-      if (permissions.every((element) => element == true)) {
-        ischeckAll = true;
-      } else {
-        ischeckAll = false;
-      }
-    });
+    prePermisions = List.from(permissions);
+    permissions[index] = !permissions[index];
+    if (permissions.every((element) => element == true)) {
+      ischeckAll = true;
+    } else {
+      ischeckAll = false;
+    }
+    setState(() {});
   }
 
   changeValueAllItem() {
-    setState(() {
-      ischeckAll = !ischeckAll;
-      if (ischeckAll) {
-        prePermisions = permissions;
-        permissions = [true, true, true, true];
-      } else {
-        permissions = prePermisions;
-      }
-    });
+    ischeckAll = !ischeckAll;
+    if (ischeckAll) {
+      prePermisions = permissions;
+      permissions = [true, true, true, true];
+    } else {
+      permissions = prePermisions;
+    }
+    setState(() {});
   }
 
   logOut(BuildContext context) async {
@@ -459,23 +468,28 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
   }
 
   void deleteUser() {
-    UserPresenter.deleteUser(widget.user).then((value) {
-      String strResult = value
-          ? LanguagePresenter.language.success
-          : LanguagePresenter.language.failure;
+    if (tempUser.userName == UserPresenter.userLogin.userName) {
+      showDialogResult(context, LanguagePresenter.language.failure,
+          "${LanguagePresenter.language.deleteUser} ${LanguagePresenter.language.failure}");
+    } else {
+      UserPresenter.deleteUser(widget.user).then((value) {
+        String strResult = value
+            ? LanguagePresenter.language.success
+            : LanguagePresenter.language.failure;
 
-      showDialogResult(context, strResult,
-          "${LanguagePresenter.language.deleteUser} $strResult");
+        showDialogResult(context, strResult,
+            "${LanguagePresenter.language.deleteUser} $strResult");
 
-      if (value) {
-        widget.reloadUsers().then((value) {
-          setState(() {
-            isChanges = true;
+        if (value) {
+          widget.reloadUsers().then((value) {
+            setState(() {
+              isChanges = true;
+            });
           });
-        });
 
-        widget.updateUserOfWidget("null");
-      }
-    });
+          widget.updateUserOfWidget("null");
+        }
+      });
+    }
   }
 }

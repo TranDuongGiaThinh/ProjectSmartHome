@@ -1,5 +1,3 @@
-import 'package:smart_home/views/forgot_password/forgot_password.dart';
-
 class Language {
   late String appName;
   late String setting;
@@ -50,7 +48,9 @@ class Language {
   late String passwordValid;
   late String forgotPassword;
   late String sendPasswordResetEmail;
-
+  late String change;
+  late String devices;
+  late String singUp;
 
   Language(String typeLanguage) {
     if (typeLanguage == "vi") {
@@ -67,7 +67,7 @@ class Language {
       toilet = "Phòng vệ sinh";
       edit = "Chỉnh sửa";
       changePassword = "Đổi mật khẩu";
-      accountsManagement = "Quản lý tài khoản khác";
+      accountsManagement = "Quản lý tài khoản";
       themeModeLight = "Nền: Sáng";
       themeModeDark = "Nền: tối";
       typeLanguageVi = "Ngôn ngữ: Tiếng Việt";
@@ -102,7 +102,9 @@ class Language {
       passwordValid = "Mật khẩu phải có độ dài tối thiểu là 8 kí tự";
       forgotPassword = "Quên mật khẩu";
       sendPasswordResetEmail = "Liên kết đổi mật khẩu đã được gửi đến email";
-
+      change = "Đổi";
+      devices = "Các thiết bị";
+      singUp = "Tạo tài khoản";
 
     } else {
       appName = "Smart home";
@@ -153,7 +155,9 @@ class Language {
       passwordValid = "Password must be at least 8 characters";
       forgotPassword = "Forgot password";
       sendPasswordResetEmail = "A password reset link has been sent to email";
-
+      change = "Change";
+      devices = "devices";
+      singUp = "Sign Up";
     }
   }
 }

@@ -79,7 +79,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 context: context,
                 icon: Icons.device_unknown_rounded,
                 height: 100,
-                content: 'Các thiết bị',
+                content: LanguagePresenter.language.devices,
                 action: () {
                   Navigator.pushNamed(context, '/de');
                 }),
